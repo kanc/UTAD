@@ -1,0 +1,1 @@
+Fichero de prueba para comprobar la funcion Read de la clase String 

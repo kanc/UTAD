@@ -730,7 +730,7 @@ void Sprite::DrawNoTransparency(HDC dc,int newX,int newY)
 }
 void load_sprite(char *fname,int spriteNum)
 {
-	if(spriteNum<0||spriteNum>=gWnd->sprites.size())
+	if(spriteNum<0||spriteNum>=(int)gWnd->sprites.size())
 		error("Bad Sprite Number");
 	string str(fname);
 	wstring str2 = s2ws(str);
@@ -739,7 +739,7 @@ void load_sprite(char *fname,int spriteNum)
 
 void put_sprite(int spriteNum,int x,int y)
 {
-	if(spriteNum<0||spriteNum>=gWnd->sprites.size())
+	if(spriteNum<0||spriteNum>= (int)gWnd->sprites.size())
 		error("Bad Sprite Number");
 	gWnd->WaitTillCanDraw();
 	
@@ -753,7 +753,7 @@ void put_sprite(int spriteNum,int x,int y)
 }
 void copy_sprite_image(int spriteNum,int x,int y)
 {
-	if(spriteNum<0||spriteNum>=gWnd->sprites.size())
+	if(spriteNum<0||spriteNum>=(int)gWnd->sprites.size())
 		error("Bad Sprite Number");
 	gWnd->WaitTillCanDraw();
 	gWnd->sprites[spriteNum].DrawNoTransparency(gWnd->memDC,x,y);
@@ -762,7 +762,7 @@ void copy_sprite_image(int spriteNum,int x,int y)
 }
 void get_sprite_pos(int spriteNum,int &x,int &y)
 {
-	if(spriteNum<0||spriteNum>=gWnd->sprites.size())
+	if(spriteNum<0||spriteNum>=(int)gWnd->sprites.size())
 		error("Bad Sprite Number");
 	
 	x=gWnd->sprites[spriteNum].x;
@@ -771,7 +771,7 @@ void get_sprite_pos(int spriteNum,int &x,int &y)
 }
 void get_sprite_size(int spriteNum,int &w,int &h)
 {
-	if(spriteNum<0||spriteNum>=gWnd->sprites.size())
+	if(spriteNum<0||spriteNum>=(int)gWnd->sprites.size())
 		error("Bad Sprite Number");
 	
 	w=gWnd->sprites[spriteNum].w;
@@ -780,7 +780,7 @@ void get_sprite_size(int spriteNum,int &w,int &h)
 }
 void hide_sprite(int spriteNum,int x,int y)
 {
-	if(spriteNum<0||spriteNum>=gWnd->sprites.size())
+	if(spriteNum<0||spriteNum>=(int)gWnd->sprites.size())
 		error("Bad Sprite Number");
 	gWnd->sprites[spriteNum].visible=0;
 }

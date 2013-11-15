@@ -9,6 +9,9 @@ Matrix2D::Matrix2D()
 
 Matrix2D::Matrix2D(Vector2D vcol1, Vector2D vcol2)
 {	
+	m_matrix[0]=new Vector2D();
+	m_matrix[1]=new Vector2D();
+
 	*m_matrix[0]=vcol1;
 	*m_matrix[1]=vcol2;
 }
@@ -40,14 +43,41 @@ Matrix2D Matrix2D::GetScaleMatix(float factor)
 
 }
 
-Vector2D Matrix2D::operator*(const Vector2D &vector) const
+Matrix2D Matrix2D::operator*(const Matrix2D &other) const
 {		
-	//multiplicamos primer elemento de la primera fila con la x del vector y le sumamos la multiplicacion del segundo por la y
-	float vx = m_matrix[0]->x * vector.x + m_matrix[1]->x * vector.y;
-	//multiplicamos primer elemento de la segunda fila con la x del vector y le sumamos la multiplicacion del segundo por la y
-	float vy = m_matrix[0]->y * vector.x + m_matrix[1]->y * vector.y;
+	float e11, e12, e21, e22;
 
-	return Vector2D(vx,vy);
+	//suponiendo la primera matrix como A y la que se nos pasa como B:
+	e11 = m_matrix[0]->x * other[0] + m_matrix[1]->x * other[2]; //A11 * B11 + A12 * B21
+	e12 = m_matrix[0]->x * other[1] + m_matrix[1]->x * other[3]; //A11 * B12 + A12 * B22
+	e21 = m_matrix[0]->y * other[0] + m_matrix[1]->y * other[2]; //A21 * B11 + A22 * B21
+	e22 = m_matrix[0]->y * other[1] + m_matrix[1]->y * other[3]; //A21 * B12 + A22 * B22
+
+	return Matrix2D(e11,e12,e21,e22);
+}
+
+Matrix2D Matrix2D::operator+(const Matrix2D &other) const
+{		
+	float e11, e12, e21, e22;
+	
+	e11 = m_matrix[0]->x + other[0]; 
+	e12 = m_matrix[1]->x + other[1]; 
+	e21 = m_matrix[0]->y + other[2]; 
+	e22 = m_matrix[1]->y + other[3];
+
+	return Matrix2D(e11,e12,e21,e22);
+}
+
+Matrix2D Matrix2D::operator-(const Matrix2D &other) const
+{		
+	float e11, e12, e21, e22;
+	
+	e11 = m_matrix[0]->x - other[0]; 
+	e12 = m_matrix[1]->x - other[1]; 
+	e21 = m_matrix[0]->y - other[2]; 
+	e22 = m_matrix[1]->y - other[3];
+
+	return Matrix2D(e11,e12,e21,e22);
 }
 
 float Matrix2D::operator[](const int elem) const
@@ -64,3 +94,4 @@ float Matrix2D::operator[](const int elem) const
 
 	return content;
 }
+

@@ -1,4 +1,6 @@
 #include "Vector2d.h"
+#include "VectorMatrixOperations.h"
+#include "Matrix2D.h"
 #include "g4c_simple.h"
 #include <cmath>
 
@@ -17,13 +19,6 @@ Vector2D::Vector2D(const float fx, const float fy)
 Vector2D Vector2D::FromPolar(const float a, const float r)
 {
 	return Vector2D(r * cosf(a), r * sinf(a));
-}
-
-Vector2D Vector2D::operator/(const float scalar) const
-{
-	float f = 1.0f / scalar;
-
-	return Vector2D(x * f, y * f);
 }
 
 bool Vector2D::operator==(const Vector2D &other) const
@@ -56,22 +51,6 @@ Vector2D Vector2D::operator-(const Vector2D &other) const
 float Vector2D::operator*(const Vector2D &other) const
 {
 	return (x * other.x + y * other.y);
-}
-
-//esto solo sirve para multiplicar Vector2d por un escalar pero no para un escalar por un Vector2d
-Vector2D Vector2D::operator*(const float scalar) const
-{
-	return Vector2D(x * scalar, y * scalar);
-}
-
-Vector2D Vector2D::operator*(const Matrix2D &matrix) const
-{		
-	//multiplicamos primer elemento de la primera fila con la x del vector y le sumamos la multiplicacion del segundo por la y
-	float vx = matrix[0] * x + matrix[1] * y;
-	//multiplicamos primer elemento de la segunda fila con la x del vector y le sumamos la multiplicacion del segundo por la y
-	float vy = matrix[2] * x + matrix[2] * y;
-
-	return Vector2D(vx,vy);
 }
 
 //devuelve el modulo del vector al cuadrado (menos costoso que la raiz) 
@@ -114,6 +93,7 @@ void Vector2D::Rotate(float radianAngle)
 {
 	x = (x * cosf(radianAngle)) - (y * sinf(radianAngle));
 	y = (y * cosf(radianAngle)) + (x * sinf(radianAngle));
+	
 }
 
 Vector2D Vector2D::GetRotated(float radianAngle) const
@@ -122,6 +102,8 @@ Vector2D Vector2D::GetRotated(float radianAngle) const
 
 	nx = (x * cosf(radianAngle)) - (y * sinf(radianAngle));
 	ny = (y * cosf(radianAngle)) + (x * sinf(radianAngle));
+
+	Matrix2D m=Matrix2D::GetRotationMatrix(radianAngle);	
 
 	return Vector2D(nx,ny);
 }

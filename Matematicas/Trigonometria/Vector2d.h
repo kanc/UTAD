@@ -15,11 +15,8 @@ class Vector2D
 		static Vector2D FromPolar(const float a, const float r);
 
 		Vector2D operator+(const Vector2D &other) const;
-		Vector2D operator-(const Vector2D &other) const;
-		Vector2D operator*(const float f) const;
+		Vector2D operator-(const Vector2D &other) const;		
 		float operator*(const Vector2D &other) const;
-		Vector2D operator/(const float f) const;
-		Vector2D operator*(const Matrix2D &matrix) const;
 		void operator=(const Vector2D &other);
 		bool operator==(const Vector2D &other) const;
 		bool operator!=(const Vector2D &other) const;

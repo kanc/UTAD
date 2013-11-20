@@ -6,20 +6,71 @@
 #include "VectorMatrixOperations.h"
 #include <cmath>
 #include <stdio.h>
+#include "CRSpline.h"
+
+void drawSpline(CRSpline *spline, float precision = 2000);
+void createSpline(CRSpline *spline, int numPoints);
+void MyDrawCircle(Vector2D pos, float r);
+
+void main()
+{
+	CRSpline* spline = new CRSpline();
+
+	createSpline(spline,20);
+	drawSpline(spline,15000);
+
+	delete spline;	
+}
+
+void createSpline(CRSpline *spline, int numPoints)
+{
+	#define frand(n) ((n)*((float)rand() / (float)RAND_MAX))
+
+	int w = 800;
+	int h = 600;
+
+	if (spline)
+	    delete spline;
+
+	spline = new CRSpline();
+
+	srand(time_t(0));
+    
+	for (int i = 0; i < numPoints; i++) {
+		Vector2D v(10 + i * (w/20), 20.0 + frand(h/2));
+		spline->AddSplinePoint(v);
+	}
+}
+
+void drawSpline(CRSpline *spline, float precision)
+{
+	if (!spline)
+		return;
+
+	//pintamos los puntos
+	for (int i = 0; i < spline->GetNumPoints(); i++) 
+	{
+		Vector2D& rv = spline->GetNthPoint(i);		
+		MyDrawCircle(Vector2D(rv.x,rv.y),2);
+	}
+
+	// pintamos la spline
+	for (int i = 0; i < precision; i++) 
+	{
+		float t = (float)i / precision;
+		float t2 = (float)(i + 1)/ precision;
+
+		Vector2D rv = spline->GetInterpolatedSplinePoint(t);
+		Vector2D rv2 = spline->GetInterpolatedSplinePoint(t2);
+
+		draw_line((int)rv.x, (int)rv.y, (int)rv2.x, (int)rv2.y);
+	}
+}
+
 
 void MyDrawCircle(Vector2D pos, float r)
 {	
 	int numIteraciones = 100;	
-
-	Vector2D b = Vector2D(3,2);
-	Matrix2D m = Matrix2D(2,2,3,4);
-	Matrix2D m2 = Matrix2D(3,1,2,3);
-	Matrix2D m3 = m * m2;
-	double ff =M_PI / 2;
-
-	float g = sinf(M_PI / 2.0f);	
-
-	Vector2D c = b.GetRotated(M_PI);
 
 	for (float i = 0; i < numIteraciones; i++)
 	{
@@ -34,12 +85,5 @@ void MyDrawCircle(Vector2D pos, float r)
 		//pintamos la linea del vector v0 al v1
 		draw_line((int)v0.x, (int)v0.y, (int)v1.x, (int)v1.y, 8);
 	}
-}
-
-void main()
-{
-
-	MyDrawCircle(Vector2D(200,200),40);	
-	
 
 }

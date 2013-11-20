@@ -27,19 +27,25 @@ Vector2D operator/(const float scalar, const Vector2D &vector)
 Vector2D operator*(const Matrix2D &matrix, const Vector2D &vector)
 {	
 	float vx = matrix[0] * vector.x + matrix[1] * vector.y;	
-	float vy = matrix[2] * vector.x + matrix[2] * vector.y;
+	float vy = matrix[2] * vector.x + matrix[3] * vector.y;
 
 	return Vector2D(vx,vy);	
 }
 
 Vector2D operator*(const Vector2D &vector, const Matrix2D &matrix)
 {			
-	float g=matrix[0];
-
-	double g2 = double(g * vector.x);
-
-	double vx = (vector.x * matrix[0]) + (vector.x * matrix[2]);
-	double vy = (vector.y * matrix[1]) + (vector.y * matrix[3]);
+	float vx = (vector.x * matrix[0]) + (vector.x * matrix[2]);
+	float vy = (vector.y * matrix[1]) + (vector.y * matrix[3]);
 
 	return Vector2D(vx,vy);	
+}
+
+Matrix2D operator*(const float f, const Matrix2D &matrix)
+{
+	return Matrix2D(matrix[0] * f, matrix[1] * f, matrix[2] * f, matrix[3] * f);
+}
+
+Matrix2D operator*(const Matrix2D &matrix, const float f)
+{
+	return Matrix2D(matrix[0] * f, matrix[1] * f, matrix[2] * f, matrix[3] * f);
 }

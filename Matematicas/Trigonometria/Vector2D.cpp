@@ -98,14 +98,9 @@ void Vector2D::Rotate(float radianAngle)
 
 Vector2D Vector2D::GetRotated(float radianAngle) const
 {
-	float nx,ny;
+	Matrix2D rotMatrix = Matrix2D::GetRotationMatrix(radianAngle);	
 
-	nx = (x * cosf(radianAngle)) - (y * sinf(radianAngle));
-	ny = (y * cosf(radianAngle)) + (x * sinf(radianAngle));
-
-	Matrix2D m=Matrix2D::GetRotationMatrix(radianAngle);	
-
-	return Vector2D(nx,ny);
+	return rotMatrix * *this;
 }
 
 void Vector2D::Draw(int color)
@@ -116,12 +111,12 @@ void Vector2D::Draw(int color)
 float Vector2D::AngleWith(const Vector2D &other) const
 {
 	float delta = 0;
-	float m = Magnitude();
-	float mother = other.Magnitude();
+	float mag = Magnitude();
+	float magOther = other.Magnitude();
 
 	//desarrollamos la ecuacion A · B = |A| * |B| * cos (angulo) ---> angulo = acos( A · B / |A| * |B| )
-	if ((m != 0) && (mother != 0))
-		delta = acosf( (*this * other) / (Magnitude() * other.Magnitude() ));
+	if ((mag != 0) && (magOther != 0))
+		delta = acosf( (*this * other) / (mag * magOther) );
 
 	return delta;
 }

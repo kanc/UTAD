@@ -79,6 +79,7 @@
     <ClCompile Include="g4c.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Matrix2D.cpp" />
+    <ClCompile Include="CRSpline.cpp" />
     <ClCompile Include="Vector2D.cpp" />
     <ClCompile Include="VectorMatrixOperations.cpp" />
   </ItemGroup>
@@ -86,6 +87,7 @@
     <ClInclude Include="g4c.h" />
     <ClInclude Include="g4c_simple.h" />
     <ClInclude Include="Matrix2D.h" />
+    <ClInclude Include="CRSpline.h" />
     <ClInclude Include="Vector2d.h" />
     <ClInclude Include="VectorMatrixOperations.h" />
   </ItemGroup>

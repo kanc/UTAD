@@ -10,6 +10,7 @@ class Matrix2D
 
 	public:
 		Matrix2D();
+		Matrix2D(const Matrix2D &matrix);
 		Matrix2D(Vector2D vcol1, Vector2D vcol2);
 		Matrix2D(float e11, float e12, float e21, float e22);
 		~Matrix2D();
@@ -20,12 +21,12 @@ class Matrix2D
 		float operator[](const int elem) const;
 
 		void Transpose();
-		Matrix2D GetTransposed();
+		Matrix2D GetTransposed() const;
 		void Inverse();
-		Matrix2D GetInversed();
-		float GetDeterminant();
+		Matrix2D GetInverse() const;
+		float GetDeterminant() const;
 		static Matrix2D GetRotationMatrix(float RadianAngle);
-		static Matrix2D GetScaleMatix(float factor);
+		static Matrix2D GetScaleMatrix(float factor);
 };
 
 #endif

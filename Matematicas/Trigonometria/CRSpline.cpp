@@ -17,7 +17,7 @@ CRSpline::~CRSpline()
 {
 }
 
-// Solve the Catmull-Rom parametric equation for a given time(t) and vector quadruple (p1,p2,p3,p4)
+// resuelve la ecuacion de catmull rom y cuatro puntos
 Vector2D CRSpline::CatmullRollEq(float t, const Vector2D& p1, const Vector2D& p2, const Vector2D& p3, const Vector2D& p4)
 {
     float t2 = t * t;
@@ -40,22 +40,20 @@ void CRSpline::AddSplinePoint(const Vector2D& vector)
 
 Vector2D CRSpline::GetInterpolatedSplinePoint(float t)
 {
-    // Find out in which interval we are on the spline
+    //buscamos en que intervalo de la spline estamos
     int p = (int)(t / delta_t);
+    	
+	#define ACOTA(pp) { if (pp < 0) pp = 0; else if (pp >= (int)m_vPoints.size()-1) pp = m_vPoints.size() - 1; }
 
-    // Compute local control point indices
-	
-	#define BOUNDS(pp) { if (pp < 0) pp = 0; else if (pp >= (int)m_vPoints.size()-1) pp = m_vPoints.size() - 1; }
+    int p0 = p - 1;     ACOTA(p0);
+    int p1 = p;         ACOTA(p1);
+    int p2 = p + 1;     ACOTA(p2);
+    int p3 = p + 2;     ACOTA(p3);
 
-    int p0 = p - 1;     BOUNDS(p0);
-    int p1 = p;         BOUNDS(p1);
-    int p2 = p + 1;     BOUNDS(p2);
-    int p3 = p + 2;     BOUNDS(p3);
-
-    // Relative (local) time 
+    // tiempo relativo 
 	float lt = (t - delta_t*(float)p) / delta_t;
 
-	// Interpolate
+	// Interpolamos
     return CRSpline::CatmullRollEq(lt, m_vPoints[p0], m_vPoints[p1], m_vPoints[p2], m_vPoints[p3]);
 }
 

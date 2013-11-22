@@ -49,6 +49,7 @@ void Screen::Open(uint16 width, uint16 height, bool fullscreen) {
 
 	// Configuramos matriz de proyeccion	
 	glMatrixMode(GL_PROJECTION);	
+	glLoadIdentity();	
 	glOrtho(0,width,height,0,0,1000);
 
 	// Configuramos matriz de modelado

@@ -34,7 +34,11 @@ void createSpline(CRSpline *spline, int numPoints)
 
 	spline = new CRSpline();
 
+<<<<<<< HEAD
 	srand(time_t(120));
+=======
+	srand(time_t(150));
+>>>>>>> 196d503d720744cc938568a0ae8a5754cf2e4bfa
     
 	for (int i = 0; i < numPoints; i++) {
 		Vector2D v(10 + i * (w/20), 20.0 + frand(h/2));

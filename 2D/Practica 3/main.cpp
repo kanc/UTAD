@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 
 	Screen::Instance().Open(800, 600, false);
 		
-	Image * pBall = ResourceManager::Instance().LoadImage("data//ball.png",1,1);
+	Image * pBall = ResourceManager::Instance().LoadImage("data/soccer_npot.png");
 	pBall->SetMidHandle();
 	
 	while ( Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC) ) {
@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 		
 		Renderer::Instance().Clear();
 
-		Renderer::Instance().DrawImage(pBall,mousex,mousey,1,pBall->GetWidth() * scalefactor,pBall->GetHeight() * scalefactor,WrapValue(angle,360));
+		Renderer::Instance().DrawImage(pBall,mousex,mousey,0,pBall->GetWidth() * scalefactor,pBall->GetHeight() * scalefactor,WrapValue(angle,360));
 
 		angle+= Screen::Instance().ElapsedTime() * 30;
 		

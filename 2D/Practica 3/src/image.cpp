@@ -32,12 +32,6 @@ Image::Image(const String &filename, uint16 hframes, uint16 vframes) {
 
 	// Generamos la textura
 	if ( buffer ) {
-
-		//log2 de x es el numero que tenemos que elevar a 2 para que nos de x, si x no es potencia de 2, entocnes el resultado no sera un numero entero
-		//con lo cual ceil, que devuelve el primero entero no menor de un numero nos devolver la potencia de 2 mayor y mas cercana.
-		//si este numero lo elevamos a dos, ya tenemos nuestro nuevo tamaño.
-		double nuevoAncho = pow(2,ceil(Log2(x))); 
-		double nuevoAlto = pow(2,ceil(Log2(y)));
 														
 		// TAREA: Generar la textura de OpenGL
 		glGenTextures(1,&gltex);
@@ -47,16 +41,31 @@ Image::Image(const String &filename, uint16 hframes, uint16 vframes) {
 		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 
-		if (nuevoAncho != x || nuevoAlto != y)						
-		{	
-			unsigned char *newbuffer = ManageImageBuffer(buffer,y,x,nuevoAlto,nuevoAncho);
-			glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,newbuffer);
-		}
-		else		
-			glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,buffer);
+		if (!glfwExtensionSupported("GL_ARB_texture_non_power_of_two"))
+		{
+			//log2 de x es el numero que tenemos que elevar a 2 para que nos de x, si x no es potencia de 2, entocnes el resultado no sera un numero entero
+			//con lo cual ceil, que devuelve el primero entero no menor de un numero nos devolver la potencia de 2 mayor y mas cercana.
+			//si este numero lo elevamos a dos, ya tenemos nuestro nuevo tamaño.
+			double nuevoAncho = pow(2,ceil(Log2(x))); 
+			double nuevoAlto = pow(2,ceil(Log2(y)));
 
+			if (nuevoAncho != x || nuevoAlto != y)						
+			{	
+				unsigned char *newbuffer = ManageImageBuffer(buffer,height,width,nuevoAlto,nuevoAncho);
+				glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,nuevoAncho,nuevoAlto,0,GL_RGBA,GL_UNSIGNED_BYTE,newbuffer);
+
+				lastU = (double)width / nuevoAncho;
+				lastV = (double)height / nuevoAlto;
+			
+				delete newbuffer;
+			}
+			else		
+				glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,buffer);
+		}
+		else
+			glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,buffer);
 		
-		//delete buffer;		
+		delete buffer;		
 	}
 
 }
@@ -73,25 +82,16 @@ void Image::Bind() const {
 
 unsigned char * Image::ManageImageBuffer(unsigned char *buffer, int actualHeight, int actualWidth, int newHeight, int newWidth)
 {
-	unsigned char *newBuffer = new unsigned char(newHeight * newWidth * 4);	
+	unsigned char *newBuffer = new unsigned char[newHeight * newWidth * 4];	
+	memset(newBuffer,0,newHeight * newWidth * 4);
 	
-	for (unsigned int height = 0; height < newHeight; height++) //recorremos las lineas verticales
-	{	for (unsigned int width = 0; width < newWidth; width+=4) //recorremos las lineas horizontales de 4 en 4 (tamaño de nuestro pixel)
+	for (unsigned int y = 0; y < actualHeight; y++) //recorremos las lineas verticales
+	{	for (unsigned int x = 0; x < actualWidth; x++) //recorremos las lineas horizontales de 4 en 4 (tamaño de nuestro pixel)
 		{
-			if (width < actualWidth) //si esta dentro del tamaño de la textura "real" pintamos en el nuevo buffer
-			{
-				newBuffer[(height * width) + width] = buffer[(height * width) + width]; //R
-				newBuffer[(height * width) + width + 1] = buffer[(height * width) + width + 1]; //G
-				newBuffer[(height * width) + width + 2] = buffer[(height * width) + width + 2]; //B
-				newBuffer[(height * width) + width + 3] = buffer[(height * width) + width + 3]; //A
-			}
-			else //si esta fuera de tamaño de la imagen, escribimos pixel transparente
-			{
-				newBuffer[(height * width) + width] = 255; //R
-				newBuffer[(height * width) + width + 1] = 0; //G
-				newBuffer[(height * width) + width + 2] = 0; //B
-				newBuffer[(height * width) + width + 3] = 150; //A
-			}
+			newBuffer[(y * newWidth * 4) + (x * 4)] = buffer[(y * actualWidth * 4) + (x * 4)]; //R
+			newBuffer[(y * newWidth * 4) + (x * 4) + 1] = buffer[(y * actualWidth * 4) + (x * 4) + 1]; //G
+			newBuffer[(y * newWidth * 4) + (x * 4) + 2] = buffer[(y * actualWidth * 4) + (x * 4)+ 2]; //B
+			newBuffer[(y * newWidth * 4) + (x * 4) + 3] = buffer[(y * actualWidth * 4 ) + (x * 4) + 3]; //A
 		}
 	}
 	

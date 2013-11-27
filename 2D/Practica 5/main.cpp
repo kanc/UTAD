@@ -9,12 +9,14 @@ int main(int argc, char* argv[])
 
 	screen.Open(800, 600, false);
 
-	Image *alien = ResourceManager::Instance().LoadImage("data/robin.png",5,5);
+	Image *alien = ResourceManager::Instance().LoadImage("data/alien.png");
+	alien->SetMidHandle();
+
 	Sprite *sprite = new Sprite(alien);
 
-	sprite->SetX(100);
-	sprite->SetY(100);
-	sprite->SetFPS(150);
+	sprite->SetX(400);
+	sprite->SetY(300);
+	sprite->SetFPS(15);
 	sprite->SetBlendMode(Renderer::ALPHA);
 	sprite->SetFrameRange(0,16);
 	
@@ -22,11 +24,17 @@ int main(int argc, char* argv[])
 		
 		render.Clear();
 
-		if (screen.KeyPressed(GL_LEFT))
-			sprite->MoveTo(sprite->GetX() - 1,sprite->GetY(),1);
-
-		if (screen.KeyPressed(GL_RIGHT))
+		if (screen.KeyPressed(GLFW_KEY_LEFT))
+		{	sprite->MoveTo(sprite->GetX() - 1,sprite->GetY(),-1);
+			sprite->RotateTo(15,30);
+		}
+		else  if (screen.KeyPressed(GLFW_KEY_RIGHT))					
+		{	
 			sprite->MoveTo(sprite->GetX() + 1,sprite->GetY(),1);
+			sprite->RotateTo(-15,30);
+		}		
+		else
+			sprite->RotateTo(0,30);
 
 		
 		sprite->Update(screen.ElapsedTime(),NULL);

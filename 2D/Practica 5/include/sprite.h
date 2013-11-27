@@ -91,7 +91,7 @@ private:
     double radius;
     int16 animFPS;
     uint16 firstFrame, lastFrame;
-    uint16 currentFrame;
+    double currentFrame;
     Renderer::BlendMode blendMode;
     uint8 r, g, b, a;
     Collision* collision;

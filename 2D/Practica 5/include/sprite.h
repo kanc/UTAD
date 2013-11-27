@@ -108,6 +108,9 @@ private:
     double toX, toY;
     double movingSpeedX, movingSpeedY;
     double prevX, prevY;
+	
+	double delay;
+	
 };
 
 #endif

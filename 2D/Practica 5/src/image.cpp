@@ -68,6 +68,8 @@ Image::Image(const String &filename, uint16 hframes, uint16 vframes) {
 		delete buffer;		
 	}
 
+	SetMidHandle();
+
 }
 
 Image::~Image() {

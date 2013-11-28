@@ -17,13 +17,12 @@ Sprite::Sprite(Image* image) {
 	angle = radius = 0;
 	scalex = scaley =  0;
 	animFPS = firstFrame = lastFrame = currentFrame = 0;
-	blendMode = Renderer::SOLID;
+	blendMode = Renderer::ALPHA;
 	r = g = b = a = 0;
-	collided = rotating = moving = false;
+	collided = rotating = moving = scaling = false;
 	toAngle = rotatingSpeed = anglesToRotate = 0;
 	toX = toY = movingSpeedX = movingSpeedY = 0;
 	prevX = prevY = 0;
-	delay = 0;
 
 	collision = NULL;
 	colPixelData = NULL;
@@ -50,13 +49,16 @@ bool Sprite::CheckCollision(const Map* map) {
 void Sprite::RotateTo(int32 angle, double speed) {
 	
 	toAngle = WrapValue(angle,360);	
-	
-	anglesToRotate = WrapValue( toAngle - this->angle,360);	
-
-	if ( WrapValue(toAngle - this->angle,360) > WrapValue( this->angle - toAngle,360))
-		rotatingSpeed = speed * -1;
-	else
-		rotatingSpeed = speed;
+			
+	//giramos en sentido horario
+	if ( WrapValue(toAngle - this->angle,360) > WrapValue(this->angle - toAngle,360))
+	{	rotatingSpeed = speed * -1;		
+		anglesToRotate = WrapValue(this->angle - toAngle,360);
+	}
+	else //giramos en sentido antihorario
+	{	rotatingSpeed = speed;
+		anglesToRotate = WrapValue(toAngle - this->angle,360);
+	}
 
 	rotating = true;
 
@@ -66,10 +68,46 @@ void Sprite::MoveTo(double x, double y, double speedX, double speedY) {
 	
 	toX = x;
 	toY = y;
-	movingSpeedX = speedX;
-	movingSpeedY = speedY;
+	prevX = this->x;
+	prevY = this->y;
+
+	if (speedX == 0) //para evitar divisiones por 0
+		speedX = 1;
+
+	//si no se especifica la distancia vertical...
+	if (speedY == 0)
+	{
+		//calculamos el modulo del vector del punto de origen al destino
+		double distance = sqrt( ((toX - prevX) * (toX - prevX)) + ((toY - prevY) * (toY - prevY)) );
+		//el tiempo necesario para recorrerlo sera la distancia entre la velocidad horizontal
+		double timeRequired = distance / speedX;
+		//calculamos nuestras velocidades homogeneas en base a este tiempo...  V = E / T
+		speedX = abs((toX - prevX) / timeRequired);
+		speedY = abs((toY - prevY) / timeRequired);
+	}
+	
+	if (toX < prevX)
+		movingSpeedX = speedX * -1;
+	else
+		movingSpeedX = speedX;
+
+	if (toY < prevY)
+		movingSpeedY = speedY * -1;
+	else
+		movingSpeedY = speedY;	
 
 	moving = true;
+}
+
+void Sprite::ScaleTo(double scalex, double scaley, double speedX, double speedY = 0.0)
+{
+	if (speedY == 0)
+		scalingSpeedY = speedX;
+	else
+		scalingSpeedY = speedY;
+
+	scalingSpeedX = speedX;
+
 }
 
 void Sprite::Update(double elapsed, const Map* map) {
@@ -91,20 +129,32 @@ void Sprite::Update(double elapsed, const Map* map) {
 	{		
 		angle+=elapsed * rotatingSpeed;
 		angle= WrapValue(angle,360);
-		anglesToRotate-=elapsed * rotatingSpeed;
+
+		anglesToRotate-=abs(elapsed * rotatingSpeed);
 
 		if (anglesToRotate <= 0)
-			rotating = false;
+			rotating = false;					
 	}
 
 	// TAREA: Actualizar movimiento animado
 	if (moving)
 	{
-		x+= movingSpeedX;
-		y+= movingSpeedY;
+		x+= elapsed * movingSpeedX;
+		y+= elapsed * movingSpeedY;
+
+		if ((movingSpeedX > 0 && x >= toX) || (movingSpeedX < 0 && x <= toX))
+			x = toX;
+
+		if ((movingSpeedY > 0 && y >= toY) || (movingSpeedY < 0 && y <= toY))
+			y = toY;
 
 		if (x == toX && y == toY)
-			moving = false;
+			moving = false;					
+	}
+
+	if (scaling)
+	{
+
 	}
 
 	// Informacion final de colision
@@ -112,6 +162,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 }
 
 void Sprite::Render() const {
+
 	Renderer::Instance().SetBlendMode(this->blendMode);
 	Renderer::Instance().DrawImage(this->image,x,y,(uint32)currentFrame,image->GetWidth() * scalex, image->GetHeight() * scaley, WrapValue(angle,360));
 }

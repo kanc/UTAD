@@ -49,7 +49,7 @@ public:
 	virtual uint16 GetFirstFrame() const { return this->firstFrame; }
     virtual uint16 GetLastFrame() { return this->lastFrame; }
 	virtual void SetCurrentFrame(uint16 frame) { this->currentFrame = frame; }
-	virtual uint16 GetCurrentFrame() const { return this->currentFrame; }
+	virtual double GetCurrentFrame() const { return this->currentFrame; }
 
 	virtual void SetBlendMode(Renderer::BlendMode blend) { this->blendMode = blend;}
 	virtual Renderer::BlendMode GetBlendMode() const { return this->blendMode; }
@@ -72,8 +72,11 @@ public:
 
     virtual void RotateTo(int32 angle, double speed);
     virtual void MoveTo(double x, double y, double speedX, double speedY = 0.0);
+	virtual void ScaleTo(double scalex, double scaley, double speedX, double speedY = 0.0);
+
 	virtual bool IsRotating() const { return this->rotating; }
 	virtual bool IsMoving() const { return this->moving; }
+	virtual bool IsScaling() const { return this->scaling; }
 
     virtual void Update(double elapsed, const Map* map = NULL);
     virtual void Render() const;
@@ -109,7 +112,10 @@ private:
     double movingSpeedX, movingSpeedY;
     double prevX, prevY;
 	
-	double delay;
+	bool scaling;
+	double toScaleX;
+	double toScaleY;
+	double scalingSpeedX, scalingSpeedY;
 	
 };
 

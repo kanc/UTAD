@@ -25,6 +25,7 @@
     <ClInclude Include="include\array.h" />
     <ClInclude Include="include\font.h" />
     <ClInclude Include="include\glinclude.h" />
+    <ClInclude Include="include\glyph.h" />
     <ClInclude Include="include\image.h" />
     <ClInclude Include="include\math.h" />
     <ClInclude Include="include\renderer.h" />
@@ -45,7 +46,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

@@ -10,10 +10,10 @@ int main(int argc, char* argv[])
 	screen.Open(800, 600, false);
 		
 	Font *monoFont = ResourceManager::Instance().LoadFont(String("data/arial16.png"));
-	String texto = String("Hola Mundo!");
+	String texto = String("Hola Mundo Cruel!");
 	double x,y, velx, vely;
 	
-	srand(time_t(0));
+	srand(time_t(10));
 
 	velx = (rand() % 127) + 128;
 	vely = (rand() % 127) + 128;

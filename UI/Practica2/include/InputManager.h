@@ -12,142 +12,93 @@
 enum eInputCode
 {
   // Teclado
-  Key_0, 
-  Key_1,
-  Key_2,
-  Key_3,
-  Key_4,
-  Key_5,
-  Key_6,
-  Key_7,
-  Key_8,
-  Key_9,
-  Key_AltGr,
-  Key_Ampersand,
-  Key_Asterisk,
-  Key_At,
-  Key_BackQuote,
-  Key_Backslash,
-  Key_Backspace,
-  Key_Break,
-  Key_CapsLock,
-  Key_Caret,
-  Key_Clear,
-  Key_Colon,
-  Key_Comma,
-  Key_Delete,
-  Key_Dollar,
-  Key_DoubleQuote,
-  Key_DownArrow,
-  Key_End,
-  Key_Equals,
-  Key_Escape,
-  Key_Exclaim,
-  Key_F1,
-  Key_F2,
-  Key_F3,
-  Key_F4,
-  Key_F5,
-  Key_F6,
-  Key_F7,
-  Key_F8,
-  Key_F9,
-  Key_F10,
-  Key_F11,
-  Key_F12,
-  Key_F13,
-  Key_F14,
-  Key_F15,
-  Key_Greater,
-  Key_Hash,
-  Key_Help,
-  Key_Home,
-  Key_Insert,
-  Key_Keypad0,
-  Key_Keypad1,
-  Key_Keypad2,
-  Key_Keypad3,
-  Key_Keypad4,
-  Key_Keypad5,
-  Key_Keypad6,
-  Key_Keypad7,
-  Key_Keypad8,
-  Key_Keypad9,
-  Key_KeypadDivide,
-  Key_KeypadEnter,
-  Key_KeypadEquals,
-  Key_KeypadMinus,
-  Key_KeypadMultiply,
-  Key_KeypadPeriod,
-  Key_KeypadPlus,
-  Key_LeftAlt,
-  Key_LeftApple,
-  Key_LeftArrow,
-  Key_LeftBracket,
-  Key_LeftControl,
-  Key_LeftParen,
-  Key_LeftShift,
-  Key_LeftWindows,
-  Key_Less,
-  Key_Menu,
-  Key_Minus,
-  Key_Numlock,
-  Key_PageDown,
-  Key_PageUp,
-  Key_Pause,
-  Key_Period,
-  Key_Plus,
-  Key_Print,
-  Key_Question,
-  Key_Quote,
-  Key_Return,
-  Key_RightAlt,
-  Key_RightApple,
-  Key_RightArrow,
-  Key_RightBracket,
-  Key_RightControl,
-  Key_RightParen,
-  Key_RightShift,
-  Key_RightWindows,
-  Key_ScrollLock,
-  Key_Semicolon,
-  Key_Slash,
-  Key_Space,
-  Key_SysReq,
-  Key_Tab,
-  Key_Underscore,
-  Key_UpArrow,
-  Key_A,
-  Key_B,
-  Key_C,
-  Key_D,
-  Key_E,
-  Key_F,
-  Key_G,
-  Key_H,
-  Key_I,
-  Key_J,
-  Key_K,
-  Key_L,
-  Key_M,
-  Key_N,
-  Key_O,
-  Key_P,
-  Key_Q,
-  Key_R,
-  Key_S,
-  Key_T,
-  Key_U,
-  Key_V,
-  Key_W,
-  Key_X,
-  Key_Y,
-  Key_Z,
+  Key_Space = 32,  
+  Key_0 = 48, 
+  Key_1 = 49,
+  Key_2 = 50,
+  Key_3 = 51,
+  Key_4 = 52,
+  Key_5 = 53,
+  Key_6 = 54,
+  Key_7 = 55,
+  Key_8 = 56,
+  Key_9 = 57,
+  Key_A = 65,
+  Key_B = 66,
+  Key_C = 67,
+  Key_D = 68,
+  Key_E = 69,
+  Key_F = 70,
+  Key_G = 71,
+  Key_H = 72,
+  Key_I = 73,
+  Key_J = 74,
+  Key_K = 75,
+  Key_L = 76,
+  Key_M = 77,
+  Key_N = 78,
+  Key_O = 79,
+  Key_P = 80,
+  Key_Q = 81,
+  Key_R = 82,
+  Key_S = 83,
+  Key_T = 84,
+  Key_U = 85,
+  Key_V = 86,
+  Key_W = 87,
+  Key_X = 88,
+  Key_Y = 89,
+  Key_Z = 90,
+  Key_LeftShift = 240,
+  Key_LeftControl = 241,  
+  Key_LeftAlt = 242,  
+  Key_Escape = 256,
+  Key_Enter = 257,  
+  Key_Tab = 258,  
+  Key_Backspace = 259,
+  Key_Insert = 260,
+  Key_Delete = 261,  
+  Key_RightArrow = 262,
+  Key_LeftArrow = 263,   
+  Key_DownArrow = 264,
+  Key_UpArrow = 265,
+  Key_PageUp = 266,  
+  Key_PageDown = 267,
+  Key_Home = 268,
+  Key_End = 269,  
+  Key_CapsLock = 280,   
+  Key_Pause = 284,    
+  Key_F1 = 290,
+  Key_F2 = 291,
+  Key_F3 = 292,
+  Key_F4 = 293,
+  Key_F5 = 294,
+  Key_F6 = 295,
+  Key_F7 = 296,
+  Key_F8 = 297,
+  Key_F9 = 298,
+  Key_F10 = 299,
+  Key_F11 = 300,
+  Key_F12 = 301,  
+  Key_Keypad0 = 320,
+  Key_Keypad1 = 321,
+  Key_Keypad2 = 322,
+  Key_Keypad3 = 323,
+  Key_Keypad4 = 324,
+  Key_Keypad5 = 325,
+  Key_Keypad6 = 326,
+  Key_Keypad7 = 327,
+  Key_Keypad8 = 328,
+  Key_Keypad9 = 329,
+  Key_RightShift = 344,
+  Key_RightControl = 345,  
+  Key_RightAlt = 346,    
+      
 
   // Ratón
-  Mouse_Button0,
-  Mouse_Button1,
-  Mouse_Button2,
+  Mouse_Button0 = 0,
+  Mouse_Button1 = 1,
+  Mouse_Button2 = 2,
   Mouse_WheelDown,
   Mouse_WheelUp,
   Mouse_Down,
@@ -155,6 +106,8 @@ enum eInputCode
   Mouse_Left,
   Mouse_Right,
 };
+
+
 
 enum eInputType
 {
@@ -166,9 +119,10 @@ enum eInputType
 struct VirtualButton
 {
 	String name;
-	eInputCode code;
+	Array <uint16> codes;
 
-	VirtualButton(const String& name, eInputCode button);
+	VirtualButton() { }
+	VirtualButton(const String& nam, eInputCode button) { name = nam; codes.Add(button); }
 };
 
 struct VirtualAxis
@@ -177,16 +131,15 @@ struct VirtualAxis
 	eInputCode positiveAxis;
 	eInputCode negativeAxis;
 
-	VirtualAxis(const String& name, eInputCode positiveAxis,eInputCode negativeAxis);
+	VirtualAxis() { }
+	VirtualAxis(const String& nam, eInputCode posAxis,eInputCode negAxis) { name = nam; positiveAxis = posAxis; negativeAxis = negativeAxis; }
 };
 
 class InputManager
 {
 	private:
-		//singleton
-		static const InputManager& Instance() { if ( !inputMng ) inputMng = new InputManager(); return *inputMng; }
-
-		static InputManager *inputMng;
+				
+		//static InputManager *inputMng;
 		Array<VirtualButton> _aVirtualButtons;
 		Array<VirtualAxis> _aVirtualAxis;
 
@@ -196,8 +149,9 @@ class InputManager
 		
 
 	public:
-                    InputManager();
-                   ~InputManager();
+		InputManager();
+		~InputManager();
+		//static const InputManager& Instance() { if ( !inputMng ) inputMng = new InputManager(); return *inputMng; }
 
 	// Inicialición: deteccción de dispostivos, inicialización de los mismos... etc
     bool            Init();

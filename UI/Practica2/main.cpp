@@ -1,52 +1,50 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 #include "include/u-gine.h"
+#include "include/InputManager.h"
 
 int main(int argc, char* argv[]) 
 {
 	Screen &screen = Screen::Instance();
 	const Renderer &render = Renderer::Instance();
+	InputManager *im = new InputManager();
 
 	screen.Open(800, 600, false);
-		
-	Font text = Font(String("data/monospaced.png"));
-	String texto = String("Hola MundoH");
-	double x,y, velx, vely;
-	char r,g,b;
+
+	Image *imgalien = ResourceManager::Instance().LoadImage("data/alien.png");
+	Sprite &alien = Sprite(imgalien);
 	
-	//velx = (rand() % 127) + 128;
-	//vely = (rand() % 127) + 128;
+	alien.SetX(100);
+	alien.SetY(100);
 
-	velx = 50;
-	vely = 50;
-	x= screen.GetWidth() /2;
-	y= screen.GetHeight() /2;
-
-	srand(time_t(0));
-
-	render.SetColor(rand() % 255,rand() % 255,rand() % 255,255);
+	im->CreateVirtualButton(String("moveright"),eInputCode::Key_D);
+	im->CreateVirtualButton(String("moveright"),eInputCode::Key_F);
+	im->CreateVirtualButton(String("moveleft"),eInputCode::Key_A);
+	im->CreateVirtualButton(String("moveup"),eInputCode::Key_W);
+	im->CreateVirtualButton(String("movedown"),eInputCode::Key_S);
+	im->CreateVirtualButton(String("pickmove"),eInputCode::Mouse_Button0);
 
 	while ( screen.IsOpened() && !screen.KeyPressed(GLFW_KEY_ESC) ) {
 		
 		render.Clear();
 
-		x+=velx * screen.ElapsedTime();
-		y+=vely * screen.ElapsedTime();		
+		if (im->IsVirtualButtonPressed("moveright"))
+			alien.MoveTo(alien.GetX() + 1, alien.GetY(),50);
 
-		screen.SetTitle (String::FromFloat(x + text.GetTextWidth(texto)) + String(" ") + String::FromFloat(y));
-		
-		if (x + text.GetTextWidth(texto)  >= screen.GetWidth() || x <= 0)
-		{	
-			velx = velx * -1;
-			render.SetColor(rand() % 255,rand() % 255,rand() % 255,255);
-		}
+		if (im->IsVirtualButtonPressed("moveleft"))
+			alien.MoveTo(alien.GetX() - 1, alien.GetY(),50);
 
-		if (y + (text.GetTextHeight(texto)) >= screen.GetHeight() || y <= 0)
-		{	vely = vely * -1;
-			render.SetColor(rand() % 255,rand() % 255,rand() % 255,255);
-		}
-		
-		text.Render(texto, x,y);
+		if (im->IsVirtualButtonPressed("moveup"))
+			alien.MoveTo(alien.GetX(), alien.GetY() - 1,50);
+
+		if (im->IsVirtualButtonPressed("movedown"))
+			alien.MoveTo(alien.GetX(), alien.GetY() + 1,50);
+
+		if (im->IsVirtualButtonPressed("pickmove"))
+			alien.MoveTo(screen.GetMouseX(),screen.GetMouseY(),50);
+
+		alien.Update(screen.ElapsedTime(),NULL);
+		alien.Render();
 
 		screen.Refresh();
 	}

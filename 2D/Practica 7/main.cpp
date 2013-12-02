@@ -9,8 +9,9 @@ int main(int argc, char* argv[])
 
 	screen.Open(800, 600, false);
 		
-	Font *monoFont = ResourceManager::Instance().LoadFont(String("data/arial16.png"));
-	String texto = String("Hola Mundo Cruel!");
+	//Font *myFont = ResourceManager::Instance().LoadFont(String("data/monospaced.png"));
+	Font *myFont = ResourceManager::Instance().LoadFont(String("data/arial16_2.png"));
+	String texto = String("Hola Mundo!! vivo");
 	double x,y, velx, vely;
 	
 	srand(time_t(10));
@@ -30,18 +31,18 @@ int main(int argc, char* argv[])
 		x+=velx * screen.ElapsedTime();
 		y+=vely * screen.ElapsedTime();				
 		
-		if (x + monoFont->GetTextWidth(texto)  >= screen.GetWidth() || x <= 0)
+		if (x + myFont->GetTextWidth(texto)  >= screen.GetWidth() || x <= 0)
 		{	
 			velx = velx * -1;
 			render.SetColor(rand() % 255,rand() % 255,rand() % 255,255);
 		}
 
-		if (y + (monoFont->GetTextHeight(texto)) >= screen.GetHeight() || y <= 0)
+		if (y + (myFont->GetTextHeight(texto)) >= screen.GetHeight() || y <= 0)
 		{	vely = vely * -1;
 			render.SetColor(rand() % 255,rand() % 255,rand() % 255,255);
 		}
 		
-		monoFont->Render(texto, x,y);
+		myFont->Render(texto, x,y);
 
 		screen.Refresh();
 	}

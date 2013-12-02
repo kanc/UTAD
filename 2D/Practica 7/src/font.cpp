@@ -61,19 +61,16 @@ void Font::LoadGlyphs(const String &filename)
 				Glyph glyph = Glyph(frameSizeW, frameSizeH, ( redPixel.x - actualPix.x ), (redPixel.y - actualPix.y));
 				_aGlyphs.Add(glyph);
 								
-			} //los pixeles negro, tambien transparentes
+			} //los pixeles negros, tambien transparentes
 			else if (actualPix.r == 0 && actualPix.g == 0 && actualPix.b == 0)			
 				buffer[(j * imgWidth * 4) + (i * 4) + 3] = 0;						
 		}
 	}
 	
-	if (IsGlyphFont())
-	{
-		glBindTexture(GL_TEXTURE_2D,this->GetTexId());
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-		glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,imgWidth,imgHeight,0,GL_RGBA,GL_UNSIGNED_BYTE,buffer);
-	}
+	//cargamos el nuevo buffer con la textura modificada
+	glBindTexture(GL_TEXTURE_2D,this->GetTexId());		
+	glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA,imgWidth,imgHeight,0,GL_RGBA,GL_UNSIGNED_BYTE,buffer);
+	
 }
 
 pixel Font::SearchRedPixel(uint16 x1, uint16 y1, uint16 x2, uint16 y2, int imageWidth, unsigned char *buffer) const
@@ -112,7 +109,7 @@ void Font::Render(const String& text, double x, double y)
 
 	for (int i = 0; i < text.Length(); i++)
 	{		
-		int charac = text[i];
+		unsigned char charac = text[i];
 		
 		if (IsGlyphFont())
 		{	//en esta fuente el glifo comienza justo en el inicio del frame, pero pudiera ser que en otra estuviera centrado
@@ -149,7 +146,7 @@ uint16 Font::GetTextWidth(String &text)
 
 		for (int i = 0; i < text.Length(); i++)
 		{	
-			int charac = text[i];									
+			unsigned char charac = text[i];									
 			width+= _aGlyphs[charac].GetEndX() - _aGlyphs[charac].GetBeginX();			
 		}
 
@@ -167,7 +164,7 @@ uint16 Font::GetTextHeight(String &text)
 
 		for (int i = 0; i < text.Length(); i++)
 		{	
-			int charac = text[i];
+			unsigned char charac = text[i];
 			
 			if (_aGlyphs[charac].GetEndY() - _aGlyphs[charac].GetBeginY() > height)
 			{

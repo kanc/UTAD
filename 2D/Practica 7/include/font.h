@@ -4,6 +4,7 @@
 #include "image.h"
 #include "string.h"
 #include "glyph.h"
+#include "array.h"
 
 struct pixel;
 
@@ -19,9 +20,9 @@ class Font : public Image
 		virtual void Render(const String& text, double x, double y);
 
 	private:
-		pixel SearchRedPixel(uint16 x1, uint16 y1, uint16 x2, uint16 y2, unsigned char *buffer) const;
+		pixel SearchRedPixel(uint16 x1, uint16 y1, uint16 x2, uint16 y2, int imgWidth, unsigned char *buffer) const;
 
-		Glyph aGlyphs;
+		Array<Glyph> aGlyphs;
 
 };
 

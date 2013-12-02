@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-#define CAPACITY_INC 128
+#define CAPACITY_INC 256
 
 template <typename T>
 class Array {

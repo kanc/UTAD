@@ -4,6 +4,10 @@
 class Glyph
 {
 	public:
+		
+		Glyph() : beginX(0), beginY(0), endX(0),endY(0) {}
+		Glyph(uint16 beginX, uint16 beginY, uint16 endX, uint16 endY) { this->beginX = beginX; this->beginY = beginY; this->endX = endX; this->endY = endY; }
+
 		void SetBeginX(uint16 beginX) { this->beginX = beginX; }
 		uint16 GetBeginX() { return this->beginX; }
 

@@ -2,8 +2,9 @@
 #include "../include/screen.h"
 
 InputManager::InputManager()
-{
+{	
 
+	//glfwSetKeyCallback( &MyKeyCallback );
 }
 
 InputManager::~InputManager()
@@ -14,17 +15,38 @@ InputManager::~InputManager()
 
 }
 
+/*void GLFWCALL MyKeyCallback( int k, int action )
+{
+   
+   g_pApp->KeyStateChange( k, (action==GLFW_PRESS) );
+}
+
+glfwSetKeyCallback( &MyKeyCallback );
+
+
+*/
+
  void InputManager::CreateVirtualButton( const String& name, eInputCode button )
- {	 
-	 VirtualButton action = GetMyVirtualButton(name);
-	 
-	 if (action.codes.Size() > 0) //si ya hay un accion creada, añadimos la nueva "tecla"
-		 action.codes.Add(button);
-	 else
+ {	 	 	 
+	 if (!AddNewButtonToAction(name,button))
 	 {
-		 action=VirtualButton(name,button);	 //si no creamos la accion
+		 VirtualButton action(name,button);	 //si no creamos la accion
 		_aVirtualButtons.Add(action);
 	 }
+ }
+
+ bool InputManager::AddNewButtonToAction(const String &name, const eInputCode code)
+ {
+	for (uint16 i = 0; i < _aVirtualButtons.Size(); i++)
+	{
+		if (_aVirtualButtons[i].name == name)
+		{	 
+			_aVirtualButtons[i].codes.Add(code);
+			return true;
+		}
+	}
+
+	 return false;
  }
 
  void InputManager::CreateVirtualAxis( const String& name, eInputCode positiveAxis, eInputCode negativeAxis )

@@ -62,7 +62,7 @@ void Screen::Open(uint16 width, uint16 height, bool fullscreen) {
 }
 
 void Screen::Close() {
-	glfwCloseWindow();
+	glfwCloseWindow();	
 }
 
 void Screen::SetTitle(const String &title) {
@@ -94,4 +94,8 @@ bool Screen::MouseButtonPressed(int button) const {
 
 bool Screen::KeyPressed(int key) const {
 	return glfwGetKey(key) == GLFW_PRESS;
+}
+
+void Screen::SetKeyCallBack()
+{
 }

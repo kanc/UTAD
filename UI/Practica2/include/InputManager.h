@@ -107,13 +107,18 @@ enum eInputCode
   Mouse_Right,
 };
 
-
-
 enum eInputType
 {
 	Keyboard,
 	Mouse,
 	Pad,
+};
+
+enum eButtonState
+{
+	btnUp,
+	btnDown,
+	btnPressed,
 };
 
 struct VirtualButton
@@ -123,6 +128,12 @@ struct VirtualButton
 
 	VirtualButton() { }
 	VirtualButton(const String& nam, eInputCode button) { name = nam; codes.Add(button); }
+};
+
+struct ButtonState
+{
+	eInputCode code;
+	eButtonState state;
 };
 
 struct VirtualAxis
@@ -142,10 +153,13 @@ class InputManager
 		//static InputManager *inputMng;
 		Array<VirtualButton> _aVirtualButtons;
 		Array<VirtualAxis> _aVirtualAxis;
+		Array<ButtonState> _aButtonStates;
 
 		VirtualButton GetMyVirtualButton(const String &name) const;
 		VirtualAxis GetMyVirtualAxis(const String &name)const;
 		eInputType GetInputType(eInputCode code) const;
+		bool AddNewButtonToAction(const String &name, const eInputCode code);
+		
 		
 
 	public:
@@ -154,47 +168,46 @@ class InputManager
 		//static const InputManager& Instance() { if ( !inputMng ) inputMng = new InputManager(); return *inputMng; }
 
 	// Inicialición: deteccción de dispostivos, inicialización de los mismos... etc
-    bool            Init();
+    bool Init();
 
 	// Cierre
-    void            End();
+    void End();
 
 	// Devuelve true si el manager ha sido inicializado correctamente
 	bool IsOk();
 
-
 	// Función de actualización, actualización de estados entre frames
-    void            Update();
+    void Update();
     
 
     // Crea un botón virtual
-    void            CreateVirtualButton( const String& name, eInputCode button );
+    void CreateVirtualButton( const String& name, eInputCode button );
 	// Crea un eje virtual
-    void            CreateVirtualAxis( const String& name, eInputCode positiveAxis, eInputCode negativeAxis );
+    void CreateVirtualAxis( const String& name, eInputCode positiveAxis, eInputCode negativeAxis );
 
     // Está el botón pulsado en este momento?
-    bool            IsVirtualButtonPressed( const String& name ) const;
+    bool IsVirtualButtonPressed( const String& name ) const;
 	// Devuelve true durante el frame que que el usuario ha comenzaco la pulsación de un botón
-    bool            IsVirtualButtonDown( const String& name ) const;
+    bool IsVirtualButtonDown( const String& name ) const;
 	// Devuelve true durante el frame que que el usuario ha dejado de pulsar un botón
-    bool            IsVirtualButtonUp( const String& name ) const;
+    bool IsVirtualButtonUp( const String& name ) const;
 
     // Estado de ejes virtuales normalizado de -1 a +1
-    float           GetVirtualAxis( const String& name ) const;
+    float GetVirtualAxis( const String& name ) const;
 
     // Está el la tecla pulsada en este momento?
-    bool            IsKeyPressed( eInputCode vkCode );
+    bool IsKeyPressed( eInputCode vkCode );
 	// Devuelve true durante el frame que que el usuario ha comenzaco la pulsación de una tecla (***OPCIONAL***)
-    bool            IsKeyDown( eInputCode vkCode );
+    bool IsKeyDown( eInputCode vkCode );
 	// Devuelve true durante el frame que que el usuario ha dejado de pulsar una tecla (***OPCIONAL***)
-    bool            IsKeyUp( eInputCode vkCode );
+    bool IsKeyUp( eInputCode vkCode );
 
 	// Está el la el botón del ratón tecla pulsado en este momento?
-    bool            IsMouseButtonPressed( eInputCode button );
+    bool IsMouseButtonPressed( eInputCode button );
 	// Devuelve true durante el frame que que el usuario ha comenzaco la pulsación del botón del ratón dado
-    bool            GetMouseButtonDown( eInputCode button );
+    bool GetMouseButtonDown( eInputCode button );
 	// Devuelve true durante el frame que que el usuario ha dejado de pulsar el botón del ratón dado
-    bool            GetMouseButtonUp( eInputCode button );
+    bool GetMouseButtonUp( eInputCode button );
 };
 
 

@@ -17,8 +17,10 @@ int main(int argc, char* argv[])
 	alien.SetX(100);
 	alien.SetY(100);
 
-	im->CreateVirtualButton(String("moveright"),eInputCode::Key_D);
+	
 	im->CreateVirtualButton(String("moveright"),eInputCode::Key_F);
+	im->CreateVirtualButton(String("moveright"),eInputCode::Key_D);
+
 	im->CreateVirtualButton(String("moveleft"),eInputCode::Key_A);
 	im->CreateVirtualButton(String("moveup"),eInputCode::Key_W);
 	im->CreateVirtualButton(String("movedown"),eInputCode::Key_S);

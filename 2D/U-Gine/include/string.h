@@ -1,5 +1,5 @@
-#ifndef UGINE_STRING_H
-#define UGINE_STRING_H
+#ifndef CORE_STRING_H
+#define CORE_STRING_H
 
 #include "array.h"
 #include <ctype.h>
@@ -466,4 +466,4 @@ inline Array<String> String::Split(const String& delim) const {
     return arr;
 }
 
-#endif // UGINE_STRING_H
+#endif // CORE_STRING_H

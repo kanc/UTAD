@@ -16,38 +16,188 @@
     <Filter Include="Source Files\engine">
       <UniqueIdentifier>{bf88a20c-eaa8-4a30-8a81-aa885fe84379}</UniqueIdentifier>
     </Filter>
+    <Filter Include="uGui">
+      <UniqueIdentifier>{9e73a3a1-9663-417f-99d9-c7be84b5e123}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\bone.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\camera.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\collisionmanager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\collisionpixeldata.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\emitter.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\font.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\image.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\isometricmap.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\isometricscene.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\isometricsprite.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\map.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mapscene.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
     <ClCompile Include="src\math.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\parallaxscene.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particle.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="src\renderer.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\resourcemanager.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
     <ClCompile Include="src\screen.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\skeletondata.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\skeletonsprite.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sprite.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
     <ClCompile Include="lib\stb_image.c">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="uGui\Button.cpp">
+      <Filter>uGui</Filter>
+    </ClCompile>
+    <ClCompile Include="uGui\Control.cpp">
+      <Filter>uGui</Filter>
+    </ClCompile>
+    <ClCompile Include="uGui\GUIManager.cpp">
+      <Filter>uGui</Filter>
+    </ClCompile>
+    <ClCompile Include="uGui\Window.cpp">
+      <Filter>uGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\bone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bonedata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\circlecollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\collisionmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\collisionpixeldata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\emitter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\glinclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\glyph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\isometricmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\isometricscene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\isometricsprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mapscene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\math.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\parallaxscene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\pixelcollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rectcollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\resourcemanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\screen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\skeletondata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\skeletonsprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\string.h">
@@ -58,6 +208,33 @@
     </ClInclude>
     <ClInclude Include="include\u-gine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\Button.h">
+      <Filter>uGui</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\Control.h">
+      <Filter>uGui</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\GUIManager.h">
+      <Filter>uGui</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\IContainer.h">
+      <Filter>uGui</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\IEventListener.h">
+      <Filter>uGui</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\Message.h">
+      <Filter>uGui</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\Singleton.h">
+      <Filter>uGui</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\Vector2.h">
+      <Filter>uGui</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\Window.h">
+      <Filter>uGui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

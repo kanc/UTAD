@@ -3,6 +3,7 @@
 
 #include "string.h"
 #include "types.h"
+#include "../lib/glfw.h"
 
 class Screen {
 public:
@@ -27,7 +28,7 @@ public:
     virtual int32 GetMouseY() const { return mousey; }
     virtual bool MouseButtonPressed(int button) const;
     virtual bool KeyPressed(int key) const;
-	virtual void SetKeyCallBack();
+	virtual void SetKeyCallBack(GLFWkeyfun myCallbackFunc);
 	
 protected:
     Screen();

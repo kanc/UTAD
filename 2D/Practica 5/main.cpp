@@ -6,6 +6,8 @@ int main(int argc, char* argv[])
 {
 	Screen &screen = Screen::Instance();
 	const Renderer &render = Renderer::Instance();
+	float angle = 0;
+	bool crece = true;
 
 	screen.Open(800, 600, false);
 
@@ -19,6 +21,12 @@ int main(int argc, char* argv[])
 
 	sprite->SetX(400);
 	sprite->SetY(300);	
+
+	spBasket->SetX(300);
+	spBasket->SetY(200);			
+
+	spFutbol->SetX(600);
+	spFutbol->SetY(400);	
 	
 	while ( screen.IsOpened() && !screen.KeyPressed(GLFW_KEY_ESC) ) {
 		
@@ -30,21 +38,20 @@ int main(int argc, char* argv[])
 		//gestion de pulsacion de teclas
 		if (screen.KeyPressed(GLFW_KEY_LEFT))
 		{	
-			sprite->MoveTo(sprite->GetX() - 1,sprite->GetY(),60);
+			sprite->MoveTo(sprite->GetX() - 1,sprite->GetY(),90);
 			sprite->RotateTo(15,30);
 		}
 		else if (screen.KeyPressed(GLFW_KEY_RIGHT))					
 		{				
-			sprite->MoveTo(sprite->GetX() + 1,sprite->GetY(),60);
+			sprite->MoveTo(sprite->GetX() + 1,sprite->GetY(),90);
 			sprite->RotateTo(-15,30);
 		}		
 		else
 			sprite->RotateTo(0,30);
-
+		
 		//gestion de pulsacion de boton de raton
 		if (screen.MouseButtonPressed(GLFW_MOUSE_BUTTON_1))
-		{			
-			render.DrawLine(sprite->GetX(),sprite->GetY(),mousex,mousey);
+		{						
 			sprite->MoveTo(mousex,mousey,150);
 
 			double angle = DegATan2(mousey,mousex);
@@ -55,8 +62,44 @@ int main(int argc, char* argv[])
 			sprite->RotateTo(angle,(double)60);
 		}
 		
+		//escalado de los sprites
+		if (crece)
+		{	if (!spBasket->IsScaling())
+			{	
+				spBasket->ScaleTo(0.5f,0.5f,5);
+				crece = false;
+			}
+			if (!spFutbol->IsScaling())
+			{	
+				spFutbol->ScaleTo(5,5,3);
+				crece = false;
+			}
+		}
+		else
+		{	if (!spBasket->IsScaling())
+			{	
+				spBasket->ScaleTo(5,5,5);
+				crece = true;
+			}
+			if (!spFutbol->IsScaling())
+			{	
+				spFutbol->ScaleTo(0.5f,0.5f,3);
+				crece = true;
+			}
+		}
+		
+		//rotacion de los sprites
+		spFutbol->RotateTo(WrapValue(angle,360),30);
+		spBasket->RotateTo(WrapValue(angle,360),30);
+
+		angle++;
+
 		//update y pintado de sprites
 		sprite->Update(screen.ElapsedTime(),NULL);
+		spBasket->Update(screen.ElapsedTime(),NULL);
+		spFutbol->Update(screen.ElapsedTime(),NULL);
+		spBasket->Render();
+		spFutbol->Render();
 		sprite->Render();
 
 		screen.Refresh();
@@ -66,10 +109,4 @@ int main(int argc, char* argv[])
 	
 	return 0;
 }
-
-/*function(t, b, c, d) {
-	var ts=(t/=d)*t;
-	var tc=ts*t;
-	return b+c*(4*tc + -9*ts + 6*t);
-}*/
 

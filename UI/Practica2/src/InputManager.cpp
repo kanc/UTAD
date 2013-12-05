@@ -1,30 +1,74 @@
 #include "../include/InputManager.h"
 #include "../include/screen.h"
 
-InputManager::InputManager()
-{	
+InputManager* InputManager::inputMng = NULL;
 
-	//glfwSetKeyCallback( &MyKeyCallback );
+InputManager::InputManager()
+{		
 }
 
 InputManager::~InputManager()
 {
     _aVirtualButtons.Clear();
 	_aVirtualAxis.Clear();
-//	delete inputMng;
+	delete inputMng;
 
 }
 
-/*void GLFWCALL MyKeyCallback( int k, int action )
+float InputManager:: GetMouseYAxis()
 {
-   
-   g_pApp->KeyStateChange( k, (action==GLFW_PRESS) );
+	float yAxis;
+
+	yAxis = Screen::Instance().GetMouseY() - prevMouseY;
+	prevMouseY = Screen::Instance().GetMouseY();
+
+	return yAxis / Screen::Instance().GetDesktopHeight();
+
 }
 
-glfwSetKeyCallback( &MyKeyCallback );
+float InputManager:: GetMouseXAxis()
+{
+	float xAxis;
+
+	xAxis = Screen::Instance().GetMouseX() - prevMouseX;
+
+	prevMouseX = Screen::Instance().GetMouseX();
+
+	return xAxis / Screen::Instance().GetDesktopWidth();
+
+}
+
+InputManager& InputManager::Instance() 
+{ 
+	if ( !inputMng ) 
+		inputMng = new InputManager(); 
+	
+	return *inputMng; 
+}
 
 
-*/
+float InputManager::GetVirtualAxis( const String& name ) const
+{
+	VirtualAxis axis = GetMyVirtualAxis(name);
+	float value = 0;
+
+	switch (GetInputType(axis.positiveAxis)) //suponemos que positivo y negativo corresponden al mismo dispositivo
+	{
+		case eInputType::Mouse:
+			if (axis.negativeAxis == eInputCode::Mouse_X )
+				
+			break;
+			
+
+	}
+
+	return 0;
+}
+
+void InputManager::Update()
+{
+
+}
 
  void InputManager::CreateVirtualButton( const String& name, eInputCode button )
  {	 	 	 
@@ -80,15 +124,6 @@ glfwSetKeyCallback( &MyKeyCallback );
 	 }
 	 
 	 return pressed;
- }
-
-  float InputManager::GetVirtualAxis( const String& name ) const
- {	 
-	 VirtualAxis axis = GetMyVirtualAxis(name);
-
-	 //normalizar los ejes
-	 return 0;
-	 
  }
 
  VirtualButton InputManager::GetMyVirtualButton(const String &name) const

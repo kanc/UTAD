@@ -1,7 +1,7 @@
 #include "../include/renderer.h"
-//#include "../include/font.h"
+#include "../include/font.h"
 #include "../include/glinclude.h"
-//#include "../include/image.h"
+#include "../include/image.h"
 #include "../include/math.h"
 #include <math.h>
 
@@ -12,16 +12,16 @@ Renderer* Renderer::renderer = NULL;
 void Renderer::SetBlendMode(BlendMode blendMode) const {
     switch ( blendMode ) {
 	case SOLID:
-		// TAREA: Implementar solid blending
+		glBlendFunc(GL_ONE, GL_ZERO);
 		break;
 	case ALPHA:
-		// TAREA: Implementar alpha blending
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		break;
 	case MULTIPLICATIVE:
-		// TAREA: Implementar multiplicative blending
+		glBlendFunc(GL_DST_COLOR, GL_ZERO);
 		break;
 	case ADDITIVE:
-		// TAREA: Implementar additive blending
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 		break;
 	}
 }
@@ -31,14 +31,13 @@ void Renderer::SetColor(uint8 r, uint8 g, uint8 b, uint8 a) const {
 }
 
 void Renderer::SetOrigin(double x, double y) const {
-	// TAREA: Configurar matriz de modelado
+	glLoadIdentity();
+	glTranslated(-x, -y, 0);
 }
 
 void Renderer::Clear(uint8 r, uint8 g, uint8 b) const {
-	
-	glClearColor(r,g,b,0);
+	glClearColor(r/255.0f, g/255.0f, b/255.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-
 }
 
 void Renderer::DrawPoint(double x, double y) const {
@@ -84,7 +83,6 @@ void Renderer::DrawEllipse(double x, double y, double xradius, double yradius) c
 	glDrawArrays(GL_TRIANGLE_FAN, 0, ELLIPSEPOINTS);
 }
 
-/*
 void Renderer::DrawImage(const Image* image, double x, double y, uint32 frame, double width, double height, double ang) const {
     if ( width == 0  ||  height == 0 ) {
         width = image->GetWidth();
@@ -138,4 +136,3 @@ void Renderer::DrawTiledImage(const Image* image, double x, double y, double wid
 void Renderer::DrawText(const Font* font, const String &text, double x, double y) const {
 	font->Render(text, x, y);
 }
-*/

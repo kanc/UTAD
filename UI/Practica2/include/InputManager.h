@@ -7,6 +7,8 @@
 #define UGINE_INPUTMANAGER_H
 
 #include "string.h"
+#include "screen.h"
+#include "glinclude.h"
 
 // códigos que representan los distintos tipos de inputs posibles
 enum eInputCode
@@ -99,12 +101,8 @@ enum eInputCode
   Mouse_Button0 = 0,
   Mouse_Button1 = 1,
   Mouse_Button2 = 2,
-  Mouse_WheelDown,
-  Mouse_WheelUp,
-  Mouse_Down,
-  Mouse_Up,
-  Mouse_Left,
-  Mouse_Right,
+  Mouse_X = 3,
+  Mouse_Y = 4,
 };
 
 enum eInputType
@@ -150,7 +148,7 @@ class InputManager
 {
 	private:
 				
-		//static InputManager *inputMng;
+		static InputManager* inputMng;
 		Array<VirtualButton> _aVirtualButtons;
 		Array<VirtualAxis> _aVirtualAxis;
 		Array<ButtonState> _aButtonStates;
@@ -159,13 +157,16 @@ class InputManager
 		VirtualAxis GetMyVirtualAxis(const String &name)const;
 		eInputType GetInputType(eInputCode code) const;
 		bool AddNewButtonToAction(const String &name, const eInputCode code);
-		
-		
+		float GetMouseXAxis();
+		float GetMouseYAxis();
 
+		float prevMouseX, prevMouseY;
+		
+		
 	public:
 		InputManager();
 		~InputManager();
-		//static const InputManager& Instance() { if ( !inputMng ) inputMng = new InputManager(); return *inputMng; }
+		static InputManager& Instance();
 
 	// Inicialición: deteccción de dispostivos, inicialización de los mismos... etc
     bool Init();

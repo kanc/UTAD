@@ -35,25 +35,26 @@ void Screen::Open(uint16 width, uint16 height, bool fullscreen) {
 	SetTitle("");
 	opened = true;
 
-	// Inicializamos OpenGL	
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_BLEND);
+	// Inicializamos OpenGL
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	// Configuramos viewport	
-	glViewport(0,0,width,height);
-
+	// Configuramos viewport
+	glViewport(0, 0, width, height);
 	this->width = width;
 	this->height = height;
 
-	// Configuramos matriz de proyeccion	
-	glMatrixMode(GL_PROJECTION);	
-	glOrtho(0,width,height,0,0,1000);
+	// Configuramos matriz de proyeccion
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, width, height, 0, 0, 1000);
 
 	// Configuramos matriz de modelado
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();	
+	glLoadIdentity();
 
 	// Inicializamos temporizador
 	lastTime = glfwGetTime();

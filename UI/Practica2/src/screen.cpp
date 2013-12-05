@@ -96,6 +96,8 @@ bool Screen::KeyPressed(int key) const {
 	return glfwGetKey(key) == GLFW_PRESS;
 }
 
-void Screen::SetKeyCallBack()
+void Screen::SetKeyCallBack(GLFWkeyfun myCallbackFunc)
 {
+	glfwWaitEvents();
+	glfwSetKeyCallback(myCallbackFunc);
 }

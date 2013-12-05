@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 	
 	Image *backg =ResourceManager::Instance().LoadImage("data/background.png");
 	Scene *scene = new Scene(backg);		
-	//scene->GetCamera().SetBounds(0,0,backg->GetWidth(),backg->GetHeight());
+	scene->GetCamera().SetBounds(0,0,backg->GetWidth(),backg->GetHeight());
 	
 	Sprite *sprite = scene->CreateSprite( ResourceManager::Instance().LoadImage("data/alien.png") );
 	scene->GetCamera().FollowSprite(sprite);

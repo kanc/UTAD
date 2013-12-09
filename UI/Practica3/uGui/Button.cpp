@@ -23,9 +23,23 @@ bool Button::init( const std::string name, const Vector2& position, const std::s
 	m_position			= position;
 	m_normalImage		= new Image( normalImage.c_str() );
 	m_pushImage			= new Image( pushImage.c_str() );
-	m_size					= Vector2( (float)m_normalImage->GetWidth(), (float)m_normalImage->GetHeight() );
+	m_size				= Vector2( (float)m_normalImage->GetWidth(), (float)m_normalImage->GetHeight() );
 
 	return true;
+}
+
+void Button::addLabel(const std::string font, const std::string text, const unsigned char r, const unsigned char g, const unsigned char b)
+{
+	Font* fnt = ResourceManager::Instance().LoadFont( font.c_str() );
+
+	Vector2 pos = Vector2(m_size.x - fnt->GetTextWidth(String(text.c_str())),m_size.y - fnt->GetTextHeight(String(text.c_str())));
+	m_label = new Label();
+
+	if (m_label->init (m_name + "_label",pos,font,text,r,g,b))
+		this->addControl(m_label);	
+
+	delete fnt;
+
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------

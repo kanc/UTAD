@@ -2,6 +2,7 @@
 #define _BUTTON_H_
 
 #include "Control.h"
+#include "Label.h"
 
 class Image;
 
@@ -16,11 +17,13 @@ public:
 	virtual void render();
 	virtual void onInputEvent( const Message& message );
 	virtual void destroy();
+	void addLabel(const std::string font, const std::string text, const unsigned char r, const unsigned char g, const unsigned char b);
 
 protected:
 	Image*								m_normalImage;
 	Image*								m_pushImage;
-	bool									m_pushed;
+	bool								m_pushed;
+	Label*								m_label;
 };
 
 

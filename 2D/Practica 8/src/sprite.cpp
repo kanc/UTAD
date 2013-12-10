@@ -165,8 +165,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 	}
 
 	//ESCALADO
-	Screen::Instance().SetTitle(String(" sx: ") + String::FromFloat(scalex) + String(" sy: ") + String::FromFloat(scaley));
-
+	
 	if (scaling)
 	{
 		scalex+= elapsed * scalingSpeedX;

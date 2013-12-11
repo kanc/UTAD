@@ -19,7 +19,9 @@ return 0;
 #include "uGui/GUIManager.h"
 #include "UGui/Button.h"
 #include "uGui/Window.h"
+#include "uGui/Label.h"
 #include "uGui/IEventListener.h"
+
 
 void CreateGUI();
 void MouseButtonCallback(int button, int action);
@@ -81,9 +83,11 @@ void CreateGUI()
 
 	// Crea un botón
 	Button* b1 = new Button();
-	b1->init( "Boton1", Vector2( 200, 100 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png" );
+	b1->init( "Boton1", Vector2( 300, 100 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png" );
 	b1->setEventListener( &listener );
 	b1->setParent( GUIManager::instance().getRootControl() );
+
+	b1->addLabel("data/arial16_2.png","Boton",255,255,255);
 
 	// Crea un botón
 	Button* b2 = new Button(); 

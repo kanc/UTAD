@@ -1,6 +1,6 @@
 #include "Label.h"
 
-bool Label::init( const std::string name, const Vector2& position,  const std::string font, const std::string text, unsigned char r, unsigned char g, unsigned char b)
+bool Label::init( const std::string name, const Vector2& position,  const std::string font, const std::string text, unsigned char r, unsigned char g, unsigned char b, bool acceptPush)
 {
 	m_name = name;
 	m_position = position;	
@@ -10,6 +10,7 @@ bool Label::init( const std::string name, const Vector2& position,  const std::s
 	m_text = text;
 	m_font = ResourceManager::Instance().LoadFont(String(font.c_str()));
 	m_pushed = false;
+	m_acceptPush = acceptPush;
 
 	if (m_font)
 	{
@@ -24,27 +25,39 @@ void Label::render()
 {
 	Vector2 pos = getAbsolutePosition();
 	String text = String(m_text.c_str());
-	Renderer::Instance().SetColor(m_r, m_g, m_b, 255);
-	m_font->Render(text,pos.x, pos.y);
+	
+	if (!m_pushed && m_acceptPush)
+		Renderer::Instance().SetColor(m_r, m_g, m_b, 255);
+	else
+		Renderer::Instance().SetColor(WrapValue (m_r - 50,255)  , WrapValue (m_g - 50,255), WrapValue (m_b - 50,255), 255);
 
+	m_font->Render(text,pos.x, pos.y);
+	Renderer::Instance().SetColor(255, 255, 255, 255);
 }
 
 void Label::onInputEvent( const Message& message )
 {
 	switch( message.type )
 	{
-		case mtPointerButtonUp:			
-			NOTIFY_LISTENERS( onClick( this ) );
+		case mtPointerButtonDown:
+			m_pushed = true;			
+			break;
+
+		case mtPointerButtonUp:
+			if( m_pushed )
+				NOTIFY_LISTENERS( onClick( this ) );
+			m_pushed = false;			
 			break;
 	}
 }
 
 void Label::destroy()
 {
-	delete m_font;
-	m_font = NULL;
+
 }
 
 void Label::update()
-{
+{	
+	if (!m_pointerIsOver && m_acceptPush)
+		m_pushed = false;
 }

@@ -23,6 +23,7 @@
     <ClCompile Include="src\screen.cpp" />
     <ClCompile Include="src\sprite.cpp" />
     <ClCompile Include="uGui\Button.cpp" />
+    <ClCompile Include="uGui\ButtonLabel.cpp" />
     <ClCompile Include="uGui\Control.cpp" />
     <ClCompile Include="uGui\GUIManager.cpp" />
     <ClCompile Include="uGui\Label.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="include\types.h" />
     <ClInclude Include="include\u-gine.h" />
     <ClInclude Include="uGui\Button.h" />
+    <ClInclude Include="uGui\ButtonLabel.h" />
     <ClInclude Include="uGui\Control.h" />
     <ClInclude Include="uGui\GUIManager.h" />
     <ClInclude Include="uGui\IContainer.h" />

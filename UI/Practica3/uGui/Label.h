@@ -6,11 +6,12 @@
 #include "../include/string.h"
 #include "../include/resourcemanager.h"
 #include "../include/renderer.h"
+#include "../include/math.h"
 
 class Label : public Control
 {
 	public:
-		bool init( const std::string name, const Vector2& position,  const std::string font, const std::string text, unsigned char r, unsigned char g, unsigned char b);
+		bool init( const std::string name, const Vector2& position,  const std::string font, const std::string text, unsigned char r, unsigned char g, unsigned char b, bool acceptPush);
 
 		virtual void update();
 		virtual void render();
@@ -27,8 +28,11 @@ class Label : public Control
 		std::string m_text;
 		unsigned char m_r;
 		unsigned char m_g;
-		unsigned char m_b;
-		bool m_pushed;
+		unsigned char m_b;		
+		bool m_acceptPush;
+
+	protected:
+		bool m_pushed;		
 
 };
 

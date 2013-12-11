@@ -2,7 +2,7 @@
 #define _BUTTON_H_
 
 #include "Control.h"
-#include "Label.h"
+#include "ButtonLabel.h"
 
 class Image;
 
@@ -23,7 +23,7 @@ protected:
 	Image*								m_normalImage;
 	Image*								m_pushImage;
 	bool								m_pushed;
-	Label*								m_label;
+	ButtonLabel*								m_label;
 };
 
 

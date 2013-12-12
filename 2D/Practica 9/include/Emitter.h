@@ -25,7 +25,11 @@ class Emitter
 		virtual void Update(double elapsed);
 		virtual void Render() const;
 
-	private:
+	private:		
+		void ReviveParticle(Particle* particle) const;
+		Particle* CreateParticle() const;
+		void GenerateRandomProperties(double& velocityX, double& velocityY, double& angVel, double& lifetime, uint8& r, uint8& g, uint8& b) const;
+
 		Image* image;
 		bool autofade;
 		double x, y;
@@ -39,5 +43,6 @@ class Emitter
 		Renderer::BlendMode blendMode;
 		bool emitting;
 		
-		Array<Particle> particles;
+		Array<Particle *> particles;
+		Array<Particle *> particlesPool;
 };

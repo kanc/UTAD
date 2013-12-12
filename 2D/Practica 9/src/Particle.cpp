@@ -9,7 +9,7 @@ Particle::Particle()
 Particle::Particle(Image* image, double velx, double vely, double angularVel, double lifetime, bool autofade)
 {
 	image->SetMidHandle();
-	Sprite::Sprite(image);	
+	SetImage(image);
 
 	velocityx = velx;
 	velocityy = vely;
@@ -28,11 +28,10 @@ void Particle::Update(double elapsed)
 {
 	SetX( GetX() + (velocityx * elapsed) );
 	SetY( GetY() + (velocityy * elapsed) );
+	SetAngle( GetAngle() + (angularVelocity * elapsed) );
 	
-	RotateTo(360,angularVelocity);
-
 	if (autofade)
-		SetColor( GetRed(), GetGreen(), GetBlue(), (lifetime * 255 / initialLifetime) );
+		SetColor( GetRed(), GetGreen(), GetBlue(), (uint8)(lifetime * 255 / initialLifetime) );
 
 	lifetime -= elapsed;
 

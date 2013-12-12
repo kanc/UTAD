@@ -34,6 +34,24 @@ Sprite::Sprite(Image* image) {
 
 Sprite::Sprite()
 {
+	this->image = NULL;	
+	x = y = z = 0;
+	colx = coly = colwidth = colheight = 0;
+	angle = radius = 0;
+	scalex = scaley =  0;
+	animFPS = firstFrame = lastFrame = currentFrame = 0;
+	blendMode = Renderer::ALPHA;
+	r = g = b = a = 0;
+	collided = rotating = moving = scaling = false;
+	toAngle = rotatingSpeed = anglesToRotate = 0;
+	toX = toY = movingSpeedX = movingSpeedY = 0;
+	scalingSpeedX = scalingSpeedY = 0;
+	scalex = scaley = 1;
+	prevX = prevY = 0;
+
+	collision = NULL;
+	colPixelData = NULL;
+	colSprite = NULL;
 }
 
 Sprite::~Sprite() {

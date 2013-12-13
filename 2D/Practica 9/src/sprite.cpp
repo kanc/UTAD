@@ -186,9 +186,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 			moving = false;					
 	}
 
-	//ESCALADO
-	Screen::Instance().SetTitle(String(" sx: ") + String::FromFloat(scalex) + String(" sy: ") + String::FromFloat(scaley));
-
+	//ESCALADO	
 	if (scaling)
 	{
 		scalex+= elapsed * scalingSpeedX;
@@ -211,6 +209,7 @@ void Sprite::Update(double elapsed, const Map* map) {
 void Sprite::Render() const {
 
 	Renderer::Instance().SetBlendMode(this->blendMode);
+	Renderer::Instance().SetColor(GetRed(), GetGreen(), GetBlue(), GetAlpha());
 	Renderer::Instance().DrawImage(this->image,x,y,(uint32)currentFrame,(double)(image->GetWidth() * scalex), (double)(image->GetHeight() * scaley), WrapValue(angle,360));
 }
 

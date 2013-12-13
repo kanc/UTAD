@@ -1,16 +1,18 @@
 #include "../include/Particle.h"
 #include "../include/sprite.h"
 
-Particle::Particle()
+Particle::Particle() : Sprite(NULL)
 {
-	
+	velocityx = 0;
+	velocityy = 0;
+	angularVelocity = 0;
+	initialLifetime = 0;
+	lifetime = 0;
+	autofade = false;		
 }
 
-Particle::Particle(Image* image, double velx, double vely, double angularVel, double lifetime, bool autofade)
-{
-	image->SetMidHandle();
-	SetImage(image);
-
+Particle::Particle(Image* image, double velx, double vely, double angularVel, double lifetime, bool autofade) : Sprite(image)
+{	
 	velocityx = velx;
 	velocityy = vely;
 	angularVelocity = angularVel;
@@ -26,6 +28,7 @@ double Particle::GetLifetime() const
 
 void Particle::Update(double elapsed)
 {
+	Sprite::Update(elapsed);
 	SetX( GetX() + (velocityx * elapsed) );
 	SetY( GetY() + (velocityy * elapsed) );
 	SetAngle( GetAngle() + (angularVelocity * elapsed) );

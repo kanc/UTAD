@@ -44,5 +44,5 @@ class Emitter
 		bool emitting;
 		
 		Array<Particle *> particles;
-		Array<Particle *> particlesPool;
+		Array<uint32> particlesPool;
 };

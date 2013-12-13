@@ -9,7 +9,8 @@ int main(int argc, char* argv[])
 
 	screen.Open(800, 600, false);
 
-	Image *img = ResourceManager::Instance().LoadImage("data/texture.png");	
+	Image *img = ResourceManager::Instance().LoadImage("data/star.png");	
+	img->SetMidHandle();
 	Emitter *emitter = new Emitter(img,true);
 
 	emitter->SetAngularVelocity(0,360);

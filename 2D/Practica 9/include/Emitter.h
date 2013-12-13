@@ -5,6 +5,7 @@ class Emitter
 {
 	public:
 		Emitter(Image* image, bool autofade);
+		~Emitter();
 
 		virtual void SetPosition(double x, double y);
 		virtual void SetX(double x);

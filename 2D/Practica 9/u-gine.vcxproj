@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="lib\stb_image.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\Affector.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Emitter.cpp" />
     <ClCompile Include="src\font.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="src\sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Affector.h" />
     <ClInclude Include="include\array.h" />
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Emitter.h" />
@@ -54,7 +56,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

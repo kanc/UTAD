@@ -1,5 +1,6 @@
 #include "../include/Emitter.h"
 #include "../include/math.h"
+#include "../include/screen.h"
 
 
 Emitter::Emitter(Image* image, bool autofade)
@@ -9,6 +10,15 @@ Emitter::Emitter(Image* image, bool autofade)
 	blendMode = Renderer::ADDITIVE;
 	emitting = false;
 }
+
+Emitter::~Emitter()
+{	
+	for (int i = 0; i < particles.Size(); i++)
+		delete particles[i];
+
+	particles.Clear();
+}
+
 
 void Emitter::SetPosition(double x, double y)
 {
@@ -102,68 +112,38 @@ bool Emitter::IsEmitting() const
 }
 
 void Emitter::Update(double elapsed)
-{
-	/*
+{	
+	Array<int> deleteParticles;
 
-	if (emitting)
-	{			
-		double nParticles = (minrate + WrapValue(rand(),(uint32)maxrate - minrate)) * elapsed;		
-
-		//añadimos al pool las particulas "muertas"
-		for (uint32 i = 0; i < particles.Size(); i++)	
-			if (particles[i]->GetLifetime() == 0)
-				particlesPool.Add(i);
-
-		double poolSize = particlesPool.Size();
-
-		//reusamos las particulas del pool
-		for (uint32 i = 0; i < poolSize; i++)		
-			ReviveParticle(particles[particlesPool[i]]);
-
-		particlesPool.Clear();
-
-		//creamos las nuevas que necesitemos 
-		for (uint32 i = 0; i < nParticles - poolSize; i++)		
-			particles.Add(CreateParticle());
-
-	}
-
-	//actualizamos las particles
-	for (uint32 i = 0; i < particles.Size(); i++)	
-		particles[i]->Update(elapsed);		
-	*/
-	
-	if ( emitting ) 
+	if (emitting) 
 	{
-		uint32 nParticles = (minrate + WrapValue(rand(),maxrate - minrate)) * elapsed;	
-        for ( uint32 i = 0; i < nParticles; i++ ) 
+		int nParticles = (minrate + (maxrate - minrate) * (float)rand() / RAND_MAX) * elapsed;	
+        for (int i = 0; i < nParticles; i++) 
             particles.Add(CreateParticle());        
-	}
-	
-    Array<uint32> deleteParticles;
-    for ( uint32 i = 0; i < particles.Size(); i++ ) 
+	}	    
+
+    for (int i = 0; i < particles.Size(); i++) 
 	{
         particles[i]->Update(elapsed);
         if ( particles[i]->GetLifetime() <= 0 )
             deleteParticles.Add(i);
 	}
 
-	// Borramos las particulas que sea necesario
-    for ( int i = deleteParticles.Size() - 1; i > 0; i-- ) {
+    for (int i = 0; i < deleteParticles.Size(); i++ ) 
         particles.RemoveAt(i);
-    }
 							
 }
 
 void Emitter::GenerateRandomProperties(double& velocityX, double& velocityY, double& angVel, double& lifetime, uint8& r, uint8& g, uint8& b) const
 {
-	velocityX = minvelx +  WrapValue(rand(), maxvelx - minvelx);
-	velocityY = minvely + WrapValue(rand(), maxvely - minvely);
-	angVel = minangvel + WrapValue(rand(), maxangvel - minangvel);
-	lifetime = minlifetime + WrapValue(rand(), maxlifetime - minlifetime);
-	r = minr + rand() % (maxr - minr + 1);
-	g = ming + rand() % (maxg - ming + 1);
-	b = minb + rand() % (maxb - minb + 1);
+	velocityX = minvelx + (maxvelx - minvelx) * (float)rand() / RAND_MAX;
+	velocityY = minvely + (maxvely - minvely) * (float)rand() / RAND_MAX;
+	angVel = minangvel + (maxangvel - minangvel) * (float)rand() / RAND_MAX;
+	lifetime = minlifetime +  (maxlifetime - minlifetime) * (float)rand() / RAND_MAX;
+	r = minr + (maxr - minr) * (float)rand() / RAND_MAX;
+	g = ming + (maxg - ming) * (float)rand() / RAND_MAX;
+	b = minb + (maxb - minb) * (float)rand() / RAND_MAX;
+
 }
 
 void Emitter::ReviveParticle(Particle* particle) const

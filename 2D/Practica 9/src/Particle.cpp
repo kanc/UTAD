@@ -26,9 +26,14 @@ double Particle::GetLifetime() const
 	return lifetime;
 }
 
-void Particle::Update(double elapsed)
+void Particle::Update(double elapsed )
 {
 	Sprite::Update(elapsed);
+	
+	/*for (uint8 i = 0; i < lstAffectors.Size(); i++)
+		if(lstAffectors[i]->IsCollide(this))	lstAffectors[i]->AffectParticle(this);*/
+			
+
 	SetX( GetX() + (velocityx * elapsed) );
 	SetY( GetY() + (velocityy * elapsed) );
 	SetAngle( GetAngle() + (angularVelocity * elapsed) );

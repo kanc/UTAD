@@ -2,6 +2,7 @@
 #define UGINE_AFFECTOR_H
 
 #include "types.h"
+#include "array.h"
 #include "Particle.h"
 
 class Affector
@@ -12,8 +13,9 @@ class Affector
 		void SetMinColor(uint8 r, uint8 g, uint8 b);
 		void SetMaxColor(uint8 r, uint8 g, uint8 b);
 		void SetAngularVelocity(double minVel, double maxVel);
-		void AffectParticle (Particle* particle) const;
+		void AffectParticle (Particle* particle);
 		bool IsCollide(Particle *particle) const;
+		void DeleteAffectedParticle(Particle *particle);
 
 	private:
 		double x1, x2;
@@ -21,7 +23,8 @@ class Affector
 		double minAngVel, maxAngVel;
 		uint8 rmin,rmax;
 		uint8 gmin,gmax;
-		uint8 bmin,bmax;	
+		uint8 bmin,bmax;
+		Array<Particle *> affectedParticles;
 };
 
 #endif

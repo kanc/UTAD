@@ -1,5 +1,6 @@
 #include "image.h"
 #include "Particle.h"
+#include "Affector.h"
 
 class Emitter
 {
@@ -25,6 +26,8 @@ class Emitter
 		virtual bool IsEmitting() const;
 		virtual void Update(double elapsed);
 		virtual void Render() const;
+		virtual void AddAffector(Affector* affector);
+		virtual void DeleteAffector(Affector* affector);
 
 	private:		
 		void ReviveParticle(Particle* particle) const;
@@ -45,5 +48,6 @@ class Emitter
 		bool emitting;
 		
 		Array<Particle *> particles;
-		Array<uint32> particlesPool;
+		//Array<uint32> particlesPool;
+		Array<Affector *> affectors;
 };

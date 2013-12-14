@@ -4,6 +4,7 @@
 #include "sprite.h"
 #include "image.h"
 
+
 class Particle : public Sprite
 {
 	public:
@@ -16,7 +17,7 @@ class Particle : public Sprite
 		virtual void SetVelY(double vely) { velocityy = vely; }
 		virtual void SetAngularVel(double angVel) { angularVelocity = angVel; }
 		virtual void SetAutoFade(bool autof) { autofade = autof; }
-		virtual void Update(double elapsed);
+		virtual void Update(double elapsed );
 
 	private:
 		double velocityx, velocityy;

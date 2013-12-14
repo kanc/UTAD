@@ -8,7 +8,7 @@ Emitter::Emitter(Image* image, bool autofade)
 	this->image = image;
 	this->autofade = autofade;
 	blendMode = Renderer::ADDITIVE;
-	emitting = false;
+	emitting = false;	
 }
 
 Emitter::~Emitter()
@@ -19,6 +19,110 @@ Emitter::~Emitter()
 	particles.Clear();
 }
 
+
+void Emitter::Update(double elapsed)
+{	
+	Array<int> deleteParticles;
+
+	if (emitting) 
+	{
+		int nParticles = (minrate + (maxrate - minrate) * (float)rand() / RAND_MAX) * elapsed;	
+        for (int i = 0; i < nParticles; i++) 
+            particles.Add(CreateParticle());        
+	}	    
+
+    for (int i = 0; i < particles.Size(); i++) 
+	{
+		particles[i]->Update(elapsed);
+
+		for (uint8 a = 0; a < affectors.Size(); a++)
+			if (affectors[a]->IsCollide(particles[i])) affectors[a]->AffectParticle(particles[i]);
+
+        if ( particles[i]->GetLifetime() <= 0 )
+            deleteParticles.Add(i);
+	}
+
+    for (int i = 0; i < deleteParticles.Size(); i++ ) 
+    {    		
+		for (uint8 a = 0; a < affectors.Size(); a++)
+			affectors[a]->DeleteAffectedParticle(particles[i]);
+
+		particles.RemoveAt(i);
+	}
+							
+}
+
+void Emitter::GenerateRandomProperties(double& velocityX, double& velocityY, double& angVel, double& lifetime, uint8& r, uint8& g, uint8& b) const
+{
+	velocityX = minvelx + (maxvelx - minvelx) * (float)rand() / RAND_MAX;
+	velocityY = minvely + (maxvely - minvely) * (float)rand() / RAND_MAX;
+	angVel = minangvel + (maxangvel - minangvel) * (float)rand() / RAND_MAX;
+	lifetime = minlifetime +  (maxlifetime - minlifetime) * (float)rand() / RAND_MAX;
+	r = minr + (maxr - minr) * (float)rand() / RAND_MAX;
+	g = ming + (maxg - ming) * (float)rand() / RAND_MAX;
+	b = minb + (maxb - minb) * (float)rand() / RAND_MAX;
+
+}
+
+void Emitter::ReviveParticle(Particle* particle) const
+{
+	double velx, vely, angVel, lifetime;
+	uint8 r, g, b;
+
+	GenerateRandomProperties(velx, vely, angVel, lifetime, r, g, b);
+
+	particle->SetVelX(velx);
+	particle->SetVelY(vely);
+	particle->SetAngularVel(angVel);
+	particle->SetLifetime(lifetime);
+	particle->SetX(x);
+	particle->SetY(y);
+	particle->SetColor(r,g,b,255);
+
+}
+
+Particle * Emitter::CreateParticle() const
+{
+	double velx, vely, angVel, lifetime;
+	uint8 r, g, b;
+
+	GenerateRandomProperties(velx, vely, angVel, lifetime, r, g, b);
+
+	Particle* newParticle = new Particle(image, velx, vely,angVel,lifetime,autofade);
+	
+	newParticle->SetX(x);
+	newParticle->SetY(y);
+	newParticle->SetBlendMode(blendMode);
+	newParticle->SetColor(r,g,b,255);
+
+	return newParticle;
+}
+
+void Emitter::Render() const
+{
+	for (uint32 i = 0; i < particles.Size(); i++)
+	{
+		if (particles[i]->GetLifetime())
+			particles[i]->Render();
+	}
+
+}
+
+void Emitter::AddAffector(Affector* affector)
+{
+	if (affector)
+		affectors.Add(affector);
+}
+
+void Emitter::DeleteAffector(Affector *affector)
+{
+	for (uint8 i = 0; i < affectors.Size(); i++)
+		if (affectors[i] == affector)
+		{	
+			affectors.RemoveAt(i);
+			break;
+		}
+}
 
 void Emitter::SetPosition(double x, double y)
 {
@@ -109,83 +213,4 @@ void Emitter::Stop()
 bool Emitter::IsEmitting() const
 {
 	return emitting;
-}
-
-void Emitter::Update(double elapsed)
-{	
-	Array<int> deleteParticles;
-
-	if (emitting) 
-	{
-		int nParticles = (minrate + (maxrate - minrate) * (float)rand() / RAND_MAX) * elapsed;	
-        for (int i = 0; i < nParticles; i++) 
-            particles.Add(CreateParticle());        
-	}	    
-
-    for (int i = 0; i < particles.Size(); i++) 
-	{
-        particles[i]->Update(elapsed);
-        if ( particles[i]->GetLifetime() <= 0 )
-            deleteParticles.Add(i);
-	}
-
-    for (int i = 0; i < deleteParticles.Size(); i++ ) 
-        particles.RemoveAt(i);
-							
-}
-
-void Emitter::GenerateRandomProperties(double& velocityX, double& velocityY, double& angVel, double& lifetime, uint8& r, uint8& g, uint8& b) const
-{
-	velocityX = minvelx + (maxvelx - minvelx) * (float)rand() / RAND_MAX;
-	velocityY = minvely + (maxvely - minvely) * (float)rand() / RAND_MAX;
-	angVel = minangvel + (maxangvel - minangvel) * (float)rand() / RAND_MAX;
-	lifetime = minlifetime +  (maxlifetime - minlifetime) * (float)rand() / RAND_MAX;
-	r = minr + (maxr - minr) * (float)rand() / RAND_MAX;
-	g = ming + (maxg - ming) * (float)rand() / RAND_MAX;
-	b = minb + (maxb - minb) * (float)rand() / RAND_MAX;
-
-}
-
-void Emitter::ReviveParticle(Particle* particle) const
-{
-	double velx, vely, angVel, lifetime;
-	uint8 r, g, b;
-
-	GenerateRandomProperties(velx, vely, angVel, lifetime, r, g, b);
-
-	particle->SetVelX(velx);
-	particle->SetVelY(vely);
-	particle->SetAngularVel(angVel);
-	particle->SetLifetime(lifetime);
-	particle->SetX(x);
-	particle->SetY(y);
-	particle->SetColor(r,g,b,255);
-
-}
-
-Particle * Emitter::CreateParticle() const
-{
-	double velx, vely, angVel, lifetime;
-	uint8 r, g, b;
-
-	GenerateRandomProperties(velx, vely, angVel, lifetime, r, g, b);
-
-	Particle* newParticle = new Particle(image, velx, vely,angVel,lifetime,autofade);
-	
-	newParticle->SetX(x);
-	newParticle->SetY(y);
-	newParticle->SetBlendMode(blendMode);
-	newParticle->SetColor(r,g,b,255);
-
-	return newParticle;
-}
-
-void Emitter::Render() const
-{
-	for (uint32 i = 0; i < particles.Size(); i++)
-	{
-		if (particles[i]->GetLifetime())
-			particles[i]->Render();
-	}
-
 }

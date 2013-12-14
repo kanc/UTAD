@@ -25,5 +25,6 @@
 #include "sprite.h"
 #include "string.h"
 #include "types.h"
+#include "Affector.h"
 
 #endif

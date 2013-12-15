@@ -21,6 +21,7 @@ return 0;
 #include "uGui/Window.h"
 #include "uGui/Label.h"
 #include "uGui/IEventListener.h"
+#include "uGui/Slider.h"
 
 
 void CreateGUI();
@@ -58,6 +59,7 @@ int main(int argc, char* argv[])
 
 		Renderer::Instance().Clear(0, 0, 0);
 		GUIManager::instance().render();
+		Screen::Instance().SetTitle(String("x: ") + String::FromFloat(Screen::Instance().GetMouseX()) + String(" y: ") + Screen::Instance().GetMouseY());
 		Screen::Instance().Refresh();
 	}
 
@@ -77,12 +79,12 @@ void CreateGUI()
 
 	// Crea una ventana
 	Window* window = new Window();
-	window->init( "Ventana", Vector2(100,200), "data/GUI/Window4.png" );
+	window->init( "Ventana", Vector2(0,0), "data/GUI/Window4.png" );
 	window->setEventListener( &listener );
 	uiManager.setRootControl( window );
 
 	// Crea un botón
-	Button* b1 = new Button();
+	/*Button* b1 = new Button();
 	b1->init( "Boton1", Vector2( 300, 100 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png" );
 	b1->setEventListener( &listener );
 	b1->setParent( GUIManager::instance().getRootControl() );
@@ -93,7 +95,14 @@ void CreateGUI()
 	Button* b2 = new Button(); 
 	b2->init( "Boton2", Vector2( 200, 150 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png" );   
 	b2->setEventListener( &listener );
-	b2->setParent( GUIManager::instance().getRootControl() );
+	b2->setParent( GUIManager::instance().getRootControl() );*/
+
+	Slider* sl = new Slider();
+	sl->init("slider1",Vector2(200,50),300, 100,10,"data/GUI/Slider_bar2.png","data/GUI/Slider_ball.png","data/GUI/Slider_Left_Normal.png","data/GUI/Slider_Left_Push.png","data/GUI/Slider_Right_Normal.png","data/GUI/Slider_Right_Push.png");
+	sl->setEventListener(&listener);
+	sl->setParent(GUIManager::instance().getRootControl());
+
+	
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------

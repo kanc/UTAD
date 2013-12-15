@@ -72,6 +72,9 @@
     <ClCompile Include="uGui\ButtonLabel.cpp">
       <Filter>uGUI</Filter>
     </ClCompile>
+    <ClCompile Include="uGui\Slider.cpp">
+      <Filter>uGUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\array.h">
@@ -150,6 +153,9 @@
       <Filter>uGUI</Filter>
     </ClInclude>
     <ClInclude Include="uGui\ButtonLabel.h">
+      <Filter>uGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="uGui\Slider.h">
       <Filter>uGUI</Filter>
     </ClInclude>
   </ItemGroup>

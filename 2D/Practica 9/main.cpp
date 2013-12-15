@@ -25,7 +25,6 @@ int main(int argc, char* argv[])
 	affec2->SetMaxColor(0,255,255);
 	emitter->AddAffector(affec2);
 
-
 	emitter->SetAngularVelocity(0,360);
 	emitter->SetLifetime(1,2);
 	emitter->SetMaxColor(255,255,255);

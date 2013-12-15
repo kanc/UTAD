@@ -53,7 +53,7 @@ void Label::onInputEvent( const Message& message )
 
 void Label::destroy()
 {
-
+	delete m_font;
 }
 
 void Label::update()

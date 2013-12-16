@@ -23,16 +23,19 @@ bool Label::init( const std::string name, const Vector2& position,  const std::s
 
 void Label::render()
 {
-	Vector2 pos = getAbsolutePosition();
-	String text = String(m_text.c_str());
+	if (m_visible)
+	{
+		Vector2 pos = getAbsolutePosition();
+		String text = String(m_text.c_str());
 	
-	if (!m_pushed && m_acceptPush)
-		Renderer::Instance().SetColor(m_r, m_g, m_b, 255);
-	else
-		Renderer::Instance().SetColor(WrapValue (m_r - 50,255)  , WrapValue (m_g - 50,255), WrapValue (m_b - 50,255), 255);
-
-	m_font->Render(text,pos.x, pos.y);
-	Renderer::Instance().SetColor(255, 255, 255, 255);
+		if (!m_pushed)
+			Renderer::Instance().SetColor(m_r, m_g, m_b, 255);
+		else
+			Renderer::Instance().SetColor((uint8)WrapValue (m_r - 50,255), (uint8)WrapValue (m_g - 50,255), (uint8)WrapValue (m_b - 50,255), 255);
+	
+		m_font->Render(text,pos.x, pos.y);
+		Renderer::Instance().SetColor(255, 255, 255, 255);
+	}
 }
 
 void Label::onInputEvent( const Message& message )
@@ -53,7 +56,7 @@ void Label::onInputEvent( const Message& message )
 
 void Label::destroy()
 {
-	delete m_font;
+
 }
 
 void Label::update()

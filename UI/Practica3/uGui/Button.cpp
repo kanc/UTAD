@@ -112,9 +112,11 @@ void Button::destroy()
 		delete m_normalImage;
 		m_normalImage = NULL;
 	}
+
 	if( m_pushImage )
 	{
 		delete m_pushImage;
 		m_pushImage = NULL;
 	}
+
 }

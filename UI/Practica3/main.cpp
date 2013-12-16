@@ -58,8 +58,11 @@ int main(int argc, char* argv[])
 		GUIManager::instance().update();
 
 		Renderer::Instance().Clear(0, 0, 0);
-		GUIManager::instance().render();
-		Screen::Instance().SetTitle(String("x: ") + String::FromFloat(Screen::Instance().GetMouseX()) + String(" y: ") + Screen::Instance().GetMouseY());
+		GUIManager::instance().render();		
+
+		Slider* sli = (Slider *)GUIManager::instance().findControlByName("slider1");
+		float v = sli->getActualValue();
+		Screen::Instance().SetTitle(String::FromFloat(v));
 		Screen::Instance().Refresh();
 	}
 
@@ -98,11 +101,9 @@ void CreateGUI()
 	b2->setParent( GUIManager::instance().getRootControl() );*/
 
 	Slider* sl = new Slider();
-	sl->init("slider1",Vector2(200,50),300, 100,10,"data/GUI/Slider_bar2.png","data/GUI/Slider_ball.png","data/GUI/Slider_Left_Normal.png","data/GUI/Slider_Left_Push.png","data/GUI/Slider_Right_Normal.png","data/GUI/Slider_Right_Push.png");
+	sl->init("slider1",Vector2(200,50),300,"data/arial16_2.png",100,15,"data/GUI/Slider_bar2.png","data/GUI/Slider_ball.png","data/GUI/Slider_Left_Normal.png","data/GUI/Slider_Left_Push.png","data/GUI/Slider_Right_Normal.png","data/GUI/Slider_Right_Push.png");
 	sl->setEventListener(&listener);
-	sl->setParent(GUIManager::instance().getRootControl());
-
-	
+	sl->setParent(GUIManager::instance().getRootControl());	
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------

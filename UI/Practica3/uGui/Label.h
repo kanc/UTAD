@@ -22,6 +22,8 @@ class Label : public Control
 		unsigned char GetG() { return m_g; }
 		unsigned char GetB() { return m_b; }
 		void SetColor(unsigned char r, unsigned char g, unsigned char b) { m_r = r; m_g = g; m_b = b; }
+		std::string GetText() { return m_text; }
+		void SetText(std::string text) { m_text = text; }
 
 	private:
 		Font* m_font;

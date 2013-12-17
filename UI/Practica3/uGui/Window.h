@@ -22,6 +22,9 @@ protected:
 
 	// SDL
 	Image*								m_canvas;
+	bool								m_buttonPressed;
+	float								m_prevX;
+	float								m_prevY;
 };
 
 

@@ -6,6 +6,9 @@
 Window::Window()
 {
 	m_canvas					= NULL;
+	m_buttonPressed				= false;
+	m_prevX						= 0;
+	m_prevY						= 0;
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,9 +65,29 @@ void Window::onInputEvent( const Message& message )
 {
 	switch( message.type )
 	{
-	case mtPointerButtonUp:
-		NOTIFY_LISTENERS( onClick( this ) );
-		break;
+		case mtPointerButtonDown:
+			m_buttonPressed = true;
+			break;
+
+		case mtPointerButtonUp:
+			NOTIFY_LISTENERS( onClick( this ) );
+			m_buttonPressed = false;
+
+			break;
+		case mtPointerMove:
+			const MessagePointerMove* messagePointer = static_cast<const MessagePointerMove*>(&message);			
+			
+			if (m_buttonPressed)
+			{	
+				m_position.x += messagePointer->x - m_prevX;
+				m_position.y += messagePointer->y - m_prevY;
+			}
+
+			m_prevX = messagePointer->x;
+			m_prevY = messagePointer->y;
+			
+			break;
+	
 	}	
 }
 

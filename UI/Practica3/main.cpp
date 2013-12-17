@@ -22,7 +22,7 @@ return 0;
 #include "uGui/Label.h"
 #include "uGui/IEventListener.h"
 #include "uGui/Slider.h"
-
+#include "uGui/CheckBox.h"
 
 void CreateGUI();
 void MouseButtonCallback(int button, int action);
@@ -87,18 +87,15 @@ void CreateGUI()
 	uiManager.setRootControl( window );
 
 	// Crea un botón
-	/*Button* b1 = new Button();
-	b1->init( "Boton1", Vector2( 300, 100 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png" );
+	Button* b1 = new Button();
+	b1->init( "Boton1", Vector2( 300, 100 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png", "data/GUI/Button_Disabled.png");
 	b1->setEventListener( &listener );
 	b1->setParent( GUIManager::instance().getRootControl() );
+	b1->addText("data/arial16_2.png","Boton",255,255,255);
 
-	b1->addLabel("data/arial16_2.png","Boton",255,255,255);
-
-	// Crea un botón
-	Button* b2 = new Button(); 
-	b2->init( "Boton2", Vector2( 200, 150 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png" );   
-	b2->setEventListener( &listener );
-	b2->setParent( GUIManager::instance().getRootControl() );*/
+	Checkbox *chk1 = new Checkbox();
+	chk1->init("check1",Vector2(300, 200), "Opcion 1","data/arial16_2.png",255,255,255,"data/GUI/CheckBox_enabled.png","data/GUI/CheckBox_disabled.png","data/GUI/CheckBox_disabled.png");
+	chk1->setParent(GUIManager::instance().getRootControl());	
 
 	Slider* sl = new Slider();
 	sl->init("slider1",Vector2(200,50),300,"data/arial16_2.png",100,15,"data/GUI/Slider_bar2.png","data/GUI/Slider_ball.png","data/GUI/Slider_Left_Normal.png","data/GUI/Slider_Left_Push.png","data/GUI/Slider_Right_Normal.png","data/GUI/Slider_Right_Push.png");

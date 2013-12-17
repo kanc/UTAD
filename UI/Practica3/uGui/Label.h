@@ -24,6 +24,8 @@ class Label : public Control
 		void SetColor(unsigned char r, unsigned char g, unsigned char b) { m_r = r; m_g = g; m_b = b; }
 		std::string GetText() { return m_text; }
 		void SetText(std::string text) { m_text = text; }
+		bool isPushed() { return m_pushed; }		
+
 
 	private:
 		Font* m_font;

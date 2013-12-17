@@ -8,6 +8,7 @@
 #include "../include/renderer.h"
 #include "IEventListener.h"
 #include "../include/font.h"
+#include "../include/screen.h"
 
 class Slider : public Control, IEventListener
 {
@@ -26,11 +27,13 @@ class Slider : public Control, IEventListener
 	private:
 		void onClick(Control* sender);
 		
-		float m_size;
+		float m_barSize;
 		float m_maxValue;
 		float m_actualValue;
 		float m_steps;
 		float m_spaceControls;
+		float m_prevX;		
+		bool m_buttonPressed;
 		
 		Image* m_imgBar;
 		Image* m_imgSelector;

@@ -43,7 +43,8 @@ void Label::onInputEvent( const Message& message )
 	switch( message.type )
 	{
 		case mtPointerButtonDown:
-			m_pushed = true;			
+			if (m_acceptPush)
+				m_pushed = true;			
 			break;
 
 		case mtPointerButtonUp:

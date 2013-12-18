@@ -18,14 +18,16 @@ Button::Button()
 //------------------------------------------------------------------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------------------------------------------------------------------
-bool Button::init( const std::string name, const Vector2& position, const std::string& normalImage, const std::string& pushImage, const std::string& disabledImg)
+bool Button::init( const std::string name, const Vector2& position, const std::string& normalImage, const std::string& pushImage, const std::string& disabledImg, const std::string& overImg)
 {
 	m_name				= name;
 	m_position			= position;
 	m_normalImage		= ResourceManager::Instance().LoadImage ( normalImage.c_str() );
 	m_pushImage			= ResourceManager::Instance().LoadImage ( pushImage.c_str() );
 	m_disabledImage		= ResourceManager::Instance().LoadImage ( disabledImg.c_str() );
+	m_overImage			= ResourceManager::Instance().LoadImage ( overImg.c_str() );
 	m_size				= Vector2( (float)m_normalImage->GetWidth(), (float)m_normalImage->GetHeight() );		
+
 
 	return true;
 }
@@ -62,7 +64,9 @@ void Button::render()
 
 		if( m_pushed )
 			Renderer::Instance().DrawImage( m_pushImage, pos.x, pos.y );
-		else if( !m_pushed )
+		else if( !m_pushed && m_pointerIsOver)
+			Renderer::Instance().DrawImage( m_overImage, pos.x, pos.y );
+		else if (!m_pushed)
 			Renderer::Instance().DrawImage( m_normalImage, pos.x, pos.y );
 		else if (!isEnabled())								
 			Renderer::Instance().DrawImage( m_disabledImage, pos.x, pos.y );
@@ -115,7 +119,7 @@ void Button::onInputEvent( const Message& message )
 //------------------------------------------------------------------------------------------------------------------------------------------
 void Button::destroy()
 {
-	if( m_normalImage )
+/*	if( m_normalImage )
 	{
 		delete m_normalImage;
 		m_normalImage = NULL;
@@ -125,6 +129,6 @@ void Button::destroy()
 	{
 		delete m_pushImage;
 		m_pushImage = NULL;
-	}
+	}*/
 
 }

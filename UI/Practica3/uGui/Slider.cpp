@@ -6,14 +6,15 @@ Slider::Slider()
 	m_imgBar = NULL;
 	m_imgSelector = NULL;
 	m_parent = NULL;
-	m_spaceControls = 5;
+	m_spaceControls = 0;
 	m_prevX = 0;	
 	m_buttonPressed = false;
 	m_visible = true;
 }
 
 bool Slider::init( const std::string name, const Vector2& position, const float size, const std::string font, const float maxValue, const float steps, const std::string& imgBar, 
-			const std::string& imgBall, const std::string& imgBtnLeft, const std::string& imgBtnLeftPushed, const std::string& imgBtnRight, const std::string& imgBtnRightPushed )
+			const std::string& imgBall, const std::string& imgBtnLeft, const std::string& imgBtnLeftPushed, const std::string& imgBtnLeftover, const std::string& imgBtnRight, 
+			const std::string& imgBtnRightPushed, const std::string& imgBtnRightover)
 {
 	m_name = name;
 	m_position = position;
@@ -31,8 +32,8 @@ bool Slider::init( const std::string name, const Vector2& position, const float 
 	m_lblMax = new Label();
 
 	//instanciamos los botones
-	bool btnleft = m_btnLeft->init(m_name + "_leftbtn", Vector2(0,0), imgBtnLeft, imgBtnLeftPushed,imgBtnLeft);
-	bool btnrigth = m_btnRight->init(m_name + "_rightbtn", Vector2(imgLeft->GetWidth() + (m_spaceControls * 2) + size,0),imgBtnRight, imgBtnRightPushed, imgBtnRight);
+	bool btnleft = m_btnLeft->init(m_name + "_leftbtn", Vector2(0,0), imgBtnLeft, imgBtnLeftPushed,imgBtnLeft,imgBtnLeftover);
+	bool btnrigth = m_btnRight->init(m_name + "_rightbtn", Vector2(imgLeft->GetWidth() + (m_spaceControls * 2) + size,0),imgBtnRight, imgBtnRightPushed, imgBtnRight,imgBtnRightover);
 
 	Font* pFont = ResourceManager::Instance().LoadFont(String(font.c_str()));	
 	
@@ -70,9 +71,6 @@ void Slider::render()
 	{
 		Vector2 pos = getAbsolutePosition();
 		float selectorPos = ((m_barSize - m_imgSelector->GetWidth()) * m_actualValue / m_maxValue); //calculamos en el que posicion se pinta la imagen del selector
-	
-		m_btnLeft->render();
-		m_btnRight->render();
 
 		//barrita en posicion... x: tamaño del boton + espaciado + posicion global / y: posicion absoluta + mitad tamaño imagen del boton - mitad imagen de la propia barrita
 		Renderer::Instance().DrawTiledImage(m_imgBar, m_btnLeft->getSize().x + pos.x + m_spaceControls, pos.y + (m_btnLeft->getSize().y / 2) - (m_imgBar->GetHeight() / 2), m_barSize ,m_imgBar->GetHeight());	

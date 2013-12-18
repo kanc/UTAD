@@ -16,7 +16,8 @@ class Slider : public Control, IEventListener
 		Slider();
 
 		bool init( const std::string name, const Vector2& position, const float size, const std::string font, const float maxValue, const float steps, const std::string& imgBar, 
-			const std::string& imgBall, const std::string& imgBtnLeft, const std::string& imgBtnLeftPushed, const std::string& imgBtnRight, const std::string& imgBtnRightPushed );
+			const std::string& imgBall, const std::string& imgBtnLeft, const std::string& imgBtnLeftPushed, const std::string& imgBtnLeftover, const std::string& imgBtnRight, 
+			const std::string& imgBtnRightPushed, const std::string& imgBtnRightover);
 
 		virtual void update();
 		virtual void render();

@@ -11,7 +11,7 @@ class Button : public Control
 public:
 	Button();
 
-	bool init( const std::string name, const Vector2& position, const std::string& normalImage, const std::string& pushImage, const std::string& disableImg);
+	bool init( const std::string name, const Vector2& position, const std::string& normalImage, const std::string& pushImage, const std::string& disableImg, const std::string& overImg);
 
 	virtual void update();
 	virtual void render();
@@ -22,6 +22,7 @@ public:
 protected:
 	Image*								m_normalImage;
 	Image*								m_pushImage;
+	Image*								m_overImage;
 	Image*								m_disabledImage;
 	Font*								m_font;
 	bool								m_pushed;

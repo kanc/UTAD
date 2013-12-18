@@ -102,3 +102,5 @@ void GUIManager::deleteControl( const string& name )
 			parent->removeControl( control );
 	}
 }
+
+

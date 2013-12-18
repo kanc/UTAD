@@ -2,6 +2,7 @@
 #include "GUIManager.h"
 #include "../include/Renderer.h"
 #include "../include/Image.h"
+#include "../include/resourcemanager.h"
 
 Window::Window()
 {
@@ -18,7 +19,7 @@ bool Window::init( const std::string name, const Vector2& position, const std::s
 {
 	m_name					= name;
 	m_position			= position;
-	m_canvas				= new Image( backgroungImage.c_str() );
+	m_canvas				= ResourceManager::Instance().LoadImage( backgroungImage.c_str() );
 	m_size					= Vector2( (float)m_canvas->GetWidth(), (float)m_canvas->GetHeight() );
 
 	return true;
@@ -96,9 +97,9 @@ void Window::onInputEvent( const Message& message )
 //------------------------------------------------------------------------------------------------------------------------------------------
 void Window::destroy()
 {
-	if( m_canvas )
+	/*if( m_canvas )
 	{
 		delete m_canvas;
 		m_canvas = NULL;
-	}
+	}*/
 }

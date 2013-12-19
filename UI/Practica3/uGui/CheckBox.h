@@ -8,7 +8,7 @@ class Checkbox : public Control
 {
 	public:
 		Checkbox();
-		bool init( const std::string name, const Vector2& position, const std::string text, const std::string font, uint8 r, uint8 g, uint8 b, const std::string& checkedImg, const std::string& uncheckedImg, const std::string& disableImg);
+		bool init( const std::string name, const Vector2& position, const float size, const std::string text, const std::string font, uint8 r, uint8 g, uint8 b, const std::string& checkedImg, const std::string& uncheckedImg, const std::string& disableImg);
 
 		virtual void update();
 		virtual void render();

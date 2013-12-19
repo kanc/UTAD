@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\CollisionManager.cpp" />
     <ClCompile Include="lib\stb_image.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Affector.cpp" />
     <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\CollisionPixelData.cpp" />
     <ClCompile Include="src\Emitter.cpp" />
     <ClCompile Include="src\font.cpp" />
     <ClCompile Include="src\image.cpp" />
@@ -30,6 +32,10 @@
     <ClInclude Include="include\Affector.h" />
     <ClInclude Include="include\array.h" />
     <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\circlecollision.h" />
+    <ClInclude Include="include\collision.h" />
+    <ClInclude Include="include\CollisionManager.h" />
+    <ClInclude Include="include\CollisionPixelData.h" />
     <ClInclude Include="include\Emitter.h" />
     <ClInclude Include="include\font.h" />
     <ClInclude Include="include\glinclude.h" />
@@ -37,6 +43,7 @@
     <ClInclude Include="include\image.h" />
     <ClInclude Include="include\math.h" />
     <ClInclude Include="include\Particle.h" />
+    <ClInclude Include="include\rectcollision.h" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\resourcemanager.h" />
     <ClInclude Include="include\scene.h" />

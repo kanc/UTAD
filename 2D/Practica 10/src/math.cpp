@@ -52,13 +52,22 @@ double Distance(double x1, double y1, double x2, double y2) {
 	
 }
 
+double SquareDistance(double x1, double y1, double x2, double y2) {
+	
+	return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+	
+}
+
 bool ValueInRange(double value, double min, double max) {
 	return (value >= min) && (value <= max);
 }
 
 bool PointInRect(double x, double y, double rectx, double recty, double width, double height) {
-	// TAREA: Implementar funcion
-	return false;
+
+	if (x > rectx && x < rectx + width && y > recty && y < recty + height)
+		return true;
+	else
+		return false;
 }
 
 void ClosestPointToRect(double x, double y, double rectx, double recty, double width, double height, double* outx, double* outy) {
@@ -67,12 +76,45 @@ void ClosestPointToRect(double x, double y, double rectx, double recty, double w
 }
 
 bool RectsOverlap(double x1, double y1, double width1, double height1, double x2, double y2, double width2, double height2) {
-	// TAREA: Implementar funcion
-	return false;
+
+	if (x1 < x2 && x1 + width1 > x2 && y1 < y2 + height2 && y1 + height1 > y2)
+		return true;
+	else
+		return false;
 }
 
 void OverlappingRect(double x1, double y1, double width1, double height1, double x2, double y2, double width2, double height2, double* outx, double* outy, double* outwidth, double* outheight) {
-	// TAREA: Implementar funcion
+
+	if (x1 > x2 && x1 < x2 + width2)
+		*outx = x1;
+	else
+		*outx = x2;
+
+	if (y1 > y2 && y1 < y2 + height2)
+		*outy = y1;
+	else
+		*outy = y2;
+
+	if (x1 + width1 > x2 && x1 + width1 < x2 + width2)
+		*outwidth = x1 + width1 - *outx;
+	else
+		*outwidth = x2 + width2 - *outx;
+
+	if (y1 + height1 > y2 && y1 + height1 < y2 + height2)
+		*outheight = y1 + height1 - *outy;
+	else
+		*outheight = y2 + height2 - *outy;
+}
+
+bool PointInCircle (double x1, double y1, double xc, double yc, double rc)
+{
+	double sqDist = SquareDistance(x1,y1,xc,yc);
+
+	if (sqDist < (rc * rc))
+		return true;
+	else
+		return false;
+
 }
 
 void TransformIsoCoords(double isoX, double isoY, double isoZ, double* screenX, double* screenY) {

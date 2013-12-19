@@ -1,11 +1,11 @@
 #include "../include/sprite.h"
-//#include "../include/rectcollision.h"
+#include "../include/rectcollision.h"
 #include "../include/image.h"
 //#include "../include/map.h"
 #include "../include/math.h"
 //#include "../include/pixelcollision.h"
 #include "../include/renderer.h"
-//#include "../include/circlecollision.h"
+#include "../include/circlecollision.h"
 #include <math.h>
 #include "../include/screen.h"
 
@@ -16,11 +16,13 @@ Sprite::Sprite(Image* image) {
 	colx = coly = colwidth = colheight = 0;
 	angle = radius = 0;
 	scalex = scaley =  0;
-	animFPS = firstFrame = lastFrame = currentFrame = 0;
+	animFPS = firstFrame = lastFrame = 0;
+	currentFrame = 0;
 	blendMode = Renderer::ALPHA;
 	r = g = b = a = 0;
 	collided = rotating = moving = scaling = false;
-	toAngle = rotatingSpeed = anglesToRotate = 0;
+	toAngle = 0 ;
+	rotatingSpeed = anglesToRotate = 0;
 	toX = toY = movingSpeedX = movingSpeedY = 0;
 	scalingSpeedX = scalingSpeedY = 0;
 	scalex = scaley = 1;
@@ -39,11 +41,13 @@ Sprite::Sprite()
 	colx = coly = colwidth = colheight = 0;
 	angle = radius = 0;
 	scalex = scaley =  0;
-	animFPS = firstFrame = lastFrame = currentFrame = 0;
+	animFPS = firstFrame = lastFrame = 0;
+	currentFrame = 0;
 	blendMode = Renderer::ALPHA;
 	r = g = b = a = 0;
 	collided = rotating = moving = scaling = false;
-	toAngle = rotatingSpeed = anglesToRotate = 0;
+	toAngle = 0;
+	rotatingSpeed = anglesToRotate = 0;
 	toX = toY = movingSpeedX = movingSpeedY = 0;
 	scalingSpeedX = scalingSpeedY = 0;
 	scalex = scaley = 1;
@@ -59,11 +63,55 @@ Sprite::~Sprite() {
 }
 
 void Sprite::SetCollision(CollisionMode mode) {
-	// TAREA: Implementar
+	
+	double h,w = 0;
+
+	switch (mode)
+	{
+		case CollisionMode::COLLISION_NONE:
+			delete collision;
+			collision = NULL;
+
+			break;
+
+		case CollisionMode::COLLISION_CIRCLE:
+			delete collision;
+			collision = new CircleCollision(&x,&y,&radius);
+
+			break;
+
+		case CollisionMode::COLLISION_RECT:			
+			w = image->GetWidth();
+			h = image->GetHeight();
+
+			delete collision;
+			//collision = new RectCollision(&x,&y,&w,&h );
+
+			break;
+
+		case CollisionMode::COLLISION_PIXEL:
+			break;
+
+	}
 }
 
 bool Sprite::CheckCollision(Sprite* sprite) {
-	return false;
+	
+	if (collision && sprite->GetCollision())
+		if (collision->DoesCollide(sprite->GetCollision()))
+		{	
+			colSprite = sprite;
+			collided = true;
+			sprite->colSprite = this;
+			sprite->collided = true;
+
+			return true;
+		}
+		else
+			return false;
+	else
+		return false;
+		
 }
 
 bool Sprite::CheckCollision(const Map* map) {
@@ -72,7 +120,7 @@ bool Sprite::CheckCollision(const Map* map) {
 
 void Sprite::RotateTo(int32 angle, double speed) {
 	
-	toAngle = WrapValue(angle,360);	
+	toAngle = (uint16) WrapValue(angle,360);	
 			
 	//giramos en sentido horario
 	if ( WrapValue(toAngle - this->angle,360) > WrapValue(this->angle - toAngle,360))
@@ -214,9 +262,21 @@ void Sprite::Render() const {
 }
 
 void Sprite::UpdateCollisionBox() {
-	// TAREA: Implementar
+	
+	double cx = x - image->GetHandleX() * fabs(scalex);
+	double cy = y + image->GetHandleY() * fabs(scaley);
+	double w = image->GetWidth() * fabs(scalex);
+	double h = image->GetHeight() * fabs(scaley);
+
+	UpdateCollisionBox(cx,cy,w,h);
+
 }
 
 void Sprite::UpdateCollisionBox(double x, double y, double w, double h) {
-	// TAREA: Implementar
+	
+	colx = x;
+	coly = y;
+	colwidth = w;
+	colheight = h;
+
 }

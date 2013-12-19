@@ -6,7 +6,7 @@ Checkbox::Checkbox()
 	m_spaceControl = 5;
 }
 
-bool Checkbox::init( const std::string name, const Vector2& position, const std::string text, const std::string font, uint8 r, uint8 g, uint8 b, const std::string& checkedImg, const std::string& uncheckedImg, const std::string& disableImg)
+bool Checkbox::init( const std::string name, const Vector2& position, const float size, const std::string text, const std::string font, uint8 r, uint8 g, uint8 b, const std::string& checkedImg, const std::string& uncheckedImg, const std::string& disableImg)
 {
 	m_name = name;
 	m_position = position;
@@ -19,10 +19,17 @@ bool Checkbox::init( const std::string name, const Vector2& position, const std:
 	m_checkLabel->setParent(this);
 	m_checkLabel->setPosition(Vector2(0, (m_imgChecked->GetHeight() / 2) - (m_checkLabel->getSize().y / 2)));
 
-	if (lbl && m_imgChecked && m_imgUnchecked)
-	{
+	if (lbl && m_imgChecked && m_imgUnchecked)	{
 		
-		m_size = Vector2(m_checkLabel->getSize().x + m_imgChecked->GetWidth() + m_spaceControl, m_imgChecked->GetHeight());
+		float finalWidth;
+
+		//si el tamaño pasado es menor que el tamaño del texto + tamaño de la imagen + el espaciado...
+		if (size < m_checkLabel->getSize().x + m_imgChecked->GetWidth() + m_spaceControl)
+			finalWidth = m_checkLabel->getSize().x + m_imgChecked->GetWidth() + m_spaceControl;
+		else
+			finalWidth = size;
+
+		m_size = Vector2(finalWidth, m_imgChecked->GetHeight());
 		return true;
 	}
 	else
@@ -44,9 +51,9 @@ void Checkbox::render()
 		m_checkLabel->render();
 
 		if (m_checked)
-			Renderer::Instance().DrawImage(m_imgChecked, pos.x + m_checkLabel->getSize().x + m_spaceControl, pos.y );
+			Renderer::Instance().DrawImage(m_imgChecked, pos.x + m_size.x - m_imgChecked->GetWidth(), pos.y );
 		else
-			Renderer::Instance().DrawImage(m_imgUnchecked, pos.x + m_checkLabel->getSize().x + m_spaceControl, pos.y) ;
+			Renderer::Instance().DrawImage(m_imgUnchecked, pos.x + m_size.x - m_imgChecked->GetWidth(), pos.y) ;
 	}
 
 }

@@ -32,6 +32,7 @@ void createSettingsWindow();
 void createCreditsWindow();
 void createExitWindow();
 void createUI();
+
 //------------------------------------------------------------------------------------------------------------------------------------------
 //
 //------------------------------------------------------------------------------------------------------------------------------------------
@@ -108,10 +109,13 @@ int main(int argc, char* argv[])
 	emitter->SetY(100);
 	emitter->Start();
 
-	while ( Screen::Instance().IsOpened()  &&  !Screen::Instance().KeyPressed(GLFW_KEY_ESC) && m_gameState!=eEnd ) 
+	while ( Screen::Instance().IsOpened()  && m_gameState!=eEnd ) 
 	{		
 		Renderer::Instance().Clear();
 
+		if (Screen::Instance().KeyPressed(GLFW_KEY_ESC))
+			 m_gameState = eMainWindow;
+		
 		emitter->SetX(emitter->GetX() + (VelEmitterX * Screen::Instance().ElapsedTime()));
 		emitter->SetY(emitter->GetY() + (VelEmitterY * Screen::Instance().ElapsedTime()));
 		
@@ -135,6 +139,7 @@ int main(int argc, char* argv[])
 
 		Screen::Instance().Refresh();
 	}
+
 	emitter->Stop();
 	delete emitter;
 
@@ -157,10 +162,10 @@ void createUI()
 			break;
 
 		case eNewGame:
-			if (GUIManager::instance().getRootControl())
+			if (GUIManager::instance().getRootControl())				
 			{	
 				GUIManager::instance().deleteControl(GUIManager::instance().getRootControl()->getName());
-				GUIManager::instance().setRootControl(NULL);
+				GUIManager::instance().init();			
 			}
 				
 			break;
@@ -314,7 +319,6 @@ void createCreditsWindow()
 	btnBack->setParent(window);
 	btnBack->setEventListener(&listener);	
 
-
 }
 
 void createSettingsWindow()
@@ -340,17 +344,17 @@ void createSettingsWindow()
 	titulo->setParent(window);
 
 	Checkbox* chkGore = new Checkbox();
-	chkGore->init("chkgore",Vector2(xoffset, yoffset), "Enable Gore Mode","data/arial16_2.png",255,255,255,"data/GUI/chkon.png","data/GUI/chkoff.png","data/GUI/chkoff.png");
+	chkGore->init("chkgore",Vector2(xoffset, yoffset), 250, "Enable Gore Mode","data/arial16_2.png",255,255,255,"data/GUI/chkon.png","data/GUI/chkoff.png","data/GUI/chkoff.png");
 	chkGore->setParent(window);
 	chkGore->setEventListener(&listener);
 	
 	Checkbox* chkParticles = new Checkbox();
-	chkParticles->init("chkparticle",Vector2(xoffset, chkGore->getPosition().y + chkGore->getSize().y + spaced), "Enable Particles","data/arial16_2.png",255,255,255,"data/GUI/chkon.png","data/GUI/chkoff.png","data/GUI/chkoff.png");
+	chkParticles->init("chkparticle",Vector2(xoffset, chkGore->getPosition().y + chkGore->getSize().y + spaced),250, "Enable Particles","data/arial16_2.png",255,255,255,"data/GUI/chkon.png","data/GUI/chkoff.png","data/GUI/chkoff.png");
 	chkParticles->setParent(window);
 	chkParticles->setEventListener(&listener);
 	
 	Checkbox* chkAutoSave = new Checkbox();
-	chkAutoSave->init("chkautosave",Vector2(xoffset, chkParticles->getPosition().y + chkParticles->getSize().y + spaced), "Enable Autosave","data/arial16_2.png",255,255,255,"data/GUI/chkon.png","data/GUI/chkoff.png","data/GUI/chkoff.png");
+	chkAutoSave->init("chkautosave",Vector2(xoffset, chkParticles->getPosition().y + chkParticles->getSize().y + spaced),250, "Enable Autosave","data/arial16_2.png",255,255,255,"data/GUI/chkon.png","data/GUI/chkoff.png","data/GUI/chkoff.png");
 	chkAutoSave->setParent(window);
 	chkAutoSave->setEventListener(&listener);
 

@@ -139,5 +139,5 @@ void Renderer::DrawTiledImage(const Image* image, double x, double y, double wid
 }
 
 void Renderer::DrawText(const Font* font, const String &text, double x, double y) const {
-	//font->(text, x, y);
+	//font->Render(text, x, y);
 }

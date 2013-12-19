@@ -78,6 +78,15 @@
     <ClCompile Include="uGui\CheckBox.cpp">
       <Filter>uGUI</Filter>
     </ClCompile>
+    <ClCompile Include="src\Affector.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Emitter.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particle.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\array.h">
@@ -163,6 +172,15 @@
     </ClInclude>
     <ClInclude Include="uGui\CheckBox.h">
       <Filter>uGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Affector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Emitter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Particle.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

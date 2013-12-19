@@ -87,8 +87,8 @@ unsigned char * Image::ManageImageBuffer(unsigned char *buffer, int actualHeight
 	unsigned char *newBuffer = new unsigned char[newHeight * newWidth * 4];	
 	memset(newBuffer,0,newHeight * newWidth * 4);
 	
-	for (int y = 0; y < actualHeight; y++) //recorremos las lineas verticales
-	{	for (int x = 0; x < actualWidth; x++) //recorremos las lineas horizontales de 4 en 4 (tamaño de nuestro pixel)
+	for (unsigned int y = 0; y < actualHeight; y++) //recorremos las lineas verticales
+	{	for (unsigned int x = 0; x < actualWidth; x++) //recorremos las lineas horizontales de 4 en 4 (tamaño de nuestro pixel)
 		{
 			newBuffer[(y * newWidth * 4) + (x * 4)] = buffer[(y * actualWidth * 4) + (x * 4)]; //R
 			newBuffer[(y * newWidth * 4) + (x * 4) + 1] = buffer[(y * actualWidth * 4) + (x * 4) + 1]; //G

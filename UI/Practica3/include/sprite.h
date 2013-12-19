@@ -18,6 +18,7 @@ public:
 		COLLISION_RECT
 	};
 
+	Sprite();
 	Sprite(Image* image);
 	virtual ~Sprite();
 
@@ -53,7 +54,7 @@ public:
 
 	virtual void SetBlendMode(Renderer::BlendMode blend) { this->blendMode = blend;}
 	virtual Renderer::BlendMode GetBlendMode() const { return this->blendMode; }
-    virtual void SetColor(uint8 r, uint8 g, uint8 b, uint8 alpha = 255) { this->r = r; this->g = g; this->b = b; this->a = a; }
+    virtual void SetColor(uint8 r, uint8 g, uint8 b, uint8 alpha = 255) { this->r = r; this->g = g; this->b = b; this->a = alpha; }
     virtual uint8 GetRed() const { return this->r; }
     virtual uint8 GetGreen() const { return this->g; }
     virtual uint8 GetBlue() const { return this->b; }

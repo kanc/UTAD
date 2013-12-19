@@ -55,6 +55,7 @@ void Window::render()
 		Vector2 pos = getAbsolutePosition();
 
 		Renderer::Instance().SetBlendMode( Renderer::ALPHA );
+		Renderer::Instance().SetColor(255,255,255,255);
 		Renderer::Instance().DrawImage( m_canvas, pos.x, pos.y );
 	}
 }

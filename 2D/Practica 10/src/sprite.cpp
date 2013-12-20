@@ -3,7 +3,7 @@
 #include "../include/image.h"
 //#include "../include/map.h"
 #include "../include/math.h"
-//#include "../include/pixelcollision.h"
+#include "../include/pixelcollision.h"
 #include "../include/renderer.h"
 #include "../include/circlecollision.h"
 #include <math.h>
@@ -19,7 +19,7 @@ Sprite::Sprite(Image* image) {
 	animFPS = firstFrame = lastFrame = 0;
 	currentFrame = 0;
 	blendMode = Renderer::ALPHA;
-	r = g = b = a = 0;
+	r = g = b = a = 255;
 	collided = rotating = moving = scaling = false;
 	toAngle = 0 ;
 	rotatingSpeed = anglesToRotate = 0;
@@ -44,7 +44,7 @@ Sprite::Sprite()
 	animFPS = firstFrame = lastFrame = 0;
 	currentFrame = 0;
 	blendMode = Renderer::ALPHA;
-	r = g = b = a = 0;
+	r = g = b = a = 255;
 	collided = rotating = moving = scaling = false;
 	toAngle = 0;
 	rotatingSpeed = anglesToRotate = 0;
@@ -64,32 +64,28 @@ Sprite::~Sprite() {
 
 void Sprite::SetCollision(CollisionMode mode) {
 	
-	double h,w = 0;
+	delete collision;
 
 	switch (mode)
 	{
-		case CollisionMode::COLLISION_NONE:
-			delete collision;
+		case CollisionMode::COLLISION_NONE:	
 			collision = NULL;
 
 			break;
 
-		case CollisionMode::COLLISION_CIRCLE:
-			delete collision;
+		case CollisionMode::COLLISION_CIRCLE:			
 			collision = new CircleCollision(&x,&y,&radius);
 
 			break;
 
-		case CollisionMode::COLLISION_RECT:			
-			w = image->GetWidth();
-			h = image->GetHeight();
-
-			delete collision;
-			//collision = new RectCollision(&x,&y,&w,&h );
+		case CollisionMode::COLLISION_RECT:						
+			collision = new RectCollision(&colx,&coly,&colwidth,&colheight);
 
 			break;
 
 		case CollisionMode::COLLISION_PIXEL:
+			collision = new PixelCollision(colPixelData, &colx, &coly);
+
 			break;
 
 	}
@@ -264,7 +260,7 @@ void Sprite::Render() const {
 void Sprite::UpdateCollisionBox() {
 	
 	double cx = x - image->GetHandleX() * fabs(scalex);
-	double cy = y + image->GetHandleY() * fabs(scaley);
+	double cy = y - image->GetHandleY() * fabs(scaley);
 	double w = image->GetWidth() * fabs(scalex);
 	double h = image->GetHeight() * fabs(scaley);
 

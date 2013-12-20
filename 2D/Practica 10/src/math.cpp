@@ -54,8 +54,7 @@ double Distance(double x1, double y1, double x2, double y2) {
 
 double SquareDistance(double x1, double y1, double x2, double y2) {
 	
-	return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
-	
+	return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);	
 }
 
 bool ValueInRange(double value, double min, double max) {
@@ -106,11 +105,9 @@ void OverlappingRect(double x1, double y1, double width1, double height1, double
 		*outheight = y2 + height2 - *outy;
 }
 
-bool PointInCircle (double x1, double y1, double xc, double yc, double rc)
+bool PointInCircle (double x, double y, double xc, double yc, double rc)
 {
-	double sqDist = SquareDistance(x1,y1,xc,yc);
-
-	if (sqDist < (rc * rc))
+	if (SquareDistance(x,y,xc,yc) < rc * rc)
 		return true;
 	else
 		return false;

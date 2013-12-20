@@ -137,5 +137,8 @@
     <ClInclude Include="include\CollisionPixelData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\PixelCollision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

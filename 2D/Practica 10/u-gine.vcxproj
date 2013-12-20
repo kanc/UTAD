@@ -43,6 +43,7 @@
     <ClInclude Include="include\image.h" />
     <ClInclude Include="include\math.h" />
     <ClInclude Include="include\Particle.h" />
+    <ClInclude Include="include\PixelCollision.h" />
     <ClInclude Include="include\rectcollision.h" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\resourcemanager.h" />
@@ -63,7 +64,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

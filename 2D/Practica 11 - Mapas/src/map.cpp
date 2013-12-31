@@ -20,6 +20,7 @@ Map::Map(const String &filename, uint16 firstColId) {
 	xml_document<> xmlparser;
 	xmlparser.parse<0>((char *)file.ToCString());
 
+	//guardamos los datos del mapa
 	xml_node<>* nodeMap = xmlparser.first_node("map");
 
 	width = atoi(nodeMap->first_attribute("width")->value());
@@ -27,22 +28,61 @@ Map::Map(const String &filename, uint16 firstColId) {
 	tileWidth = atoi(nodeMap->first_attribute("tilewidth")->value());
 	tileHeight = atoi(nodeMap->first_attribute("tileheight")->value());
 
-	xml_node<>* nodeTile = nodeMap->first_node("tileset");
+	//guardamos los datos del tileset
+	xml_node<>* nodeTileset = nodeMap->first_node("tileset");
 
-	uint32 firstgid = atoi(nodeTile->first_attribute("firstgid")->value());
-	uint32 tWidth = atoi(nodeTile->first_attribute("tilewidth")->value());
-	uint32 tHeight = atoi(nodeTile->first_attribute("tileheight")->value());
-	uint32 x,y;
-
-	xml_node<>* nodeOffset = nodeTile->first_node("tileoffset");
+	uint16 firstgid = atoi(nodeTileset->first_attribute("firstgid")->value());
+	uint16 tWidth = atoi(nodeTileset->first_attribute("tilewidth")->value());
+	uint16 tHeight = atoi(nodeTileset->first_attribute("tileheight")->value());
+	uint16 offsX,offsY;	
+	offsX = offsY = 0;
+	//guardamos el offset
+	xml_node<>* nodeOffset = nodeTileset->first_node("tileoffset");
 
 	if (nodeOffset)
 	{
-		x = atoi(nodeOffset->first_attribute("x")->value());
-		y = atoi(nodeOffset->first_attribute("y")->value());
+		offsX = atoi(nodeOffset->first_attribute("x")->value());
+		offsY = atoi(nodeOffset->first_attribute("y")->value());
 	}
 
+	//guardamos los datos del fichero de imagen
+	xml_node<>* nodeImg = nodeTileset->first_node("image");
+	this->imageFile = String( (char *)nodeImg->first_attribute("source")->value() );
+	uint16 imgWidth = atoi(nodeImg->first_attribute("width")->value());
+	uint16 imgHeight = atoi(nodeImg->first_attribute("height")->value());
 
+	//gestionamos solo la primera capa de tiles
+	xml_node<>* nodeData = nodeMap->first_node("layer")->first_node("data");
+
+	//comprobamos que no haya codificacion en "data" y en tal caso salimos con valid=false
+	xml_attribute<>* eleEnc = nodeData->first_attribute("enconding");
+	xml_attribute<>* eleComp = nodeData->first_attribute("compresion");
+
+	if (eleEnc || eleComp)
+		return;
+	
+	//guardamos los tiles
+	xml_node<>* nodeTile = nodeData->first_node("tile");
+
+	while (nodeTile)
+	{
+		//cogemos el id del tile y le restamos el valor firstgid
+		int16 tid = atoi(nodeTile->first_attribute("gid")->value());
+		tid -= firstgid;
+		if (tid < 0) tid = 0;
+
+		this->tileIds.Add(tid);
+
+		nodeTile = nodeTile->next_sibling("tile");
+	}
+
+	this->imageFile = filename.ExtractDir() + "/" + this->imageFile;
+
+	//el numero de frames lo obtenemos dividiendo el ancho/alto de la imagen por el ancho/alto del tile
+	this->image = ResourceManager::Instance().LoadImage(imageFile, imgWidth / tWidth, imgHeight / tHeight );
+	this->image->SetHandle(offsX, offsY);
+
+	valid = true;
 
 }
 

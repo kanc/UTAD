@@ -148,6 +148,7 @@ String String::FromFloat(float val)
 
 	String newobj= String(pszText);
 
+	pszText = NULL;
 	delete[] pszText;
 	
 	return newobj;

@@ -11,6 +11,12 @@ int _tmain(int argc, _TCHAR* argv[])
 	int i;
 	char c='a';	
 
+	String j = String::FromInt(45);
+
+	printf("%s",j.ToCString());
+
+	getchar();
+
 	i=test2.Find(test,5);
 	
 	c=(test)[50];

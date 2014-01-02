@@ -1,115 +1,83 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
-#include "include/u-gine.h"
-/*
+#include "../include/u-gine.h"
+
 int main(int argc, char* argv[]) {
-Screen::Instance().Open(640, 480, false);
+    Screen& screen = Screen::Instance();
+    ResourceManager& resManager =  ResourceManager::Instance();
 
-while ( Screen::Instance().IsOpened() && !Screen::Instance().KeyPressed(GLFW_KEY_ESC) ) {
-Screen::Instance().Refresh();
-}
+    //screen.Open(screen.GetDesktopWidth(), screen.GetDesktopHeight(), true);
+    screen.Open(800, 600, false);
 
-return 0;
-}
-*/
+    Image* characterImg = resManager.LoadImage("data/images/character.png", 16);
+    Image* backImg = resManager.LoadImage("data/images/clouds.png");
+    Map* map = resManager.LoadMap("data/maps/map.tmx");
 
-#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+    characterImg->SetHandle(characterImg->GetWidth()/2, characterImg->GetHeight());
+	
+	MapScene scene(map, backImg, backImg);
+    scene.SetBackgroundColor(0, 155, 255);
+    scene.SetRelativeBackSpeed(0.6, 0.6);
+    scene.SetRelativeFrontSpeed(0.8, 0.8);
+    scene.SetAutoBackSpeed(-4, 2);
+    scene.SetAutoFrontSpeed(-6, 3);
 
-#include "include/u-gine.h"
-#include "uGui/GUIManager.h"
-#include "UGui/Button.h"
-#include "uGui/Window.h"
-#include "uGui/IEventListener.h"
+    Sprite* character = scene.CreateSprite(characterImg);
+    character->SetFrameRange(0, 8);
+    character->SetPosition(192, 400);
+    character->SetCollision(Sprite::COLLISION_RECT);
 
-void CreateGUI();
-void MouseButtonCallback(int button, int action);
-void MousePosCallback(int x, int y);
+    Camera& cam = scene.GetCamera();
+    cam.SetBounds(0, 0, scene.GetMap()->GetWidth(), scene.GetMap()->GetHeight());
+    cam.FollowSprite(character);
 
-//------------------------------------------------------------------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------------------------------------------------------------------
-class Listener : public IEventListener
-{
-	void onClick( Control* sender )
-	{
-		printf( "onClick -> Control %s\n", sender->getName().c_str());
+	double gravity = 10;
+    while (screen.IsOpened()  &&  !screen.KeyPressed(GLFW_KEY_ESC)) {
+		// Actualizamos movimiento del jugador
+        double toX = character->GetX();
+        if ( screen.KeyPressed(GLFW_KEY_LEFT) ) {
+			toX = -10000;
+            character->SetScale(-1, 1);
+        } else if ( screen.KeyPressed(GLFW_KEY_RIGHT) ) {
+			toX = 10000;
+            character->SetScale(1, 1);
+		}
+        character->MoveTo(toX, character->GetY() + gravity, 256, 512);
+
+		// Calculamos distancia al suelo
+        double distanceToFloor = Distance(character->GetX(), character->GetY(), character->GetX(), scene.GetMap()->GetGroundY(character->GetX(), character->GetY()));
+
+		// Salto del jugador
+        if ( screen.KeyPressed(GLFW_KEY_SPACE) && distanceToFloor < 10 )
+			gravity = -48;
+
+		// Actualizamos gravedad
+        gravity += 128 * screen.ElapsedTime();
+		if ( gravity > 10 )
+            gravity = 10;
+		
+		// Actualizamos escena
+        scene.Update(screen.ElapsedTime());
+
+		// Actualizamos animacion del jugador
+        if ( character->IsMoving() ) {
+			if ( distanceToFloor < 10 ) {
+                character->SetFPS(16);
+			} else {
+                character->SetFPS(0);
+                character->SetCurrentFrame(1);
+			}
+		} else {
+            character->SetFPS(0);
+            character->SetCurrentFrame(0);
+        }
+
+		// Dibujamos
+        scene.Render();
+        screen.Refresh();
 	}
-};
 
-Listener listener;
-
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------------------------------------------------------------------
-int main(int argc, char* argv[]) 
-{
-	Screen::Instance().Open( 1024, 768, false );
-	CreateGUI();
-
-	glfwSetMouseButtonCallback(MouseButtonCallback);
-	glfwSetMousePosCallback(MousePosCallback);
-
-	while ( Screen::Instance().IsOpened()  &&  !Screen::Instance().KeyPressed(GLFW_KEY_ESC) ) 
-	{
-		GUIManager::instance().update();
-
-		Renderer::Instance().Clear(0, 0, 0);
-		GUIManager::instance().render();
-		Screen::Instance().Refresh();
-	}
-
-	GUIManager::instance().end();
+    resManager.FreeResources();
 
 	return 0;
-}
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------------------------------------------------------------------
-void CreateGUI()
-{
-	// inicializa GUI
-	GUIManager& uiManager = GUIManager::instance();
-	uiManager.init();
-
-	// Crea una ventana
-	Window* window = new Window();
-	window->init( "Ventana", Vector2(100,200), "data/GUI/Window4.png" );
-	window->setEventListener( &listener );
-	uiManager.setRootControl( window );
-
-	// Crea un botón
-	Button* b1 = new Button();
-	b1->init( "Boton1", Vector2( 200, 100 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png" );
-	b1->setEventListener( &listener );
-	b1->setParent( GUIManager::instance().getRootControl() );
-
-	// Crea un botón
-	Button* b2 = new Button(); 
-	b2->init( "Boton2", Vector2( 200, 150 ), "data/GUI/Button_Normal.png", "data/GUI/Button_Push.png" );   
-	b2->setEventListener( &listener );
-	b2->setParent( GUIManager::instance().getRootControl() );
-}
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------------------------------------------------------------------
-void MouseButtonCallback(int button, int action)
-{
-	int x, y;
-	glfwGetMousePos( &x, &y );
-
-	if( action == GLFW_PRESS )
-		GUIManager::instance().injectInput( MessagePointerButtonDown( button, (float)x, (float)y ) );
-	else if( action == GLFW_RELEASE )
-		GUIManager::instance().injectInput( MessagePointerButtonUp( button, (float)x, (float)y ) );
-}
-
-//------------------------------------------------------------------------------------------------------------------------------------------
-//
-//------------------------------------------------------------------------------------------------------------------------------------------
-void MousePosCallback(int x, int y)
-{
-	GUIManager::instance().injectInput( MessagePointerMove( (float)x, (float)y ) ); 
 }

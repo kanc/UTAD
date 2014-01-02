@@ -10,14 +10,15 @@ int main(int argc, char* argv[])
 	screen.Open(800, 600, false);
 
 	Map* mymap = new Map("data/map.tmx");
-	Image* fondo = ResourceManager::Instance().LoadImage("data/parallax_background.jpg");
-	Image* alien =  ResourceManager::Instance().LoadImage("data/alien.png");
+	Image* back = ResourceManager::Instance().LoadImage("data/back2.png");
+	Image* front = ResourceManager::Instance().LoadImage("data/back1.png");
+	Image* alien =  ResourceManager::Instance().LoadImage("data/alien.png");	
 
-	
-
-	MapScene* scene = new MapScene(mymap,fondo);
-	scene->SetAutoBackSpeed(0,0);
+	MapScene* scene = new MapScene(mymap,back,front);
+	scene->SetAutoBackSpeed(10,0);
 	scene->SetRelativeBackSpeed(-0.1,0);
+	scene->SetAutoFrontSpeed(1,0);
+	scene->SetRelativeFrontSpeed(-0.1,0);
 
 	Sprite* sprAlien = scene->CreateSprite(alien);
 	sprAlien->SetPosition(10,10);

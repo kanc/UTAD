@@ -193,7 +193,6 @@ void Sprite::ScaleTo(double scalex, double scaley, double speedX, double speedY 
 	toScaleY = scaley;
 	
 	scaling = true;
-
 }
 
 void Sprite::Update(double elapsed, const Map* map) {

@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 
 	screen.Open(800, 600, false);
 
-	Map* mymap = new Map("data/map.tmx");
+	Map* mymap = new Map("data/map2.tmx",1);
 	Image* back = ResourceManager::Instance().LoadImage("data/back2.png");
 	Image* front = ResourceManager::Instance().LoadImage("data/back1.png");
 	Image* alien =  ResourceManager::Instance().LoadImage("data/alien.png");	
@@ -22,7 +22,8 @@ int main(int argc, char* argv[])
 
 	Sprite* sprAlien = scene->CreateSprite(alien);
 	sprAlien->SetPosition(10,10);
-	sprAlien->SetCollision(Sprite::CollisionMode::COLLISION_RECT);
+	sprAlien->SetCollisionPixelData(new CollisionPixelData("data/aliencol.png"));	
+	sprAlien->SetCollision(Sprite::CollisionMode::COLLISION_PIXEL);
 
 	scene->GetCamera().FollowSprite(sprAlien);
 	scene->GetCamera().SetBounds(0,0,mymap->GetWidth(), mymap->GetHeight());
@@ -32,16 +33,16 @@ int main(int argc, char* argv[])
 		render.Clear();
 
 		if (screen.KeyPressed(GLFW_KEY_LEFT))
-			sprAlien->MoveTo(sprAlien->GetX() - 10, sprAlien->GetY(),60,60);
+			sprAlien->MoveTo(sprAlien->GetX() - 1, sprAlien->GetY(),60,60);
 
 		if (screen.KeyPressed(GLFW_KEY_RIGHT))
-			sprAlien->MoveTo(sprAlien->GetX() + 10, sprAlien->GetY(),60,60);
+			sprAlien->MoveTo(sprAlien->GetX() + 1, sprAlien->GetY(),60,60);
 
 		if (screen.KeyPressed(GLFW_KEY_UP))
-			sprAlien->MoveTo(sprAlien->GetX(), sprAlien->GetY() - 10,60, 60);
+			sprAlien->MoveTo(sprAlien->GetX(), sprAlien->GetY() - 1,60, 60);
 
 		if (screen.KeyPressed(GLFW_KEY_DOWN))
-			sprAlien->MoveTo(sprAlien->GetX(), sprAlien->GetY() + 10,60, 60);
+			sprAlien->MoveTo(sprAlien->GetX(), sprAlien->GetY() + 1,60, 60);
 
 		scene->Update(screen.ElapsedTime());
 		scene->Render();		

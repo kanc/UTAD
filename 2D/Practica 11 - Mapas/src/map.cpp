@@ -69,7 +69,6 @@ Map::Map(const String &filename, uint16 firstColId) {
 		//cogemos el id del tile y le restamos el valor firstgid
 		int16 tid = atoi(nodeTile->first_attribute("gid")->value());
 		tid -= firstgid;
-		if (tid < 0) tid = 0;
 
 		this->tileIds.Add(tid);
 

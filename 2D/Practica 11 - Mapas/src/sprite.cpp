@@ -1,7 +1,7 @@
 #include "../include/sprite.h"
 #include "../include/rectcollision.h"
 #include "../include/image.h"
-//#include "../include/map.h"
+#include "../include/map.h"
 #include "../include/math.h"
 #include "../include/pixelcollision.h"
 #include "../include/renderer.h"
@@ -87,7 +87,6 @@ void Sprite::SetCollision(CollisionMode mode) {
 			collision = new PixelCollision(colPixelData, &colx, &coly);
 
 			break;
-
 	}
 }
 
@@ -111,7 +110,14 @@ bool Sprite::CheckCollision(Sprite* sprite) {
 }
 
 bool Sprite::CheckCollision(const Map* map) {
-	return false;
+	
+	if (map)
+	{
+		collided = map->CheckCollision(this->collision);
+		return collided;
+	}
+	else
+		return false;
 }
 
 void Sprite::RotateTo(int32 angle, double speed) {
@@ -217,8 +223,33 @@ void Sprite::Update(double elapsed, const Map* map) {
 	// TAREA: Actualizar movimiento animado
 	if (moving)
 	{
-		x+= elapsed * movingSpeedX;
-		y+= elapsed * movingSpeedY;
+		bool collideX, collideY;
+		collideX = collideY = false;
+
+		//guardamos la posicion previa del sprite
+		prevX = x;
+		prevY = y;
+
+		x+= elapsed * movingSpeedX; //movemos en el eje X
+		UpdateCollisionBox(); //actualizamos el objeto de colision
+		
+		if (CheckCollision(map)) //si colisiona con el mapa, volvemos a la x anterior
+		{	
+			x = prevX;
+			collideX = true;
+		}
+
+		y+= elapsed * movingSpeedY; //movemos en el eje y
+		UpdateCollisionBox(); //actualizamos el objeto de colision
+
+		if (CheckCollision(map)) //si colisiona con el mapa, volvemos a la y anterior
+		{	
+			y = prevY;
+			collideX = true;
+		}
+
+		if (collideX && collideY) //si no se ha movido, cancelamos el moveto
+			moving = false;
 
 		if ((movingSpeedX > 0 && x >= toX) || (movingSpeedX < 0 && x <= toX))
 			x = toX;

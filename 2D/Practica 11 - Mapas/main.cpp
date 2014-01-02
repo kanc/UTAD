@@ -23,26 +23,48 @@ int main(int argc, char* argv[])
 	Sprite* sprAlien = scene->CreateSprite(alien);
 	sprAlien->SetPosition(10,10);
 	sprAlien->SetCollisionPixelData(new CollisionPixelData("data/aliencol.png"));	
-	sprAlien->SetCollision(Sprite::CollisionMode::COLLISION_PIXEL);
+	sprAlien->SetCollision(Sprite::CollisionMode::COLLISION_RECT);
 
 	scene->GetCamera().FollowSprite(sprAlien);
 	scene->GetCamera().SetBounds(0,0,mymap->GetWidth(), mymap->GetHeight());
+
+	bool jump = false;
+	float vel = 0, grav = 10, jumpTime = 0;
 
 	while ( screen.IsOpened() && !screen.KeyPressed(GLFW_KEY_ESC) ) 
 	{		
 		render.Clear();
 
-		if (screen.KeyPressed(GLFW_KEY_LEFT))
-			sprAlien->MoveTo(sprAlien->GetX() - 1, sprAlien->GetY(),60,60);
+		// Actualizamos movimiento del jugador
+		double toX = sprAlien->GetX();
+        if ( screen.KeyPressed(GLFW_KEY_LEFT) ) {
+			toX = sprAlien->GetX() - 10;
+            //sprAlien->SetScale(-1, 1);
+        } else if ( screen.KeyPressed(GLFW_KEY_RIGHT) ) {
+			toX = sprAlien->GetX() + 10;
+            //sprAlien->SetScale(1, 1);
+		}
+		sprAlien->MoveTo(toX, sprAlien->GetY() - vel + grav, 200, 512);
+				
+        if ( screen.KeyPressed(GLFW_KEY_SPACE))
+		{	if (jumpTime < 0.5)
+			{
+				jump = true;
+				vel = 15;
+			}
+		}
 
-		if (screen.KeyPressed(GLFW_KEY_RIGHT))
-			sprAlien->MoveTo(sprAlien->GetX() + 1, sprAlien->GetY(),60,60);
+		if (jump)
+		{
+			jumpTime+=screen.ElapsedTime();
 
-		if (screen.KeyPressed(GLFW_KEY_UP))
-			sprAlien->MoveTo(sprAlien->GetX(), sprAlien->GetY() - 1,60, 60);
-
-		if (screen.KeyPressed(GLFW_KEY_DOWN))
-			sprAlien->MoveTo(sprAlien->GetX(), sprAlien->GetY() + 1,60, 60);
+			vel-= grav * screen.ElapsedTime();
+			if (vel <= 0)
+			{	jump = false;
+				jumpTime = 0;
+				vel = 0;
+			}
+		}
 
 		scene->Update(screen.ElapsedTime());
 		scene->Render();		

@@ -1,47 +1,69 @@
-#include "../include/parallaxscene.h"
-#include "../include/camera.h"
-#include "../include/image.h"
-#include "../include/renderer.h"
-#include "../include/screen.h"
+#include "../include/ParallaxScene.h"
 
-ParallaxScene::ParallaxScene(Image* imageBack, Image* imageFront) {
+ParallaxScene::ParallaxScene(Image* imageBack, Image* imageFront )
+{
 	backLayer = imageBack;
 	frontLayer = imageFront;
-	backX = 0.0f;
-	backY = 0.0f;
-	frontX = 0.0f;
-	frontY = 0.0f;
-	SetRelativeBackSpeed(1.0f, 1.0f);
-	SetRelativeFrontSpeed(1.0f, 1.0f);
-	SetAutoBackSpeed(0.0f, 0.0f);
-	SetAutoFrontSpeed(0.0f, 0.0f);
+
+	backX = backY = frontX = frontY = 0;
 }
 
-void ParallaxScene::Update(double elapsed, Map* map) {
-	// Metodo padre
-    Scene::Update(elapsed, map);
-
-	// Actualiza scroll
-	if ( backLayer ) {
-		backX += autoBackSpeedX * elapsed;
-		backY += autoBackSpeedY * elapsed;
-	}
-	if ( frontLayer ) {
-		frontX += autoFrontSpeedX * elapsed;
-		frontY += autoFrontSpeedY * elapsed;
-	}
+const Image* ParallaxScene::GetBackLayer() const
+{
+	return backLayer;
 }
 
-void ParallaxScene::RenderBackground() const {
-	// Metodo padre
-	Scene::RenderBackground();
+const Image* ParallaxScene::GetFrontLayer() const
+{
+	return frontLayer;
+}
 
-	// Establece propiedades de pintado
-	Renderer::Instance().SetBlendMode(Renderer::ALPHA);
-	Renderer::Instance().SetColor(255, 255, 255, 255);
-	//Renderer::instance().setOrigin(0, 0);
+void ParallaxScene::SetRelativeBackSpeed(double x, double y)
+{
+	relBackSpeedX = x;
+	relBackSpeedY = y;
+}
 
-	// Dibuja ambas capas de fondo
-    if ( backLayer ) Renderer::Instance().DrawTiledImage(backLayer, 0, 0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight(), -backX + relBackSpeedX*GetCamera().GetX(), -backY + relBackSpeedY*GetCamera().GetY());
-    if ( frontLayer ) Renderer::Instance().DrawTiledImage(frontLayer, 0, 0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight(), -frontX + relFrontSpeedX*GetCamera().GetX(), -frontY + relFrontSpeedY*GetCamera().GetY());
+void ParallaxScene::SetRelativeFrontSpeed(double x, double y)
+{
+	relFrontSpeedX = x;
+	relFrontSpeedY = y;
+}
+
+void ParallaxScene::SetAutoBackSpeed(double x, double y)
+{
+	autoBackSpeedX = x;
+	autoBackSpeedY = y;
+}
+
+void ParallaxScene::SetAutoFrontSpeed(double x, double y)
+{
+	autoFrontSpeedX = x;
+	autoFrontSpeedY = y;
+}
+void ParallaxScene::Update(double elapsed, Map* map) 
+{
+	Scene::Update(elapsed, map);
+	
+	backX -= autoBackSpeedX * elapsed;
+	backX -= relBackSpeedX * GetCamera().GetX() * elapsed;
+
+	backY -=  autoBackSpeedY * elapsed;		
+	backY += relBackSpeedY * GetCamera().GetY() * elapsed;
+
+	frontX -= autoFrontSpeedX * elapsed;
+	frontY -= autoFrontSpeedY *elapsed;
+
+	frontX -= relBackSpeedX * GetCamera().GetX() * elapsed;
+	frontY += relBackSpeedY * GetCamera().GetY() * elapsed;
+
+}
+
+void ParallaxScene::RenderBackground() const
+{
+	Renderer::Instance().SetBlendMode( Renderer::ALPHA);
+	Renderer::Instance().DrawTiledImage(backLayer,0, 0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight(),backX,backY);
+	
+	if (frontLayer)
+		Renderer::Instance().DrawTiledImage(frontLayer,0, 0, Screen::Instance().GetWidth(), Screen::Instance().GetHeight(),frontX,frontY);
 }

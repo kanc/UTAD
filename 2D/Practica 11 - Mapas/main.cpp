@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	Map* mymap = new Map("data/map2.tmx",1);
 	Image* back = ResourceManager::Instance().LoadImage("data/back2.png");
 	Image* front = ResourceManager::Instance().LoadImage("data/back1.png");
-	Image* alien =  ResourceManager::Instance().LoadImage("data/hero_walk.png",6,4);	
+	Image* alien =  ResourceManager::Instance().LoadImage("data/alien.png");	
 
 	MapScene* scene = new MapScene(mymap,back,front);
 	scene->SetAutoBackSpeed(-5,0);
@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
 
 	Sprite* sprAlien = scene->CreateSprite(alien);
 	sprAlien->SetPosition(10,10);
-	sprAlien->SetFPS(15);
-	sprAlien->SetFrameRange(0,23);	
+	//sprAlien->SetFPS(15);
+	//sprAlien->SetFrameRange(0,23);	
 	sprAlien->SetCollisionPixelData(new CollisionPixelData("data/aliencol.png"));	
 	sprAlien->SetCollision(Sprite::CollisionMode::COLLISION_RECT);
 
@@ -47,12 +47,14 @@ int main(int argc, char* argv[])
 		sprAlien->MoveTo(destX, sprAlien->GetY() - vel + grav, 200, 512);
 		float distance = mymap->GetGroundY(sprAlien->GetX(), sprAlien->GetY()) -  (sprAlien->GetY() + sprAlien->GetImage()->GetHeight());
 
-		if ((-vel + grav) > 0 && distance < 10) sprAlien->SetY(sprAlien->GetY() + distance);
+		screen.SetTitle(String::FromFloat(distance));
+
+		if ((-vel + grav) > 0 && distance < 13) sprAlien->SetY(sprAlien->GetY() + distance);
 
 		if ( screen.KeyPressed(GLFW_KEY_SPACE) && !jump)
 		{				
 			jump = true;
-			vel = 15;			
+			vel = 19;			
 		}
 			
 		if (jump)

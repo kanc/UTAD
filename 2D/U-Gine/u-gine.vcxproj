@@ -31,10 +31,18 @@
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\resourcemanager.cpp" />
     <ClCompile Include="src\scene.cpp" />
+    <ClCompile Include="src\ScmlAnimation.cpp" />
+    <ClCompile Include="src\SCMLpp.cpp" />
+    <ClCompile Include="src\ScmlTimelineKey.cpp" />
     <ClCompile Include="src\screen.cpp" />
     <ClCompile Include="src\skeletondata.cpp" />
     <ClCompile Include="src\skeletonsprite.cpp" />
     <ClCompile Include="src\sprite.cpp" />
+    <ClCompile Include="src\tinystr.cpp" />
+    <ClCompile Include="src\tinyxml.cpp" />
+    <ClCompile Include="src\tinyxmlerror.cpp" />
+    <ClCompile Include="src\tinyxmlparser.cpp" />
+    <ClCompile Include="src\XML_helpers.cpp" />
     <ClCompile Include="uGui\Button.cpp" />
     <ClCompile Include="uGui\Control.cpp" />
     <ClCompile Include="uGui\GUIManager.cpp" />
@@ -68,13 +76,27 @@
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\resourcemanager.h" />
     <ClInclude Include="include\scene.h" />
+    <ClInclude Include="include\ScmlAnimation.h" />
+    <ClInclude Include="include\ScmlCharacterMap.h" />
+    <ClInclude Include="include\ScmlEntity.h" />
+    <ClInclude Include="include\ScmlFile.h" />
+    <ClInclude Include="include\ScmlFolder.h" />
+    <ClInclude Include="include\ScmlMainlineKey.h" />
+    <ClInclude Include="include\ScmlMapInstruction.h" />
+    <ClInclude Include="include\ScmlObject.h" />
+    <ClInclude Include="include\SCMLpp.h" />
+    <ClInclude Include="include\ScmlSpatialInfo.h" />
+    <ClInclude Include="include\ScmlTimeline.h" />
+    <ClInclude Include="include\ScmlTimelineKey.h" />
     <ClInclude Include="include\screen.h" />
     <ClInclude Include="include\skeletondata.h" />
     <ClInclude Include="include\skeletonsprite.h" />
     <ClInclude Include="include\sprite.h" />
     <ClInclude Include="include\string.h" />
+    <ClInclude Include="include\tinyxml.h" />
     <ClInclude Include="include\types.h" />
     <ClInclude Include="include\u-gine.h" />
+    <ClInclude Include="include\XML_Helpers.h" />
     <ClInclude Include="uGui\Button.h" />
     <ClInclude Include="uGui\Control.h" />
     <ClInclude Include="uGui\GUIManager.h" />
@@ -95,7 +117,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v100</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

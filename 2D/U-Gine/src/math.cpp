@@ -85,3 +85,37 @@ void TransformIsoCoords(double isoX, double isoY, double isoZ, double* screenX, 
 	*screenX = (isoX - isoY) * 0.89442612730660787; //degcos(26.5651882);
 	*screenY = isoZ + (isoX + isoY) * 0.44721572288024897; //degsin(26.5651882);
 }
+
+float Linear(float a,float b,float t)
+{
+    return ((b-a)*t)+a;
+}
+
+float Quadratic(float a,float b,float c,float t)
+{
+    return Linear(Linear(a,b,t),Linear(b,c,t),t);
+}
+
+float Cubic(float a,float b,float c,float d,float t)
+{
+    return Linear(Quadratic(a,b,c,t),Quadratic(b,c,d,t),t);
+}
+
+float AngleLinear(float angleA,float angleB,int spin,float t)
+{
+    if(spin == 0)    
+        return angleA;
+    
+    if(spin > 0)    
+    {    
+		if((angleB-angleA) < 0)        
+            angleB+=360;        
+	}
+    else if(spin < 0)    
+    {    
+		if((angleB-angleA)>0)            
+            angleB-=360;
+	}
+            
+    return Linear(angleA,angleB,t);
+}

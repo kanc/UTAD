@@ -10,4 +10,14 @@ typedef unsigned short uint16;
 typedef unsigned int uint32;
 typedef unsigned long uint64;
 
+enum eScmlCurveType
+{
+	INSTANT,LINEAR,QUADRATIC,CUBIC
+};
+
+enum eScmlObjectType
+{
+	SPRITE,BONE,BOX,POINT,SOUND,ENTITY,VARIABLE
+};
+
 #endif

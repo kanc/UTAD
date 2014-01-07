@@ -21,5 +21,9 @@ void ClosestPointToRect(double x, double y, double rectx, double recty, double w
 bool RectsOverlap(double x1, double y1, double width1, double height1, double x2, double y2, double width2, double height2);
 void OverlappingRect(double x1, double y1, double width1, double height1, double x2, double y2, double width2, double height2, double* outx, double* outy, double* outwidth, double* outheight);
 void TransformIsoCoords(double isoX, double isoY, double isoZ, double* screenX, double* screenY);
+float AngleLinear(float angleA,float angleB,int spin,float t);
+float Cubic(float a,float b,float c,float d,float t);
+float Quadratic(float a,float b,float c,float t);
+float Linear(float a,float b,float t);
 
 #endif

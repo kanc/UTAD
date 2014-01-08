@@ -128,7 +128,11 @@ void Bone::Render()
 
 	if (image)
 	{
+<<<<<<< HEAD
 		image->SetHandle(image->GetWidth()*handleX,image->GetHeight() * handleY);
+=======
+		image->SetHandle(handleX,handleY);
+>>>>>>> 77b2bc5ecb210bf27fa26dcd08384dab4d376806
 		Renderer::Instance().DrawImage(image, 0, 0, 0, (double)(image->GetWidth() * currentScaleX), (double)(image->GetHeight() * currentScaleY));
 
 		//Colocamos el pivote de referencia para los huesos hijos utilizando

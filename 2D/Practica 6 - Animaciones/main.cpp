@@ -12,8 +12,19 @@ int main(int argc, char* argv[])
 	Map* mymap = new Map("data/map2.tmx",1);
 	Image* back = ResourceManager::Instance().LoadImage("data/back2.png");
 	Image* front = ResourceManager::Instance().LoadImage("data/back1.png");
+<<<<<<< HEAD
 	Image* alien =  ResourceManager::Instance().LoadImage("data/alienanim.png",8);	
+=======
+<<<<<<< HEAD
+	Image* alien =  ResourceManager::Instance().LoadImage("data/alienanim.png",8);	
+
+	SkeletonSprite* skeleton = new SkeletonSprite("data/animation.xml");
+	skeleton->SetFPS(32);
+=======
+	Image* alien =  ResourceManager::Instance().LoadImage("data/alienanim.png",8,1);	
+>>>>>>> 77b2bc5ecb210bf27fa26dcd08384dab4d376806
 	alien->SetMidHandle();
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 
 	SkeletonSprite* skeleton = new SkeletonSprite("data/animation.xml");
 	skeleton->SetFPS(32);		
@@ -27,10 +38,18 @@ int main(int argc, char* argv[])
 	Sprite* sprAlien = scene->CreateSprite(alien);
 	sprAlien->SetPosition(10,10);
 	sprAlien->SetFPS(16);
+<<<<<<< HEAD
 	sprAlien->SetFrameRange(1,8);
 	sprAlien->SetScale(3,3);
+=======
+<<<<<<< HEAD
+	sprAlien->SetFrameRange(1,8);
+	sprAlien->SetScale(3,3);
+=======
+>>>>>>> 77b2bc5ecb210bf27fa26dcd08384dab4d376806
 	sprAlien->SetCurrentFrame(1);
 	sprAlien->SetFrameRange(1,20);
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 	sprAlien->SetCollisionPixelData(new CollisionPixelData("data/aliencol.png"));	
 	sprAlien->SetCollision(Sprite::CollisionMode::COLLISION_RECT);
 	sprAlien->SetScale(3,3);	
@@ -48,7 +67,11 @@ int main(int argc, char* argv[])
 		skeleton->SetPosition( screen.GetMouseX(),screen.GetMouseY());
 
 		if (screen.MouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+<<<<<<< HEAD
 			skeleton->SetScale(-1, 1);
+=======
+			skeleton->SetScale(skeleton->GetScaleX() * -1, 1);
+>>>>>>> 77b2bc5ecb210bf27fa26dcd08384dab4d376806
 		
 		double destX = sprAlien->GetX();
 
@@ -64,10 +87,21 @@ int main(int argc, char* argv[])
 
 		if ((-vel + grav) > 0 && distance < 17) sprAlien->SetY(sprAlien->GetY() - (sprAlien->GetImage()->GetHeight() / 1.5f) + distance);
 
+<<<<<<< HEAD
 		if ( screen.KeyPressed(GLFW_KEY_SPACE) && !jump)
 		{				
 			jump = true;
 			vel = 19;			
+=======
+		if ( screen.KeyPressed(GLFW_KEY_SPACE))
+<<<<<<< HEAD
+		{	jump = true;
+=======
+		{				
+			jump = true;
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
+			vel = 15;			
+>>>>>>> 77b2bc5ecb210bf27fa26dcd08384dab4d376806
 		}
 			
 		if (jump)
@@ -75,10 +109,18 @@ int main(int argc, char* argv[])
 			vel-= grav * screen.ElapsedTime();
 
 			if (vel <= 0)
+<<<<<<< HEAD
+			{	jump = false;				
+=======
 			{	jump = false;			
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 				vel = 0;				
 			}
+<<<<<<< HEAD
 		}						
+=======
+		}					
+>>>>>>> 77b2bc5ecb210bf27fa26dcd08384dab4d376806
 		skeleton->Update(screen.ElapsedTime());
 		scene->Update(screen.ElapsedTime());
 		scene->Render();		

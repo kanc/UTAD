@@ -86,10 +86,10 @@ Map::Map(const String &filename, uint16 firstColId) {
 }
 
 void Map::Render() const {
+	//Renderer::Instance().SetColor(255,255,255,255);
 	for ( uint16 y = 0; y < GetRows(); y++ ) {
 		for ( uint16 x = 0; x < GetColumns(); x++ ) {
-			if ( GetTileId(x, y) >= 0 ) {
-				Renderer::Instance().SetColor(255,255,255,255);
+			if ( GetTileId(x, y) >= 0 ) {				
 				Renderer::Instance().DrawImage(image, x*GetTileWidth(), y*GetTileHeight(), GetTileId(x, y));
 			}
 		}

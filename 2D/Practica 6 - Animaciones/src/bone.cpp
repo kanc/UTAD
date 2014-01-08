@@ -109,12 +109,37 @@ void Bone::ScaleForFrame(int32 f, double* x, double* y) const {
 	}
 }
 
-void Bone::Update(int32 currentFrame) {
-	// TAREA: Implementar la especificacion del enunciado
+void Bone::Update(int32 currentFrame) 
+{	// TAREA: Implementar la especificacion del enunciado
+
+	TranslationForFrame(currentFrame, &currentX, &currentY);
+	currentRotation = RotationForFrame(currentFrame);
+	ScaleForFrame(currentFrame, &currentScaleX, &currentScaleY);
+
+	 for (uint32 i = 0; i < children.Size(); i++)	 
+		 children[i].Update(currentFrame);	 
 }
 
-void Bone::Render() {
-	// TAREA: Implementar la especificacion del enunciado
+void Bone::Render() 
+{	// TAREA: Implementar la especificacion del enunciado
+	glPushMatrix(); //metemos la matriz actual en la pila
+	glTranslated(currentX, currentY, 0); //trasladamos la matriz de opengl a la posicion del hueso
+	glRotated(currentRotation, 0, 0, -1); // rotamos la matriz en sentido de las agujas del reloj
+
+	if (image)
+	{
+		image->SetHandle(image->GetWidth()*handleX,image->GetHeight() * handleY);
+		Renderer::Instance().DrawImage(image, 0, 0, 0, (double)(image->GetWidth() * currentScaleX), (double)(image->GetHeight() * currentScaleY));
+
+		//Colocamos el pivote de referencia para los huesos hijos utilizando
+		glTranslated((double)(pivotX * image->GetWidth()), (double)(pivotY * image->GetHeight()), 0);		
+	}
+
+	//Dibujamos los huesos hijos
+	for (uint32 i = 0; i < children.Size(); i++)		
+		children[i].Render();
+
+	glPopMatrix(); //restauramos la matriz inicial
 }
 
 void Bone::GetFrame(int32 f, const Frame** frame, const Frame** prevFrame, const Frame** nextFrame) const {
@@ -130,7 +155,14 @@ void Bone::GetFrame(int32 f, const Frame** frame, const Frame** prevFrame, const
             *nextFrame = &frames[i];
 	}
 }
+//id: posicion de la que buscamos el valor
+//prevId: posicion minima
+//nextId: posicion maxima
+//prevVal: valor en la posicion minima
+//nextVal: valor en la posicion maxima
+double Bone::Interpolate(int32 id, int32 prevId, int32 nextId, double prevVal, double nextVal) const 
+{	// TAREA: Implementar la especificacion del enunciado	
+	double value = prevVal + (nextVal - prevVal) * ( (double)(id - prevId) / (double)(nextId - prevId) );
 
-double Bone::Interpolate(int32 id, int32 prevId, int32 nextId, double prevVal, double nextVal) const {
-	// TAREA: Implementar la especificacion del enunciado
+	return value;
 }

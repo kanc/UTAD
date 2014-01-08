@@ -12,18 +12,23 @@ int main(int argc, char* argv[])
 	Map* mymap = new Map("data/map2.tmx",1);
 	Image* back = ResourceManager::Instance().LoadImage("data/back2.png");
 	Image* front = ResourceManager::Instance().LoadImage("data/back1.png");
-	Image* alien =  ResourceManager::Instance().LoadImage("data/alienanim.png",8,1);	
+	Image* alien =  ResourceManager::Instance().LoadImage("data/alienanim.png",8);	
 	alien->SetMidHandle();
 
+	SkeletonSprite* skeleton = new SkeletonSprite("data/animation.xml");
+	skeleton->SetFPS(32);		
+
 	MapScene* scene = new MapScene(mymap,back,front);
-	scene->SetAutoBackSpeed(-5,0);
+	scene->SetAutoBackSpeed(-16,0);
 	scene->SetRelativeBackSpeed(0.5,0);
 	scene->SetAutoFrontSpeed(0,0);
-	scene->SetRelativeFrontSpeed(0.8,0);
+	scene->SetRelativeFrontSpeed(0.8,0);	
 
 	Sprite* sprAlien = scene->CreateSprite(alien);
 	sprAlien->SetPosition(10,10);
 	sprAlien->SetFPS(16);
+	sprAlien->SetFrameRange(1,8);
+	sprAlien->SetScale(3,3);
 	sprAlien->SetCurrentFrame(1);
 	sprAlien->SetFrameRange(1,20);
 	sprAlien->SetCollisionPixelData(new CollisionPixelData("data/aliencol.png"));	
@@ -40,6 +45,11 @@ int main(int argc, char* argv[])
 	{		
 		render.Clear();
 
+		skeleton->SetPosition( screen.GetMouseX(),screen.GetMouseY());
+
+		if (screen.MouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+			skeleton->SetScale(-1, 1);
+		
 		double destX = sprAlien->GetX();
 
         if ( screen.KeyPressed(GLFW_KEY_LEFT) ) 
@@ -47,17 +57,17 @@ int main(int argc, char* argv[])
         else if ( screen.KeyPressed(GLFW_KEY_RIGHT) ) 
 			destX = sprAlien->GetX() + 10;
 
-		sprAlien->MoveTo(destX, sprAlien->GetY() - vel + grav, 200, 500);
+		sprAlien->MoveTo(destX, sprAlien->GetY() - vel + grav, 200, 512);
 		float distance = mymap->GetGroundY(sprAlien->GetX(), sprAlien->GetY()) -  (sprAlien->GetY() + sprAlien->GetImage()->GetHeight());
 
 		screen.SetTitle(String::FromFloat(distance));
 
-		if ((-vel + grav) > 0 && distance < 13) sprAlien->SetY(sprAlien->GetY() + distance);
+		if ((-vel + grav) > 0 && distance < 17) sprAlien->SetY(sprAlien->GetY() - (sprAlien->GetImage()->GetHeight() / 1.5f) + distance);
 
-		if ( screen.KeyPressed(GLFW_KEY_SPACE))
+		if ( screen.KeyPressed(GLFW_KEY_SPACE) && !jump)
 		{				
 			jump = true;
-			vel = 15;			
+			vel = 19;			
 		}
 			
 		if (jump)
@@ -68,10 +78,11 @@ int main(int argc, char* argv[])
 			{	jump = false;			
 				vel = 0;				
 			}
-		}					
-
+		}						
+		skeleton->Update(screen.ElapsedTime());
 		scene->Update(screen.ElapsedTime());
 		scene->Render();		
+		skeleton->Render();
 					
 		screen.Refresh();
 	}

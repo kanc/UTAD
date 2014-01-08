@@ -57,8 +57,22 @@ SkeletonSprite::~SkeletonSprite() {
 
 void SkeletonSprite::Update(double elapsed, Map* map) {
 	// TAREA: Implementar la especificacion del enunciado
+	Sprite::Update(elapsed, map);
+	root->Update(GetCurrentFrame());
 }
 
 void SkeletonSprite::Render() const {
-	// TAREA: Implementar la especificacion del enunciado
+	
+	Renderer::Instance().SetBlendMode(GetBlendMode());
+	Renderer::Instance().SetColor(GetRed(),GetGreen(),GetBlue(), GetAlpha());
+
+	//metemos en la pila la matriz actual
+	glPushMatrix();
+	//situamos la matriz en la posicion del sprite
+	glTranslated(GetX(),GetY(),GetZ());
+	//pintamos el sprite
+	root->Render();
+	//restauramos la matriz inicial
+	glPopMatrix();
+
 }

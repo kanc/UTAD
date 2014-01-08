@@ -38,8 +38,8 @@ Image::Image(const String &filename, uint16 hframes, uint16 vframes) {
 
 		glBindTexture(GL_TEXTURE_2D,gltex);
 
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
 
 		if (!glfwExtensionSupported("GL_ARB_texture_non_power_of_two"))
 		{

@@ -34,6 +34,7 @@
     <ClCompile Include="src\ScmlAnimation.cpp" />
     <ClCompile Include="src\SCMLpp.cpp" />
     <ClCompile Include="src\ScmlTimelineKey.cpp" />
+    <ClCompile Include="src\SCML_Ugine.cpp" />
     <ClCompile Include="src\screen.cpp" />
     <ClCompile Include="src\skeletondata.cpp" />
     <ClCompile Include="src\skeletonsprite.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="include\ScmlSpatialInfo.h" />
     <ClInclude Include="include\ScmlTimeline.h" />
     <ClInclude Include="include\ScmlTimelineKey.h" />
+    <ClInclude Include="include\SCML_Ugine.h" />
     <ClInclude Include="include\screen.h" />
     <ClInclude Include="include\skeletondata.h" />
     <ClInclude Include="include\skeletonsprite.h" />
@@ -97,6 +99,7 @@
     <ClInclude Include="include\types.h" />
     <ClInclude Include="include\u-gine.h" />
     <ClInclude Include="include\XML_Helpers.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="uGui\Button.h" />
     <ClInclude Include="uGui\Control.h" />
     <ClInclude Include="uGui\GUIManager.h" />

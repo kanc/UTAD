@@ -28,6 +28,7 @@ private:
     double pivotx, pivoty;
     double handlex, handley;
     Array<Frame> frames;
+
 };
 
 inline BoneData::BoneData(const String& id, const String& parentName, const String& imageFilename, double pivotx, double pivoty, double handlex, double handley)

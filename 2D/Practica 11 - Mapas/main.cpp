@@ -12,7 +12,11 @@ int main(int argc, char* argv[])
 	Map* mymap = new Map("data/map2.tmx",1);
 	Image* back = ResourceManager::Instance().LoadImage("data/back2.png");
 	Image* front = ResourceManager::Instance().LoadImage("data/back1.png");
+<<<<<<< HEAD
+	Image* alien =  ResourceManager::Instance().LoadImage("data/dude_animation_sheet.png",4,7);	
+=======
 	Image* alien =  ResourceManager::Instance().LoadImage("data/alien.png");	
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 
 	MapScene* scene = new MapScene(mymap,back,front);
 	scene->SetAutoBackSpeed(-5,0);
@@ -22,8 +26,13 @@ int main(int argc, char* argv[])
 
 	Sprite* sprAlien = scene->CreateSprite(alien);
 	sprAlien->SetPosition(10,10);
+<<<<<<< HEAD
+	sprAlien->SetFPS(25);
+	sprAlien->SetFrameRange(0,26);	
+=======
 	//sprAlien->SetFPS(15);
 	//sprAlien->SetFrameRange(0,23);	
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 	sprAlien->SetCollisionPixelData(new CollisionPixelData("data/aliencol.png"));	
 	sprAlien->SetCollision(Sprite::CollisionMode::COLLISION_RECT);
 

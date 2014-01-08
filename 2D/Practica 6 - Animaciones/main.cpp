@@ -12,20 +12,32 @@ int main(int argc, char* argv[])
 	Map* mymap = new Map("data/map2.tmx",1);
 	Image* back = ResourceManager::Instance().LoadImage("data/back2.png");
 	Image* front = ResourceManager::Instance().LoadImage("data/back1.png");
+<<<<<<< HEAD
+	Image* alien =  ResourceManager::Instance().LoadImage("data/alienanim.png",8);	
+
+	SkeletonSprite* skeleton = new SkeletonSprite("data/animation.xml");
+	skeleton->SetFPS(32);
+=======
 	Image* alien =  ResourceManager::Instance().LoadImage("data/alienanim.png",8,1);	
 	alien->SetMidHandle();
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 
 	MapScene* scene = new MapScene(mymap,back,front);
-	scene->SetAutoBackSpeed(-5,0);
+	scene->SetAutoBackSpeed(-16,0);
 	scene->SetRelativeBackSpeed(0.5,0);
 	scene->SetAutoFrontSpeed(0,0);
-	scene->SetRelativeFrontSpeed(0.8,0);
+	scene->SetRelativeFrontSpeed(0.8,0);	
 
 	Sprite* sprAlien = scene->CreateSprite(alien);
 	sprAlien->SetPosition(10,10);
 	sprAlien->SetFPS(16);
+<<<<<<< HEAD
+	sprAlien->SetFrameRange(1,8);
+	sprAlien->SetScale(3,3);
+=======
 	sprAlien->SetCurrentFrame(1);
 	sprAlien->SetFrameRange(1,20);
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 	sprAlien->SetCollisionPixelData(new CollisionPixelData("data/aliencol.png"));	
 	sprAlien->SetCollision(Sprite::CollisionMode::COLLISION_RECT);
 	sprAlien->SetScale(3,3);	
@@ -40,6 +52,11 @@ int main(int argc, char* argv[])
 	{		
 		render.Clear();
 
+		skeleton->SetPosition( screen.GetMouseX(),screen.GetMouseY());
+
+		if (screen.MouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+			skeleton->SetScale(skeleton->GetScaleX() * -1, 1);
+		
 		double destX = sprAlien->GetX();
 
         if ( screen.KeyPressed(GLFW_KEY_LEFT) ) 
@@ -55,8 +72,12 @@ int main(int argc, char* argv[])
 		if ((-vel + grav) > 0 && distance < 13) sprAlien->SetY(sprAlien->GetY() + distance);
 
 		if ( screen.KeyPressed(GLFW_KEY_SPACE))
+<<<<<<< HEAD
+		{	jump = true;
+=======
 		{				
 			jump = true;
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 			vel = 15;			
 		}
 			
@@ -65,13 +86,18 @@ int main(int argc, char* argv[])
 			vel-= grav * screen.ElapsedTime();
 
 			if (vel <= 0)
+<<<<<<< HEAD
+			{	jump = false;				
+=======
 			{	jump = false;			
+>>>>>>> 50bb8de0eec51a95f1fd5a26cc4315c9d922e492
 				vel = 0;				
 			}
 		}					
-
+		skeleton->Update(screen.ElapsedTime());
 		scene->Update(screen.ElapsedTime());
 		scene->Render();		
+		skeleton->Render();
 					
 		screen.Refresh();
 	}

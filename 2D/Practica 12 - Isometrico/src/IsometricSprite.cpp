@@ -1,5 +1,6 @@
 ﻿#include "../include/IsometricSprite.h"
 #include "../include/math.h"
+#include <math.h>
 
 IsometricSprite::IsometricSprite(Image* image) : Sprite(image)
 {
@@ -15,18 +16,19 @@ void IsometricSprite::SetCollision(CollisionMode mode)
 		Sprite::SetCollision(mode);
 }
 
-void IsometricSprite::Update(double elapsed, const Map* map = NULL)
+void IsometricSprite::Update(double elapsed, const Map* map)
 {
 	Sprite::Update(elapsed, map);
 	TransformIsoCoords(GetX(), GetY(), GetZ(), &screenX, &screenY);
 }
 
-void UpdateCollisionBox()
+void IsometricSprite::UpdateCollisionBox()
 {
-	/*x=isox­‐imagexhandle*fabs(scalex)
-		y=isoy­‐imagexhandle*fabs(scalex)
-		w=imagewidth*fabs(scalex)
-		h=imageheight*fabs(scalex)
-		Sprite::UpdateCollisionBox(x,y,w,h)*/
+
+	double x = GetX() - GetImage()->GetHandleX() * fabs(GetScaleX());
+	double y = GetY() - GetImage()->GetHandleX() * fabs(GetScaleX());
+	double width = GetImage()->GetWidth() * fabs(GetScaleX());
+
+	Sprite::UpdateCollisionBox(x, y, width, width);
 
 }

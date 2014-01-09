@@ -78,6 +78,21 @@
     <ClCompile Include="src\IsometricSprite.cpp">
       <Filter>Source Files\engine</Filter>
     </ClCompile>
+    <ClCompile Include="src\IsometricMap.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IsometricScene.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bone.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\skeletondata.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\skeletonsprite.cpp">
+      <Filter>Source Files\engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\array.h">
@@ -162,6 +177,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\IsometricSprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IsometricMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IsometricScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bonedata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\skeletondata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\skeletonsprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

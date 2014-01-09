@@ -2,8 +2,8 @@
 #include "../include/collisionpixeldata.h"
 #include "../include/font.h"
 #include "../include/image.h"
-//#include "../include/isometricmap.h"
-//#include "../include/map.h"
+#include "../include/isometricmap.h"
+#include "../include/map.h"
 
 ResourceManager* ResourceManager::manager = NULL;
 
@@ -69,7 +69,7 @@ Image* ResourceManager::LoadImage(const String &filename, uint16 hframes, uint16
 	}
 }
 
-/*
+
 Map* ResourceManager::LoadMap(const String &filename, uint16 firstColId) {
 	// Comprobamos si esta cargado
     for ( uint32 i = 0; i < maps.Size(); i++ )
@@ -103,7 +103,7 @@ IsometricMap* ResourceManager::LoadIsometricMap(const String &filename, uint16 f
 		return NULL;
 	}
 }
-*/
+
 void ResourceManager::FreeFonts() {
     for ( uint32 i = 0; i < fonts.Size(); i++ )
         delete fonts[i];
@@ -123,7 +123,7 @@ void ResourceManager::FreeCollisionPixelDatas() {
         delete collisionPixelDatas[i];
     collisionPixelDatas.Clear();
 }
-/*
+
 void ResourceManager::FreeMaps() {
     for ( uint32 i = 0; i < maps.Size(); i++ )
         delete maps[i];
@@ -135,12 +135,12 @@ void ResourceManager::FreeIsometricMaps() {
         delete isometricMaps[i];
     isometricMaps.Clear();
 }
-*/
+
 
 void ResourceManager::FreeResources() {
 	FreeCollisionPixelDatas();
 	FreeFonts();
 	FreeImages();
-	//FreeMaps();
-	//FreeIsometricMaps();
+	FreeMaps();
+	FreeIsometricMaps();
 }

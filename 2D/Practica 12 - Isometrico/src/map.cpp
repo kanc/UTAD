@@ -13,6 +13,7 @@ extern "C" void stbi_image_free(void *retval_from_stbi_load);
 
 using namespace rapidxml;
 
+
 Map::Map(const String &filename, uint16 firstColId) {
 	// TAREA: Implementar constructor
 	this->filename = filename;

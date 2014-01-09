@@ -284,7 +284,7 @@ void Sprite::Render() const {
 
 	Renderer::Instance().SetBlendMode(this->blendMode);
 	Renderer::Instance().SetColor(GetRed(), GetGreen(), GetBlue(), GetAlpha());
-	Renderer::Instance().DrawImage(this->image,x,y,(uint32)currentFrame,(double)(image->GetWidth() * scalex), (double)(image->GetHeight() * scaley), WrapValue(angle,360));
+	Renderer::Instance().DrawImage(this->image,GetScreenX(),GetScreenY(),(uint32)currentFrame,(double)(image->GetWidth() * scalex), (double)(image->GetHeight() * scaley), WrapValue(angle,360));
 }
 
 void Sprite::UpdateCollisionBox() {

@@ -12,6 +12,7 @@ class Image;
 class Map {
 public:
     Map(const String& filename, uint16 firstColId = 0);
+	Map() {}
 
     virtual const String& GetFilename() const { return filename; }
     virtual bool IsValid() const { return valid; }
@@ -33,7 +34,7 @@ public:
 	void GetTileBitmap(uint32 x, uint32 y, bool* tilebuffer) const;
 
 private:
-    bool valid;
+    
     String filename;
     uint16 width, height;
     uint16 tileWidth, tileHeight;
@@ -45,6 +46,9 @@ private:
     Array<int32> tileIds;
     uint16 firstColId;
 	Sprite::CollisionMode collisionMode;
+
+protected:
+	bool valid;
 };
 
 #endif

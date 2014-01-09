@@ -8,6 +8,7 @@
 class ParallaxScene : public Scene 
 {
 	public:
+		ParallaxScene() {}
 		ParallaxScene(Image* imageBack, Image* imageFront = 0);   
 		virtual const Image* GetBackLayer() const; 
 		virtual const Image* GetFrontLayer() const;   

@@ -1,5 +1,5 @@
 #include "../include/SCMLpp.h"
-
+//#include "../include/u-gine.h"
 #include "../include/XML_Helpers.h"
 #include "stdarg.h"
 #include <climits>
@@ -25,7 +25,7 @@ namespace SCML
     // FIXME: This breaks the STL abstraction
     SCML_STRING dirname(SCML_STRING source)
     {
-        //source.erase(std::find(source.rbegin(), source.rend(), '/').base(), source.end());
+        source.erase(std::find(source.rbegin(), source.rend(), '/').base(), source.end());
         return source;
     }
 #endif
@@ -569,20 +569,20 @@ Data::Folder::File::File(TiXmlElement* elem)
 {
     load(elem);
 }
-
+//david
 bool Data::Folder::File::load(TiXmlElement* elem)
 {
     type = xmlGetStringAttr(elem, "type", "image");
     id = xmlGetIntAttr(elem, "id", 0);
     name = xmlGetStringAttr(elem, "name", "");
     pivot_x = xmlGetFloatAttr(elem, "pivot_x", 0.0f);
-    pivot_y = xmlGetFloatAttr(elem, "pivot_y", 0.0f);
+    pivot_y = -xmlGetFloatAttr(elem, "pivot_y", 0.0f);
     width = xmlGetIntAttr(elem, "width", 0);
     height = xmlGetIntAttr(elem, "height", 0);
     atlas_x = xmlGetIntAttr(elem, "atlas_x", 0);
-    atlas_y = xmlGetIntAttr(elem, "atlas_y", 0);
+    atlas_y = -xmlGetIntAttr(elem, "atlas_y", 0);
     offset_x = xmlGetIntAttr(elem, "offset_x", 0);
-    offset_y = xmlGetIntAttr(elem, "offset_y", 0);
+    offset_y = -xmlGetIntAttr(elem, "offset_y", 0);
     original_width = xmlGetIntAttr(elem, "original_width", 0);
     original_height = xmlGetIntAttr(elem, "original_height", 0);
     
@@ -1279,12 +1279,13 @@ Data::Entity::Animation::Mainline::Key::Bone::Bone(TiXmlElement* elem)
     load(elem);
 }
 
+//david
 bool Data::Entity::Animation::Mainline::Key::Bone::load(TiXmlElement* elem)
 {
     id = xmlGetIntAttr(elem, "id", 0);
     parent = xmlGetIntAttr(elem, "parent", -1);
     x = xmlGetFloatAttr(elem, "x", 0.0f);
-    y = xmlGetFloatAttr(elem, "y", 0.0f);
+    y = xmlGetFloatAttr(elem, "y", 0.0f) * -1;
     angle = xmlGetFloatAttr(elem, "angle", 0.0f);
     scale_x = xmlGetFloatAttr(elem, "scale_x", 1.0f);
     scale_y = xmlGetFloatAttr(elem, "scale_y", 1.0f);
@@ -1418,7 +1419,7 @@ bool Data::Entity::Animation::Mainline::Key::Object::load(TiXmlElement* elem)
     usage = xmlGetStringAttr(elem, "usage", "display");
     blend_mode = xmlGetStringAttr(elem, "blend_mode", "alpha");
     x = xmlGetFloatAttr(elem, "x", 0.0f);
-    y = xmlGetFloatAttr(elem, "y", 0.0f);
+    y = xmlGetFloatAttr(elem, "y", 0.0f) * -1;
     pivot_x = xmlGetFloatAttr(elem, "pivot_x", 0.0f);
     pivot_y = xmlGetFloatAttr(elem, "pivot_y", 1.0f);
     pixel_art_mode_x = xmlGetIntAttr(elem, "x", 0);
@@ -2565,7 +2566,7 @@ void Entity::draw(float x, float y, float angle, float scale_x, float scale_y)
         nextkey_ptr = key_ptr;
     
     // Build up the bone transform hierarchy
-    Transform base_transform(x, y, angle, scale_x, scale_y);
+    Transform base_transform(x, y , angle, scale_x, scale_y);
     if(bone_transform_state.should_rebuild(entity, animation, key, nextKeyID, time, base_transform))
     {
         bone_transform_state.rebuild(entity, animation, key, nextKeyID, time, this, base_transform);

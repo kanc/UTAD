@@ -33,12 +33,12 @@ bool FileSystem::loadImageFile(int folderID, int fileID, const std::string& file
 void FileSystem::clear()
 {
     typedef SCML_PAIR(int,int) pair_type;
-    SCML_BEGIN_MAP_FOREACH_CONST(images, pair_type, Image*, item)
+  /*  SCML_BEGIN_MAP_FOREACH_CONST(images, pair_type, Image*, item)
     {
         delete item;
     }
     SCML_END_MAP_FOREACH_CONST;
-    images.clear();
+    images.clear();*/
 }
 
 SCML_PAIR(unsigned int, unsigned int) FileSystem::getImageDimensions(int folderID, int fileID) const
@@ -82,7 +82,7 @@ FileSystem* Entity::setFileSystem(FileSystem* fs)
 
 void Entity::convert_to_SCML_coords(float& x, float& y, float& angle)
 {
-    //y = -y;
+    //y =  - y;	
     //angle = 360 - angle;
 }
 
@@ -94,10 +94,11 @@ SCML_PAIR(unsigned int, unsigned int) Entity::getImageDimensions(int folderID, i
 // (x, y) specifies the center point of the image.  x, y, and angle are in SCML coordinate system (+x to the right, +y up, +angle counter-clockwise)
 void Entity::draw_internal(int folderID, int fileID, float x, float y, float angle, float scale_x, float scale_y)
 {
-    //y = -y;
-    angle = 360 - angle;
+	y =  Screen::Instance().GetHeight() - y;	
+    //angle = 360 - angle;
     
     Image* img = file_system->getImage(folderID, fileID);
+	img->SetMidHandle();
     if(img == NULL)
         return;
 

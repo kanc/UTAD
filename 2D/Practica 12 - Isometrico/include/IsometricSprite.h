@@ -2,6 +2,7 @@
 #define UGINE_ISOMETRICSPRITE_H
 
 #include "sprite.h"
+#include "image.h"
 
 class IsometricSprite : public Sprite
 {

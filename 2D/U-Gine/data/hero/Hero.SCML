@@ -58,7 +58,7 @@
         <file id="0" name="p1_sword_0/sword_0.png" width="187" height="88"/>
     </folder>
     <entity id="0" name="first character">
-        <animation id="0" name="idle_healthy" length="2100" looping="false">
+        <animation id="0" name="idle_healthy" length="2100" looping="true">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -1832,7 +1832,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="1" name="walk" length="500" looping="false">
+        <animation id="1" name="walk" length="500" looping="true">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>

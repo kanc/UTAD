@@ -173,7 +173,8 @@ void Sprite::Update(double elapsed, const Map* map) {
 void Sprite::Render() const {
     Renderer::Instance().SetBlendMode(blendMode);
 	Renderer::Instance().SetColor(r, g, b, a);
-	Renderer::Instance().DrawImage(image, GetScreenX(), GetScreenY(), (uint32)currentFrame, image->GetWidth()*scalex, image->GetHeight()*scaley, angle);
+	//Renderer::Instance().DrawImage(image, GetScreenX(), GetScreenY(), (uint32)currentFrame, image->GetWidth()*scalex, image->GetHeight()*scaley, angle);
+	Renderer::Instance().DrawImage(image, GetX(), GetY(), (uint32)currentFrame, image->GetWidth()*scalex, image->GetHeight()*scaley, angle);
 }
 
 void Sprite::UpdateCollisionBox() {

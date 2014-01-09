@@ -8,6 +8,7 @@
 class MapScene : public ParallaxScene
 {
 	public:
+		MapScene() {}
 		MapScene(Map* map, Image* imageBack = 0, Image* imageFront = 0);
 		virtual const Map* GetMap() const;
 		virtual void Update(double elapsed);

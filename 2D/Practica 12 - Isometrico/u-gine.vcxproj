@@ -15,11 +15,14 @@
     <ClCompile Include="lib\stb_image.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\Affector.cpp" />
+    <ClCompile Include="src\bone.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CollisionPixelData.cpp" />
     <ClCompile Include="src\Emitter.cpp" />
     <ClCompile Include="src\font.cpp" />
     <ClCompile Include="src\image.cpp" />
+    <ClCompile Include="src\IsometricMap.cpp" />
+    <ClCompile Include="src\IsometricScene.cpp" />
     <ClCompile Include="src\IsometricSprite.cpp" />
     <ClCompile Include="src\map.cpp" />
     <ClCompile Include="src\MapScene.cpp" />
@@ -30,11 +33,15 @@
     <ClCompile Include="src\resourcemanager.cpp" />
     <ClCompile Include="src\scene.cpp" />
     <ClCompile Include="src\screen.cpp" />
+    <ClCompile Include="src\skeletondata.cpp" />
+    <ClCompile Include="src\skeletonsprite.cpp" />
     <ClCompile Include="src\sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Affector.h" />
     <ClInclude Include="include\array.h" />
+    <ClInclude Include="include\bone.h" />
+    <ClInclude Include="include\bonedata.h" />
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\circlecollision.h" />
     <ClInclude Include="include\collision.h" />
@@ -45,6 +52,8 @@
     <ClInclude Include="include\glinclude.h" />
     <ClInclude Include="include\glyph.h" />
     <ClInclude Include="include\image.h" />
+    <ClInclude Include="include\IsometricMap.h" />
+    <ClInclude Include="include\IsometricScene.h" />
     <ClInclude Include="include\IsometricSprite.h" />
     <ClInclude Include="include\map.h" />
     <ClInclude Include="include\MapScene.h" />
@@ -57,6 +66,8 @@
     <ClInclude Include="include\resourcemanager.h" />
     <ClInclude Include="include\scene.h" />
     <ClInclude Include="include\screen.h" />
+    <ClInclude Include="include\skeletondata.h" />
+    <ClInclude Include="include\skeletonsprite.h" />
     <ClInclude Include="include\sprite.h" />
     <ClInclude Include="include\string.h" />
     <ClInclude Include="include\types.h" />

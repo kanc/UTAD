@@ -13,7 +13,7 @@ class IsometricMap : public Map
 		virtual void GenerateLayerSprites(IsometricScene* scene);	
 		virtual void Render() const;
 		virtual int32 GetLayerId(uint16 column, uint16 row) const;
-		virtual uint16 GetTileWidth() const { return GetTileWidth() / 2; }
+		virtual uint16 GetTileWidth() const { return Map::GetTileWidth() / 2; }
 
 	private:
 		Array<int32> topLayerIds;

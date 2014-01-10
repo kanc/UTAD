@@ -115,5 +115,6 @@ bool PointInCircle (double x, double y, double xc, double yc, double rc)
 }
 
 void TransformIsoCoords(double isoX, double isoY, double isoZ, double* screenX, double* screenY) {
-	// TAREA: Implementar funcion
+	*screenX = (isoX - isoY) * 0.89442612730660787; //degcos(26.5651882);
+	*screenY = isoZ + (isoX + isoY) * 0.44721572288024897; //degsin(26.5651882);
 }

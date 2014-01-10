@@ -1,5 +1,5 @@
 #include "../include/renderer.h"
-//#include "../include/font.h"
+#include "../include/font.h"
 #include "../include/glinclude.h"
 #include "../include/image.h"
 #include "../include/math.h"

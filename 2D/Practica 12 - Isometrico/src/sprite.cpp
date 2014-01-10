@@ -1,7 +1,7 @@
 #include "../include/sprite.h"
 #include "../include/rectcollision.h"
 #include "../include/image.h"
-#include "../include/map.h"
+//#include "../include/map.h"
 #include "../include/math.h"
 #include "../include/pixelcollision.h"
 #include "../include/renderer.h"
@@ -87,6 +87,7 @@ void Sprite::SetCollision(CollisionMode mode) {
 			collision = new PixelCollision(colPixelData, &colx, &coly);
 
 			break;
+
 	}
 }
 
@@ -110,14 +111,7 @@ bool Sprite::CheckCollision(Sprite* sprite) {
 }
 
 bool Sprite::CheckCollision(const Map* map) {
-	
-	if (map)
-	{
-		collided = map->CheckCollision(this->collision);
-		return collided;
-	}
-	else
-		return false;
+	return false;
 }
 
 void Sprite::RotateTo(int32 angle, double speed) {
@@ -193,6 +187,7 @@ void Sprite::ScaleTo(double scalex, double scaley, double speedX, double speedY 
 	toScaleY = scaley;
 	
 	scaling = true;
+
 }
 
 void Sprite::Update(double elapsed, const Map* map) {
@@ -222,33 +217,8 @@ void Sprite::Update(double elapsed, const Map* map) {
 	// TAREA: Actualizar movimiento animado
 	if (moving)
 	{
-		bool collideX, collideY;
-		collideX = collideY = false;
-
-		//guardamos la posicion previa del sprite
-		prevX = x;
-		prevY = y;
-
-		x+= elapsed * movingSpeedX; //movemos en el eje X
-		UpdateCollisionBox(); //actualizamos el objeto de colision
-		
-		if (CheckCollision(map)) //si colisiona con el mapa, volvemos a la x anterior
-		{	
-			x = prevX;
-			collideX = true;
-		}
-
-		y+= elapsed * movingSpeedY; //movemos en el eje y
-		UpdateCollisionBox(); //actualizamos el objeto de colision
-
-		if (CheckCollision(map)) //si colisiona con el mapa, volvemos a la y anterior
-		{	
-			y = prevY;
-			collideX = true;
-		}
-
-		if (collideX && collideY) //si no se ha movido, cancelamos el moveto
-			moving = false;
+		x+= elapsed * movingSpeedX;
+		y+= elapsed * movingSpeedY;
 
 		if ((movingSpeedX > 0 && x >= toX) || (movingSpeedX < 0 && x <= toX))
 			x = toX;
@@ -284,7 +254,7 @@ void Sprite::Render() const {
 
 	Renderer::Instance().SetBlendMode(this->blendMode);
 	Renderer::Instance().SetColor(GetRed(), GetGreen(), GetBlue(), GetAlpha());
-	Renderer::Instance().DrawImage(this->image,GetScreenX(),GetScreenY(),(uint32)currentFrame,(double)(image->GetWidth() * scalex), (double)(image->GetHeight() * scaley), WrapValue(angle,360));
+	Renderer::Instance().DrawImage(this->image,x,y,(uint32)currentFrame,(double)(image->GetWidth() * scalex), (double)(image->GetHeight() * scaley), WrapValue(angle,360));
 }
 
 void Sprite::UpdateCollisionBox() {

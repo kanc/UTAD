@@ -20,19 +20,6 @@ IsometricMap::IsometricMap(const String& filename, uint16 firstColId) : Map(file
 	xml_node<>* nodeTileset = nodeMap->first_node("tileset");
 
 	uint16 firstgid = atoi(nodeTileset->first_attribute("firstgid")->value());
-	uint16 tWidth = atoi(nodeTileset->first_attribute("tilewidth")->value());
-	uint16 tHeight = atoi(nodeTileset->first_attribute("tileheight")->value());
-	uint16 offsX,offsY;	
-	offsX = offsY = 0;
-	
-	//guardamos el offset
-	xml_node<>* nodeOffset = nodeTileset->first_node("tileoffset");
-
-	if (nodeOffset)
-	{
-		offsX = atoi(nodeOffset->first_attribute("x")->value());
-		offsY = atoi(nodeOffset->first_attribute("y")->value());
-	}
 
 	//gestionamos la segunda capa de tiles
 	xml_node<>* nodeData = nodeMap->first_node("layer")->next_sibling()->first_node("data");
@@ -65,15 +52,14 @@ IsometricMap::IsometricMap(const String& filename, uint16 firstColId) : Map(file
 }
 
 void IsometricMap::GenerateLayerSprites(IsometricScene* scene)
-{	
-	
+{		
 	for (uint16 i = 0; i < GetRows(); i++)
 		for (uint16 j = 0; j < 	GetColumns(); j++)	
 		{	
 			uint32 idTile = GetLayerId(j,i);
 			if ( idTile >= 0) //si son tiles validos
 			{	
-				Sprite* topSprite = scene->CreateSprite(GetImage()); //cargamos el sprite con la imagen padre			
+				IsometricSprite* topSprite = scene->CreateSprite(GetImage()); //cargamos el sprite con la imagen padre			
 				topSprite->SetCurrentFrame(idTile); //le decimos que su frame actual es el correspondiente al id del tile
 				topSprite->SetPosition(j * GetTileWidth(), i * GetTileHeight()); //lo posicionamos en la escena de acuerdo a la fila y columna del mapa
 			
@@ -87,17 +73,17 @@ void IsometricMap::GenerateLayerSprites(IsometricScene* scene)
 
 void IsometricMap::Render() const
 {	
-
 	for ( uint16 y = 0; y < GetRows(); y++ ) 
 		for ( uint16 x = 0; x < GetColumns(); x++ ) 
 		{			
-			uint32 idTile = GetLayerId(x, y);
+			uint32 idTile = GetTileId(x, y);
 			if ( idTile >= 0 ) 
 			{
 				Renderer::Instance().SetColor(255,255,255,255);
-				double xtile,ytile;
-				TransformIsoCoords(x*GetTileWidth(),y*GetTileHeight(),0,&xtile, &ytile);
-				Renderer::Instance().DrawImage(GetImage(), xtile, ytile, GetLayerId(x, y));
+
+				double xtile,ytile;				
+				TransformIsoCoords(x * GetTileWidth(),y * GetTileHeight(),0,&xtile, &ytile);
+				Renderer::Instance().DrawImage(GetImage(), xtile, ytile, GetTileId(x, y));
 			}
 		}	
 }

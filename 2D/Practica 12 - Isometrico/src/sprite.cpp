@@ -197,10 +197,13 @@ void Sprite::Update(double elapsed, const Map* map) {
 	collided = false;
 
 	// TAREA: Actualizar animacion	
-	currentFrame+=elapsed * animFPS;
+	if (animFPS > 0 )
+	{
+		currentFrame+=elapsed * animFPS;
 		
-	if (currentFrame > lastFrame)
-		currentFrame = firstFrame;
+		if (currentFrame > lastFrame)
+			currentFrame = firstFrame;
+	}
 	
 	// TAREA: Actualizar rotacion animada
 	if (rotating)
@@ -254,7 +257,7 @@ void Sprite::Render() const {
 
 	Renderer::Instance().SetBlendMode(this->blendMode);
 	Renderer::Instance().SetColor(GetRed(), GetGreen(), GetBlue(), GetAlpha());
-	Renderer::Instance().DrawImage(this->image,x,y,(uint32)currentFrame,(double)(image->GetWidth() * scalex), (double)(image->GetHeight() * scaley), WrapValue(angle,360));
+	Renderer::Instance().DrawImage(this->image,GetScreenX(),GetScreenY(),(uint32)currentFrame,(double)(image->GetWidth() * scalex), (double)(image->GetHeight() * scaley), WrapValue(angle,360));
 }
 
 void Sprite::UpdateCollisionBox() {

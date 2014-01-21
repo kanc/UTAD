@@ -2,7 +2,8 @@
 #include "AL/al.h"
 #include "AL/alc.h"
 
-AudioEngine* AudioEngine::engine = nullptr;
+
+AudioEngine* AudioEngine::engine = 0;
 
 AudioEngine& AudioEngine::Instance()
 {
@@ -13,13 +14,12 @@ AudioEngine& AudioEngine::Instance()
 		engine = new AudioEngine();
 		return *engine;
 	}
-
 }
 
 void AudioEngine::Init()
 {
-	device = (ALCdevice*)alcOpenDevice(nullptr);
-	context = (ALCcontext*)alcCreateContext((ALCdevice*)device, nullptr);
+	device = (ALCdevice*)alcOpenDevice(0);
+	context = (ALCcontext*)alcCreateContext((ALCdevice*)device, 0);
 
 	alcMakeContextCurrent((ALCcontext*)context);
 }

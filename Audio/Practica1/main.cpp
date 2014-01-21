@@ -9,6 +9,8 @@ int main(int argc, char* argv[])
 
 	screen.Open(800, 600, false);
 
+	AudioBuffer* wav = new AudioBuffer("data/music.wav");
+
 	while (screen.IsOpened()  &&  !screen.KeyPressed(GLFW_KEY_ESC)) 
 	{		
 

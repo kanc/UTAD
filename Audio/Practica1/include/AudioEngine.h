@@ -9,7 +9,7 @@ class AudioEngine
 		void Finish();
 
 	protected:		
-		AudioEngine(void) : device(nullptr),context(nullptr) {}
+		AudioEngine(void) : device(0),context(0) {}
 		~AudioEngine(void);
 
 	private:

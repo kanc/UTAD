@@ -26,5 +26,6 @@
 #include "string.h"
 #include "types.h"
 #include "Affector.h"
+#include "AudioBuffer.h"
 
 #endif

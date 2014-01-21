@@ -17,6 +17,7 @@
     <ClCompile Include="src\Affector.cpp" />
     <ClCompile Include="src\AudioBuffer.cpp" />
     <ClCompile Include="src\AudioEngine.cpp" />
+    <ClCompile Include="src\AudioSource.cpp" />
     <ClCompile Include="src\bone.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\CollisionPixelData.cpp" />
@@ -44,6 +45,7 @@
     <ClInclude Include="include\array.h" />
     <ClInclude Include="include\AudioBuffer.h" />
     <ClInclude Include="include\AudioEngine.h" />
+    <ClInclude Include="include\AudioSource.h" />
     <ClInclude Include="include\bone.h" />
     <ClInclude Include="include\bonedata.h" />
     <ClInclude Include="include\Camera.h" />
@@ -52,6 +54,7 @@
     <ClInclude Include="include\CollisionManager.h" />
     <ClInclude Include="include\CollisionPixelData.h" />
     <ClInclude Include="include\Emitter.h" />
+    <ClInclude Include="include\file.h" />
     <ClInclude Include="include\font.h" />
     <ClInclude Include="include\frame.h" />
     <ClInclude Include="include\glinclude.h" />

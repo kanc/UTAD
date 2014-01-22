@@ -27,6 +27,7 @@
     <ClCompile Include="src\IsometricMap.cpp" />
     <ClCompile Include="src\IsometricScene.cpp" />
     <ClCompile Include="src\IsometricSprite.cpp" />
+    <ClCompile Include="src\Listener.cpp" />
     <ClCompile Include="src\map.cpp" />
     <ClCompile Include="src\MapScene.cpp" />
     <ClCompile Include="src\math.cpp" />
@@ -63,6 +64,7 @@
     <ClInclude Include="include\IsometricMap.h" />
     <ClInclude Include="include\IsometricScene.h" />
     <ClInclude Include="include\IsometricSprite.h" />
+    <ClInclude Include="include\Listener.h" />
     <ClInclude Include="include\map.h" />
     <ClInclude Include="include\MapScene.h" />
     <ClInclude Include="include\math.h" />

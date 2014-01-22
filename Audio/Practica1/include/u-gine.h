@@ -27,5 +27,8 @@
 #include "types.h"
 #include "Affector.h"
 #include "AudioBuffer.h"
+#include "AudioSource.h"
+#include "AudioEngine.h"
+#include "Listener.h"
 
 #endif

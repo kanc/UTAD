@@ -1,37 +1,19 @@
 #include "../include/AudioSource.h"
 
-AudioSource::AudioSource(AudioBuffer* buffer)
+
+AudioSource::AudioSource(AudioBuffer* buff)
 {
-}
-AudioSource::~AudioSource()
-{
+	alGenSources(1, &source);	
+	SetGain(1);
+	SetPitch(1);
+	SetLooping(false);
+	SetPosition(0,0,0);
+	SetVelocity(0,0,0);	
+
+	alSourcei(source, AL_BUFFER, buff->GetBuffer());
 }
 
-void AudioSource::SetPitch(float pitch)
+AudioSource::~AudioSource()
 {
-}
-void AudioSource::SetGain(float gain)
-{
-}
-void AudioSource::SetLooping(bool loop)
-{
-}
-void AudioSource::SetPosition(float x, float y, float z)
-{
-}
-void AudioSource::SetVelocity(float x, float y, float z)
-{
-}
-		
-void AudioSource::Play()
-{
-}
-void AudioSource::Stop()
-{
-}
-void AudioSource::Pause()
-{
-}
-bool AudioSource::IsPlaying() const
-{
+	alDeleteSources(1, &source);
 }

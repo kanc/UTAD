@@ -7,7 +7,7 @@ AudioEngine* AudioEngine::engine = 0;
 
 AudioEngine& AudioEngine::Instance()
 {
-	if (!engine)
+	if (engine)
 		return *engine;
 	else
 	{

@@ -138,7 +138,6 @@ void Renderer::DrawTiledImage(const Image* image, double x, double y, double wid
 	glPopMatrix();
 }
 
-/*void Renderer::DrawText(const Font* font, const String &text, double x, double y) const {
+void Renderer::DrawText(Font* font, const String &text, double x, double y) const {
 	font->Render(text, x, y);
 }
-*/

@@ -10,6 +10,7 @@ class Font;
 class Image;
 class IsometricMap;
 class Map;
+class AudioBuffer;
 
 class ResourceManager {
 public:
@@ -19,12 +20,14 @@ public:
     virtual Font* LoadFont(const String& filename);
     virtual Image* LoadImage(const String& filename, uint16 hframes = 1, uint16 vframes = 1);
     virtual Map* LoadMap(const String& filename, uint16 firstColId = 0);
+	virtual AudioBuffer* LoadAudioBuffer (const String& filename);
     virtual IsometricMap* LoadIsometricMap(const String& filename, uint16 firstColId = 0);
     virtual void FreeCollisionPixelDatas();
     virtual void FreeFonts();
     virtual void FreeImages();
     virtual void FreeMaps();
     virtual void FreeIsometricMaps();
+	virtual void FreeAudioBuffers();
     virtual void FreeResources();
 protected:
     ResourceManager() {}
@@ -37,6 +40,7 @@ private:
     Array<Image*> images;
     Array<Map*> maps;
     Array<IsometricMap*> isometricMaps;
+	Array<AudioBuffer*> audioBuffers; 
 };
 
 #endif

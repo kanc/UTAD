@@ -79,6 +79,8 @@ AudioBuffer::AudioBuffer(const String& filename) : alBuffer(0)
 	//modificamos los datos del buffer y
 	alBufferData(alBuffer, channels == 1 ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16, soundbytes, dataSize, sampleRate);
 
+	this->filename = filename;
+
 	delete[] soundbytes;
 	delete[] field;
 

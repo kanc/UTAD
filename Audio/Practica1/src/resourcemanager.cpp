@@ -4,6 +4,7 @@
 #include "../include/image.h"
 #include "../include/isometricmap.h"
 #include "../include/map.h"
+#include "../include/AudioBuffer.h"
 
 ResourceManager* ResourceManager::manager = NULL;
 
@@ -32,6 +33,26 @@ CollisionPixelData* ResourceManager::LoadCollisionPixelData(const String& filena
         delete cp;
         return NULL;
     }
+}
+
+AudioBuffer* ResourceManager::LoadAudioBuffer(const String& filename)
+{
+	// Comprobamos si esta cargado el audiobuffer
+	for ( uint32 i = 0; i < audioBuffers.Size(); i++ )
+        if ( audioBuffers[i]->GetFilename() == filename)
+			return audioBuffers[i];
+
+	//cargamos el buffer
+	AudioBuffer* aBuffer = new AudioBuffer(filename);
+	if (aBuffer->IsValid())
+	{
+		audioBuffers.Add(aBuffer);
+		return aBuffer;
+	}
+	else
+	{	delete aBuffer;
+		return NULL;
+	}
 }
 
 Font* ResourceManager::LoadFont(const String &filename) {
@@ -110,6 +131,13 @@ void ResourceManager::FreeFonts() {
     fonts.Clear();
 }
 
+void ResourceManager::FreeAudioBuffers() 
+{	
+	for ( uint32 i = 0; i < audioBuffers.Size(); i++ )
+        delete audioBuffers[i];
+
+    audioBuffers.Clear();
+}
 
 void ResourceManager::FreeImages() {
     for ( uint32 i = 0; i < images.Size(); i++ )
@@ -143,4 +171,5 @@ void ResourceManager::FreeResources() {
 	FreeImages();
 	FreeMaps();
 	FreeIsometricMaps();
+	FreeAudioBuffers();
 }

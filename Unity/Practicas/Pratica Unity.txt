@@ -1,0 +1,13 @@
+CATCH THE EGGS!
+
+1. El objetivo del juego es atrapar los huevos con el cubo. Empezamos en un menu inicial que tiene un botón para empezar la partida
+2. El cubo se puede mover con las teclas izquierda-derecha
+3. Cada huevo atrapado dentro del cubo nos da 1 punto
+4. La frecuencia de la creación de los huevos va aumentando según transcurre el tiempo
+5. Si se rompen más de 5 huevos se acaba el juego
+6. Cada cierto tiempo de manera aleatoria aparecera un huevo de otro color que si lo recogemos nos dara 5 puntos
+7. También puede aparecer un huevo negro que si lo recogemos automáticamente se acaba la partida
+8. Al finalizar la partida vuelve al menu inicial
+
+Extra:
+- Se valorará positivamente la implementación de otras mecánicas adicionales que se os puedan ocurrir

@@ -1,0 +1,17 @@
+////////////////////////////////////////////
+Practica basica de dinamica de solidos
+
+CONTROLES:
+space bar - activa todos los objetos
+control - empieza de nuevo
+
+Pruebas a realizar:
+
+- Modificar gravedad
+- Modificar restitucion
+- Quitar contactos( rest > 0.98f)
+- Quitar desactivacion
+- Modificar masas
+- añadir colisiones techo
+
+////////////////////////////////////////////

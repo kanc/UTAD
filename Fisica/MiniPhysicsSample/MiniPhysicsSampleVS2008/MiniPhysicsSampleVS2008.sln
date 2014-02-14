@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MiniPhysicsSampleVS2008", "MiniPhysicsSampleVS2008\MiniPhysicsSampleVS2008.vcproj", "{F0515F50-8565-4B91-AA01-0988ABD9B06E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F0515F50-8565-4B91-AA01-0988ABD9B06E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F0515F50-8565-4B91-AA01-0988ABD9B06E}.Debug|Win32.Build.0 = Debug|Win32
+		{F0515F50-8565-4B91-AA01-0988ABD9B06E}.Release|Win32.ActiveCfg = Release|Win32
+		{F0515F50-8565-4B91-AA01-0988ABD9B06E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

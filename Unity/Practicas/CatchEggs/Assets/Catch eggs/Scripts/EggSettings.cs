@@ -38,9 +38,17 @@ public class EggSettings : MonoBehaviour {
 		}
 
 	}
+
 	void OnTriggerEnter (Collider other) 
 	{
 		if (other.gameObject.name == "ground")
-			isGrouded = true;
+		{	isGrouded = true;
+			Transform[] childTransf = gameObject.GetComponentsInChildren<Transform>();
+			foreach (Transform trans in childTransf)
+			{
+				if (trans.gameObject.name == "eggSmoke")
+					trans.gameObject.particleEmitter.Emit();
+			}
+		}
 	}
 }

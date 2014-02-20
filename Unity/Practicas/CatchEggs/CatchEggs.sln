@@ -5,6 +5,8 @@ Project("{865ACA7C-EE18-E3CB-E035-96F8BA565E6D}") = "CatchEggs", "Assembly-CShar
 EndProject
 Project("{865ACA7C-EE18-E3CB-E035-96F8BA565E6D}") = "CatchEggs", "Assembly-UnityScript-firstpass.unityproj", "{625BF3B9-9405-2582-F011-DDA13A978ECC}"
 EndProject
+Project("{865ACA7C-EE18-E3CB-E035-96F8BA565E6D}") = "CatchEggs", "Assembly-UnityScript.unityproj", "{BC2E6EA7-BFD1-8B67-ED8F-0095F9C5A9E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,11 +21,15 @@ Global
 		{625BF3B9-9405-2582-F011-DDA13A978ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625BF3B9-9405-2582-F011-DDA13A978ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{625BF3B9-9405-2582-F011-DDA13A978ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC2E6EA7-BFD1-8B67-ED8F-0095F9C5A9E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC2E6EA7-BFD1-8B67-ED8F-0095F9C5A9E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC2E6EA7-BFD1-8B67-ED8F-0095F9C5A9E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC2E6EA7-BFD1-8B67-ED8F-0095F9C5A9E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-						GlobalSection(MonoDevelopProperties) = preSolution
+																GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
